@@ -1,0 +1,868 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ChannelAttribution &#8212; ChannelAttribution 1.9.1 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 1.9.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ChannelAttribution</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">**Markov Model Online Multi-Channel Attribution Problem**</span>
+
+<span class="sd">Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called online multichannel attribution problem. In many cases, advertisers approach this problem through some simple heuristics methods that do not take into account any customer interactions and often tend to underestimate the importance of small channels in marketing contribution. This package provides a function that approaches the attribution problem in a probabilistic way. It uses a k-order Markov representation to identify structural correlations in the customer journey data. This would allow advertisers to give a more reliable assessment of the marketing contribution of each channel. The approach basically follows the one presented in Eva Anderl, Ingo Becker, Florian v. Wangenheim,</span>
+<span class="sd">Jan H. Schumann (2014). Differently from them, we solved the estimation process using stochastic simulations. In this way it is also possible to take into account conversion values and their variability in the computation of the channel importance. The package also contains a function that estimates three heuristic models (first-touch, last-touch and linear-touch approach) for the same problem.</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+	
+<div class="viewcode-block" id="heuristic_models"><a class="viewcode-back" href="../index.html#ChannelAttribution.heuristic_models">[docs]</a><span class="k">def</span> <span class="nf">heuristic_models</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">):</span>
+
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">			</span>
+<span class="sd">	Estimate three heuristic models (first-touch, last-touch and linear) from customer journey data.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	Data : DataFrame</span>
+<span class="sd">		customer journeys.</span>
+<span class="sd">	var_path: string</span>
+<span class="sd">		column of Data containing paths.</span>
+<span class="sd">	var_conv : string</span>
+<span class="sd">		column of Data containing total conversions for each path.</span>
+<span class="sd">	var_value : string, optional, default None</span>
+<span class="sd">		column of Data containing revenue for each path.</span>
+<span class="sd">	sep : string, default &quot;&gt;&quot;</span>
+<span class="sd">		separator between the channels.	</span>
+<span class="sd">	</span>
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	DataFrame		</span>
+<span class="sd">		(column) channel_name : channel names</span>
+<span class="sd">		(column) first_touch_conversions : conversions attributed to each channel using first touch attribution.</span>
+<span class="sd">		(column) first_touch_value : revenues attributed to each channel using first touch attribution.</span>
+<span class="sd">		(column) last_touch_conversions : conversions attributed to each channel using last touch attribution.</span>
+<span class="sd">		(column) last_touch_value : revenues attributed to each channel using last touch attribution.</span>
+<span class="sd">		(column) linear_touch_conversions : conversions attributed to each channel using linear attribution.</span>
+<span class="sd">		(column) linear_touch_value : revenues attributed to each channel using linear attribution.</span>
+<span class="sd">	</span>
+<span class="sd">	Examples</span>
+<span class="sd">	--------</span>
+<span class="sd">	</span>
+<span class="sd">	Load Data</span>
+
+<span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
+<span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
+<span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;www.channelattribution.net/static/csv/Data.csv&#39;,sep=&quot;;&quot;)</span>
+<span class="sd">	</span>
+<span class="sd">	Estimate heuristic models on total conversions</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; heuristic_models(Data,&quot;path&quot;,&quot;total_conversions&quot;)</span>
+<span class="sd">	</span>
+<span class="sd">	Estimate heuristic models on total conversions and total revenues</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; heuristic_models(Data,&quot;path&quot;,&quot;total_conversions&quot;,var_value=&quot;total_conversion_value&quot;)</span>
+<span class="sd">	 </span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="s2">&quot;DataFrame&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Data</span><span class="p">))):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Data must be a DataFrame&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">var_path</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">var_path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a column of Data&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a string&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_conv</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_conv</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a column of Data&quot;</span><span class="p">)</span>
+		
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a string&quot;</span><span class="p">)</span>
+   
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_value</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_value must be a column of Data&quot;</span><span class="p">)</span>
+			
+	<span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;sep must have length 1&quot;</span><span class="p">)</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_value</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
+		<span class="n">vv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">vv</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_value</span><span class="p">]</span>
+
+
+	<span class="n">res0</span><span class="o">=</span><span class="n">__heuristic_models_1</span><span class="p">(</span><span class="n">Data</span><span class="p">[</span><span class="n">var_path</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="n">Data</span><span class="p">[</span><span class="n">var_conv</span><span class="p">],</span><span class="n">vv</span><span class="p">,</span><span class="n">sep</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+	
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vv</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+	
+		<span class="n">res</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;first_touch&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;last_touch&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;linear_touch&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]})</span>
+	
+	<span class="k">else</span><span class="p">:</span>
+	
+		<span class="n">res</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;first_touch_conversions&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;first_touch_value&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;last_touch_conversions&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;last_touch_value&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;linear_touch_conversions&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;linear_touch_value&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">5</span><span class="p">]})</span>
+
+	<span class="k">return</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+
+<span class="c1">#DEPRECATED</span>
+<span class="c1"># def markov_model(Data,var_path,var_conv,var_value=None,var_null=None,order=1,nsim=None,max_step=None,out_more=False,sep=&quot;&gt;&quot;,seed=None,verbose=True):</span>
+
+	<span class="c1"># if (&quot;DataFrame&quot; not in str(type(Data))):</span>
+		<span class="c1"># raise NameError(&quot;Data must be a DataFrame&quot;)</span>
+	
+	<span class="c1"># if type(var_path)==str:</span>
+		<span class="c1"># if var_path not in Data.columns:</span>
+			<span class="c1"># raise NameError(&quot;var_path must be a column of Data&quot;)</span>
+	<span class="c1"># else:</span>
+		<span class="c1"># raise NameError(&quot;var_path must be a string&quot;)</span>
+
+	<span class="c1"># if (type(var_conv)==str):</span>
+		<span class="c1"># if (var_conv not in Data.columns):</span>
+			<span class="c1"># raise NameError(&quot;var_conv must be a column of Data&quot;)</span>
+		
+	<span class="c1"># else:</span>
+		<span class="c1"># raise NameError(&quot;var_conv must be a string&quot;)</span>
+   
+	<span class="c1"># if (var_value!=None):</span>
+		<span class="c1"># if (var_value not in Data.columns):</span>
+			<span class="c1"># raise NameError(&quot;var_value must be a column of Data&quot;)</span>
+		
+	<span class="c1"># if (var_null!=None):</span>
+		<span class="c1"># if (var_null not in Data.columns):</span>
+			<span class="c1"># raise NameError(&quot;var_null must be a column of Data&quot;)</span>
+	  
+	<span class="c1"># if (order &lt; 1):</span>
+		<span class="c1"># raise NameError(&quot;order must be &gt;= 1&quot;)</span>
+	
+	<span class="c1"># if (nsim!=None):</span>
+		<span class="c1"># if (nsim &lt; 1):</span>
+			<span class="c1"># raise NameError(&quot;nsim must be &gt;= 1&quot;)</span>
+			
+	<span class="c1"># if (max_step!=None):</span>
+		<span class="c1"># if (max_step &lt; 1):</span>
+			<span class="c1"># raise NameError(&quot;max_step must be &gt;= 1&quot;)</span>
+		
+	
+	<span class="c1"># if (out_more not in [0, 1]):</span>
+		<span class="c1"># raise NameError(&quot;out_more must be False or True&quot;)</span>
+	
+	<span class="c1"># if (len(sep) &gt; 1):</span>
+		<span class="c1"># raise NameError(&quot;sep must have length 1&quot;)</span>
+	
+	<span class="c1"># if (seed!=None):</span>
+		<span class="c1"># if (seed &lt; 0):</span>
+			<span class="c1"># raise NameError(&quot;seed must be &gt;= 0&quot;)</span>
+		
+	<span class="c1"># if (verbose not in [0, 1]): </span>
+		<span class="c1"># raise NameError(&quot;verbose must be False or True&quot;)</span>
+	
+	<span class="c1"># if (var_value==None):</span>
+		<span class="c1"># vv = pd.Series(None,dtype=&#39;float64&#39;)</span>
+	<span class="c1"># else:</span>
+		<span class="c1"># vv=Data[var_value]</span>
+	
+	<span class="c1"># if (var_null==None):</span>
+		<span class="c1"># vn = pd.Series(None,dtype=&#39;float64&#39;)</span>
+	<span class="c1"># else:</span>
+		<span class="c1"># vn=Data[var_null]</span>
+	
+	<span class="c1"># if (nsim==None):</span>
+		<span class="c1"># nsim = 0</span>
+	
+	<span class="c1"># if (max_step==None):</span>
+		<span class="c1"># max_step = 0</span>
+	
+	<span class="c1"># if (seed==None):</span>
+		<span class="c1"># seed = 0</span>
+	
+	<span class="c1"># if (verbose == True):</span>
+		<span class="c1"># warnings.warn(&quot;This function is deprecated and it could be removed from future versions. Use markov_model_mp instead. Disable this warning setting vebose=False.&quot;)</span>
+	
+	<span class="c1"># res0=__markov_model_1(vy=Data[var_path].str.encode(&#39;utf-8&#39;),vc=Data[var_conv],vv=vv,vn=vn,order=order,nsim=nsim,max_step=max_step,out_more=out_more,sep=sep.encode(&quot;utf-8&quot;),seed=seed)</span>
+	
+	<span class="c1"># if (out_more==0) and (len(vv)==0):</span>
+	
+		<span class="c1"># res=pd.DataFrame({&#39;channel_name&#39;:pd.Series(res0[0][0]).str.decode(&#39;utf-8&#39;),&#39;total_conversions&#39;:res0[1][0]})</span>
+	
+	<span class="c1"># elif (out_more==0) and (len(vv)&gt;0):</span>
+
+		<span class="c1"># res=pd.DataFrame({&#39;channel_name&#39;:pd.Series(res0[0][0]).str.decode(&#39;utf-8&#39;),&#39;total_conversions&#39;:res0[1][0],&#39;total_conversion_value&#39;:res0[1][1]})</span>
+
+	<span class="c1"># elif (out_more==1) and (len(vv)==0):</span>
+		
+		<span class="c1"># res=dict()</span>
+		
+		<span class="c1"># res[&#39;result&#39;]=pd.DataFrame({&#39;channel_name&#39;:pd.Series(res0[0][2]).str.decode(&#39;utf-8&#39;),&#39;total_conversions&#39;:res0[1][0]})</span>
+		<span class="c1"># res[&#39;transition_matrix&#39;]=pd.DataFrame({&#39;channel_from&#39;:pd.Series(res0[0][0]).str.decode(&#39;utf-8&#39;),&#39;channel_to&#39;:pd.Series(res0[0][1]).str.decode(&#39;utf-8&#39;),&#39;transition_probability&#39;:res0[1][2]})</span>
+	
+		<span class="c1"># res[&#39;removal_effects&#39;]=pd.DataFrame({&#39;channel_name&#39;:pd.Series(res0[0][2]).str.decode(&#39;utf-8&#39;),&#39;removal_effect&#39;:res0[1][1]})</span>
+	
+	<span class="c1"># else:</span>
+	
+		<span class="c1"># res=dict()</span>
+		
+		<span class="c1"># res[&#39;result&#39;]=pd.DataFrame({&#39;channel_name&#39;:pd.Series(res0[0][2]).str.decode(&#39;utf-8&#39;),&#39;total_conversions&#39;:res0[1][0],&#39;total_conversion_value&#39;:res0[1][3]})</span>
+		<span class="c1"># res[&#39;transition_matrix&#39;]=pd.DataFrame({&#39;channel_from&#39;:pd.Series(res0[0][0]).str.decode(&#39;utf-8&#39;),&#39;channel_to&#39;:pd.Series(res0[0][1]).str.decode(&#39;utf-8&#39;),&#39;transition_probability&#39;:res0[1][2]})</span>
+	
+		<span class="c1"># res[&#39;removal_effects&#39;]=pd.DataFrame({&#39;channel_name&#39;:pd.Series(res0[0][2]).str.decode(&#39;utf-8&#39;),&#39;removal_effects_conversion&#39;:res0[1][1],&#39;removal_effects_conversion_value&#39;:res0[1][4]})		</span>
+	
+	
+	<span class="c1"># return(res)</span>
+	
+<div class="viewcode-block" id="choose_order"><a class="viewcode-back" href="../index.html#ChannelAttribution.choose_order">[docs]</a><span class="k">def</span> <span class="nf">choose_order</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_null</span><span class="p">,</span><span class="n">max_order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">roc_npt</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	</span>
+<span class="sd">	Find the minimum Markov Model order that gives a good representation of customers’ behaviour for data considered. It requires paths that do not lead to conversion as input. Minimum order is found maximizing a penalized area under ROC curve.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	Data : DataFrame</span>
+<span class="sd">		customer journeys.</span>
+<span class="sd">	var_path: string</span>
+<span class="sd">		column of Data containing paths.</span>
+<span class="sd">	var_conv : string</span>
+<span class="sd">		column of Data containing total conversions for each path.</span>
+<span class="sd">	var_null : string</span>
+<span class="sd">		column of Data containing total paths that do not lead to conversion.</span>
+<span class="sd">	max_order : int, default 10</span>
+<span class="sd">		maximum Markov Model order to be considered.		</span>
+<span class="sd">	sep : string, default &quot;&gt;&quot;</span>
+<span class="sd">		separator between the channels.	</span>
+<span class="sd">	ncore : int, default 1</span>
+<span class="sd">		number of threads to be used in computation.		</span>
+<span class="sd">	roc_npt: int, default 100</span>
+<span class="sd">		number of points to be used for the approximation of roc curve.	</span>
+<span class="sd">	plot: bool, default True</span>
+<span class="sd">		if True, a plot with penalized auc with respect to order will be displayed.</span>
+<span class="sd">	</span>
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	list		</span>
+<span class="sd">		roc : list DataFrame one for each order considered</span>
+<span class="sd">			(column) tpr: true positive rate</span>
+<span class="sd">			(column) fpr: false positive rate</span>
+<span class="sd">		auc : DataFrame with the following columns</span>
+<span class="sd">			(column) order: markov model order  </span>
+<span class="sd">			(column) auc: area under the curve</span>
+<span class="sd">			(column) pauc: penalized auc</span>
+<span class="sd">		suggested order : int</span>
+<span class="sd">			estimated best order </span>
+<span class="sd">			</span>
+<span class="sd">	Examples</span>
+<span class="sd">	--------</span>
+<span class="sd">	Estimate best makov model order for your data</span>
+<span class="sd">	</span>
+<span class="sd">	Load Data</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
+<span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
+<span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;www.channelattribution.net/static/csv/Data.csv&#39;,sep=&quot;;&quot;)</span>
+
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; choose_order(Data, var_path=&quot;path&quot;, var_conv=&quot;total_conversions&quot;, var_null=&quot;total_null&quot;)</span>
+
+
+<span class="sd">	&quot;&quot;&quot;</span>
+	
+	<span class="k">if</span> <span class="p">(</span><span class="s2">&quot;DataFrame&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Data</span><span class="p">))):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Data must be a DataFrame&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">var_path</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">var_path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a column of Data&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a string&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_conv</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_conv</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a column of Data&quot;</span><span class="p">)</span>
+		
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a string&quot;</span><span class="p">)</span>
+   
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_null</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_null</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_null must be a column of Data&quot;</span><span class="p">)</span>
+	  
+	<span class="k">if</span> <span class="p">(</span><span class="n">max_order</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;max_order must be &gt;= 1&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">ncore</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">ncore</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;ncore must be &gt;= 1&quot;</span><span class="p">)</span>
+			
+	<span class="k">if</span> <span class="p">(</span><span class="n">roc_npt</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">roc_npt</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;roc_npt must be &gt;= 10&quot;</span><span class="p">)</span>
+		
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">plot</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;plot must be False or True&quot;</span><span class="p">)</span>
+	
+	<span class="n">res0</span><span class="o">=</span><span class="n">__choose_order_1</span><span class="p">(</span><span class="n">vy</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_path</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="n">vc</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_conv</span><span class="p">],</span><span class="n">vn</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_null</span><span class="p">],</span> <span class="n">max_order</span><span class="o">=</span><span class="n">max_order</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> <span class="n">ncore</span><span class="o">=</span><span class="n">ncore</span><span class="p">,</span> <span class="n">roc_npt</span><span class="o">=</span><span class="n">roc_npt</span><span class="p">)</span>	
+
+	<span class="n">order</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+	<span class="n">auc</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+	<span class="n">pauc</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+
+	<span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">[</span><span class="n">order</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">auc</span><span class="o">=</span><span class="n">auc</span><span class="p">[</span><span class="n">auc</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">pauc</span><span class="o">=</span><span class="n">pauc</span><span class="p">[</span><span class="n">pauc</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+	
+	<span class="n">best_order</span><span class="o">=</span><span class="n">order</span><span class="p">[</span><span class="n">pauc</span><span class="o">==</span><span class="n">pauc</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	
+	<span class="k">if</span> <span class="n">best_order</span><span class="o">==</span><span class="n">max_order</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Suggested order not found. Try increasing max_order.&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Suggested order: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">best_order</span><span class="p">)))</span>
+	
+	<span class="k">if</span> <span class="n">plot</span><span class="o">==</span><span class="s2">&quot;True&quot;</span><span class="p">:</span>
+		<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;PENALIZED AUC&quot;</span><span class="p">)</span>
+		<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">)</span>
+		<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;penalized auc&quot;</span><span class="p">)</span>
+		<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">pauc</span><span class="p">)</span> 
+	
+	<span class="n">res_auc</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;order&#39;</span><span class="p">:</span><span class="n">order</span><span class="p">,</span><span class="s1">&#39;auc&#39;</span><span class="p">:</span><span class="n">auc</span><span class="p">,</span><span class="s1">&#39;pauc&#39;</span><span class="p">:</span><span class="n">pauc</span><span class="p">})</span>
+	
+	<span class="n">res_roc</span><span class="o">=</span><span class="nb">dict</span><span class="p">()</span>
+	<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">res0</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span>
+		<span class="n">res_roc</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;fpr&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">],</span><span class="s1">&#39;tpr&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]})</span>
+
+
+	<span class="k">return</span><span class="p">(</span><span class="n">res_auc</span><span class="p">,</span><span class="n">res_roc</span><span class="p">,</span><span class="n">best_order</span><span class="p">)</span></div>
+	
+		
+<div class="viewcode-block" id="markov_model_mp"><a class="viewcode-back" href="../index.html#ChannelAttribution.markov_model_mp">[docs]</a><span class="k">def</span> <span class="nf">markov_model_mp</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">var_null</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nsim_start</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span><span class="n">max_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">out_more</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nfold</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">conv_par</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">rate_step_sim</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	</span>
+<span class="sd">	Estimate a k-order Markov model from customer journey data. Differently from markov_model, this function iterates estimation until a desidered convergence is reached and enables multiprocessing.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	Data : DataFrame</span>
+<span class="sd">		customer journeys.</span>
+<span class="sd">	var_path: string</span>
+<span class="sd">		column of Data containing paths.</span>
+<span class="sd">	var_conv : string</span>
+<span class="sd">		column of Data containing total conversions for each path.</span>
+<span class="sd">	var_value : string, optional, default None</span>
+<span class="sd">		column of Data containing revenue for each path.</span>
+<span class="sd">	var_null : string</span>
+<span class="sd">		column of Data containing total paths that do not lead to conversion.</span>
+<span class="sd">	order : int, default 1</span>
+<span class="sd">		Markov model order.		</span>
+<span class="sd">	nsim_start : int, default 1e5</span>
+<span class="sd">		minimum number of simulations to be used in computation.		</span>
+<span class="sd">	max_step : int, default None</span>
+<span class="sd">		maximum number of steps for a single simulated path. if NULL, it is the maximum number of steps found into Data.		</span>
+<span class="sd">	out_more : bool, default False</span>
+<span class="sd">		if True, transition probabilities between channels and removal effects will be returned.				</span>
+<span class="sd">	sep : string, default &quot;&gt;&quot;</span>
+<span class="sd">		separator between the channels.	</span>
+<span class="sd">	ncore : int, default 1</span>
+<span class="sd">		number of threads to be used in computation.		</span>
+<span class="sd">	nfold : int, default 10</span>
+<span class="sd">		how many repetitions to be used to verify if convergence has been reached at each iteration.	</span>
+<span class="sd">	seed : int, default 0</span>
+<span class="sd">		random seed. Giving this parameter the same value over different runs guarantees that results will not vary.	</span>
+<span class="sd">	conv_par : double, default 0.05</span>
+<span class="sd">		convergence parameter for the algorithm. The estimation process ends when the percentage of variation of the results over different repetions is less than convergence parameter.	</span>
+<span class="sd">	rate_step_sim : double, default 0</span>
+<span class="sd">		number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.	</span>
+<span class="sd">	verbose : bool, default True</span>
+<span class="sd">		if True, additional information about process convergence will be shown.	</span>
+<span class="sd">			</span>
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	list of DataFrames</span>
+<span class="sd">		result: Dataframe</span>
+<span class="sd">			(column) channel_name : channel names</span>
+<span class="sd">			(column) total_conversions : conversions attributed to each channel</span>
+<span class="sd">			(column) total_conversion_value : revenues attributed to each channel</span>
+<span class="sd">		transition_matrix : DataFrame</span>
+<span class="sd">			(column) channel_from: channel from</span>
+<span class="sd">			(column) channel_to : channel to</span>
+<span class="sd">			(column) transition_probability : transition probability from channel_from to channel_to</span>
+<span class="sd">		removal_effects:</span>
+<span class="sd">			(column) channel_name : channel names </span>
+<span class="sd">			(column) removal_effects_conversion : removal effects for each channel calculated using total conversions</span>
+<span class="sd">			(column) removal_effects_conversion_value : removal effects for each channel calculated using revenues</span>
+<span class="sd">				</span>
+<span class="sd">						</span>
+<span class="sd">	Examples</span>
+<span class="sd">	--------</span>
+<span class="sd">	</span>
+<span class="sd">	Load Data</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
+<span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
+<span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;www.channelattribution.net/static/csv/Data.csv&#39;,sep=&quot;;&quot;)</span>
+
+<span class="sd">	Estimate a Makov model using total conversions </span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; markov_model_mp(Data, &quot;path&quot;, &quot;total_conversions&quot;)</span>
+
+<span class="sd">	Estimate a Makov model using total conversions and revenues </span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; markov_model_mp(Data, &quot;path&quot;, &quot;total_conversions&quot;, var_value=&quot;total_conversion_value&quot;)</span>
+<span class="sd">	</span>
+<span class="sd">	Estimate a Makov model using total conversions, revenues and paths that do not lead to conversions </span>
+
+<span class="sd">	&gt;&gt;&gt; markov_model_mp(Data, &quot;path&quot;, &quot;total_conversions&quot;, var_value=&quot;total_conversion_value&quot;, var_null=&quot;total_null&quot;)</span>
+<span class="sd">	</span>
+<span class="sd">	Estimate a Makov model returning transition matrix and removal effects </span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; markov_model_mp(Data, &quot;path&quot;, &quot;total_conversions&quot;, var_value=&quot;total_conversion_value&quot;, var_null=&quot;total_null&quot;, out_more=True)</span>
+
+<span class="sd">	Estimate a Markov model using 4 threads</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; markov_model_mp(Data, &quot;path&quot;, &quot;total_conversions&quot;, var_value=&quot;total_conversion_value&quot;, ncore=4)</span>
+<span class="sd">		</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="s2">&quot;DataFrame&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Data</span><span class="p">))):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Data must be a DataFrame&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">var_path</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">var_path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a column of Data&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a string&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_conv</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_conv</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a column of Data&quot;</span><span class="p">)</span>
+		
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a string&quot;</span><span class="p">)</span>
+   
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_value</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_value must be a column of Data&quot;</span><span class="p">)</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_null</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_null</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_null must be a column of Data&quot;</span><span class="p">)</span>
+	  
+	<span class="k">if</span> <span class="p">(</span><span class="n">order</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;order must be &gt;= 1&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">nsim_start</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">nsim_start</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;nsim must be &gt;= 1&quot;</span><span class="p">)</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">max_step</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">max_step</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;max_step must be &gt;= 1&quot;</span><span class="p">)</span>
+		
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">out_more</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;out_more must be False or True&quot;</span><span class="p">)</span>
+	
+		
+	<span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;sep must have length 1&quot;</span><span class="p">)</span>
+
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">ncore</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;ncore must be &gt;= 1&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">nfold</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;nfold must be &gt;= 1&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">seed</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">seed</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;seed must be &gt;= 0&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="p">((</span><span class="n">conv_par</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">conv_par</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;conv_par must be into [0,1]&quot;</span><span class="p">)</span>
+
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">rate_step_sim</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;rate_step_sim must be &gt; 0&quot;</span><span class="p">)</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span> 
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;verbose must be False or True&quot;</span><span class="p">)</span>
+		
+		
+	<span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">Data</span><span class="p">[</span><span class="n">var_conv</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Data must have at least one converting path.&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_null</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
+		<span class="n">Data</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">Data</span><span class="p">[</span><span class="n">var_conv</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>	
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_value</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
+		<span class="n">vv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">vv</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_value</span><span class="p">]</span>
+	
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_null</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
+		<span class="n">vn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">vn</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_null</span><span class="p">]</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">max_step</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
+		<span class="n">max_step</span> <span class="o">=</span> <span class="mi">0</span>
+	
+	<span class="n">res0</span><span class="o">=</span><span class="n">__markov_model_mp_1</span><span class="p">(</span><span class="n">vy</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_path</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="n">vc</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_conv</span><span class="p">],</span><span class="n">vv</span><span class="o">=</span><span class="n">vv</span><span class="p">,</span><span class="n">vn</span><span class="o">=</span><span class="n">vn</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span><span class="n">nsim_start</span><span class="o">=</span><span class="n">nsim_start</span><span class="p">,</span><span class="n">max_step</span><span class="o">=</span><span class="n">max_step</span><span class="p">,</span><span class="n">out_more</span><span class="o">=</span><span class="n">out_more</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span><span class="n">ncore</span><span class="o">=</span><span class="n">ncore</span><span class="p">,</span> <span class="n">nfold</span><span class="o">=</span><span class="n">nfold</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">conv_par</span><span class="o">=</span><span class="n">conv_par</span><span class="p">,</span> <span class="n">rate_step_sim</span><span class="o">=</span><span class="n">rate_step_sim</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">verbose</span><span class="p">))</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">out_more</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vv</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+	
+		<span class="n">res</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;total_conversions&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]})</span>
+	
+	<span class="k">elif</span> <span class="p">(</span><span class="n">out_more</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vv</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
+
+		<span class="n">res</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;total_conversions&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;total_conversion_value&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]})</span>
+
+	<span class="k">elif</span> <span class="p">(</span><span class="n">out_more</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vv</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+		
+		<span class="n">res</span><span class="o">=</span><span class="nb">dict</span><span class="p">()</span>
+		
+		<span class="n">res</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;total_conversions&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]})</span>
+		<span class="n">res</span><span class="p">[</span><span class="s1">&#39;transition_matrix&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_from&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;channel_to&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;transition_probability&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]})</span>
+	
+		<span class="n">res</span><span class="p">[</span><span class="s1">&#39;removal_effects&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;removal_effect&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]})</span>
+	
+	<span class="k">else</span><span class="p">:</span>
+	
+		<span class="n">res</span><span class="o">=</span><span class="nb">dict</span><span class="p">()</span>
+		
+		<span class="n">res</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;total_conversions&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;total_conversion_value&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]})</span>
+		<span class="n">res</span><span class="p">[</span><span class="s1">&#39;transition_matrix&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_from&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;channel_to&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;transition_probability&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]})</span>
+	
+		<span class="n">res</span><span class="p">[</span><span class="s1">&#39;removal_effects&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;removal_effects_conversion&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;removal_effects_conversion_value&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">4</span><span class="p">]})</span>		
+	
+	
+	<span class="k">return</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+	
+
+<div class="viewcode-block" id="transition_matrix"><a class="viewcode-back" href="../index.html#ChannelAttribution.transition_matrix">[docs]</a><span class="k">def</span> <span class="nf">transition_matrix</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_null</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="n">flg_equal</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+	<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">	Estimate a k-order transition matrix from customer journey data.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	Data : DataFrame</span>
+<span class="sd">		customer journeys.</span>
+<span class="sd">	var_path: string</span>
+<span class="sd">		column of Data containing paths.</span>
+<span class="sd">	var_conv : string</span>
+<span class="sd">		column of Data containing total conversions for each path.</span>
+<span class="sd">	var_null : string</span>
+<span class="sd">		column of Data containing total paths that do not lead to conversion.</span>
+<span class="sd">	order : int, default 1</span>
+<span class="sd">		Markov model order.		</span>
+<span class="sd">	sep : string, default &quot;&gt;&quot;</span>
+<span class="sd">		separator between the channels.	</span>
+<span class="sd">	flg_equal: bool, default True</span>
+<span class="sd">		if True, transitions from a channel to itself will be considered.	</span>
+<span class="sd">					</span>
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	list of DataFrames</span>
+<span class="sd">		channels: Dataframe</span>
+<span class="sd">			(column) id_channel : channel ids</span>
+<span class="sd">			(column) channel_name : channel names</span>
+<span class="sd">		transition_matrix : DataFrame</span>
+<span class="sd">			(column) channel_from: id channel from</span>
+<span class="sd">			(column) channel_to : id channel to</span>
+<span class="sd">			(column) transition_probability : transition probability from channel_from to channel_to</span>
+<span class="sd">					</span>
+<span class="sd">	Examples</span>
+<span class="sd">	--------</span>
+<span class="sd">	</span>
+<span class="sd">	Load Data</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
+<span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
+<span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;www.channelattribution.net/static/csv/Data.csv&#39;,sep=&quot;;&quot;)</span>
+
+<span class="sd">	Estimate a second-order transition matrix using total conversions and paths that do not lead to conversion </span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; transition_matrix(Data, &quot;path&quot;, &quot;total_conversions&quot;, var_null=&quot;total_null&quot;, order=2)</span>
+<span class="sd">					</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	
+	 
+	<span class="k">if</span> <span class="p">(</span><span class="s2">&quot;DataFrame&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Data</span><span class="p">))):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Data must be a DataFrame&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">var_path</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">var_path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a column of Data&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a string&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_conv</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_conv</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a column of Data&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a string&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_null</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_null</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_null must be a column of Data&quot;</span><span class="p">)</span>		
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a string&quot;</span><span class="p">)</span>
+   
+	  
+	<span class="k">if</span> <span class="p">(</span><span class="n">order</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;order must be &gt;= 1&quot;</span><span class="p">)</span>
+	
+		
+	<span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;sep must have length 1&quot;</span><span class="p">)</span>
+
+			
+	<span class="k">if</span> <span class="p">(</span><span class="n">flg_equal</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span> 
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;flg_equal must be False or True&quot;</span><span class="p">)</span>
+					
+	<span class="n">res0</span><span class="o">=</span><span class="n">__transition_matrix_1</span><span class="p">(</span><span class="n">vy</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_path</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="n">vc</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_conv</span><span class="p">],</span><span class="n">vn</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_null</span><span class="p">],</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="n">flg_equal</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">flg_equal</span><span class="p">))</span>
+	
+	<span class="n">res</span><span class="o">=</span><span class="nb">dict</span><span class="p">()</span>
+	<span class="n">res</span><span class="p">[</span><span class="s1">&#39;channels&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;id_channel&#39;</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)})</span>
+	<span class="n">res</span><span class="p">[</span><span class="s1">&#39;transition_matrix&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;channel_from&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;channel_to&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span><span class="s1">&#39;transition_probability&#39;</span><span class="p">:</span><span class="n">res0</span><span class="p">[</span><span class="mi">1</span><span class="p">]})</span>
+
+	<span class="k">return</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+	
+	
+	
+<div class="viewcode-block" id="auto_markov_model"><a class="viewcode-back" href="../index.html#ChannelAttribution.auto_markov_model">[docs]</a><span class="k">def</span> <span class="nf">auto_markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">var_path</span><span class="p">,</span> <span class="n">var_conv</span><span class="p">,</span> <span class="n">var_null</span><span class="p">,</span> <span class="n">var_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">roc_npt</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nsim_start</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_more</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nfold</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">conv_par</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rate_step_sim</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	Data : DataFrame</span>
+<span class="sd">		customer journeys.</span>
+<span class="sd">	var_path: string</span>
+<span class="sd">		column of Data containing paths.</span>
+<span class="sd">	var_conv : string</span>
+<span class="sd">		column of Data containing total conversions for each path.</span>
+<span class="sd">	var_null : string</span>
+<span class="sd">		column of Data containing total paths that do not lead to conversion.</span>
+<span class="sd">	var_value : string, optional, default None</span>
+<span class="sd">		column of Data containing revenue for each path</span>
+<span class="sd">	max_order : int, default 10</span>
+<span class="sd">		maximum Markov Model order to be considered.		</span>
+<span class="sd">	roc_npt: int, default 100</span>
+<span class="sd">		number of points to be used for the approximation of roc curve.	</span>
+<span class="sd">	plot: bool, default True</span>
+<span class="sd">		if True, a plot with penalized auc with respect to order will be displayed.</span>
+<span class="sd">	nsim_start : int, default 1e5</span>
+<span class="sd">		minimum number of simulations to be used in computation.		</span>
+<span class="sd">	max_step : int, default None</span>
+<span class="sd">		maximum number of steps for a single simulated path. if NULL, it is the maximum number of steps found into Data.		</span>
+<span class="sd">	out_more : bool, default False</span>
+<span class="sd">		if True, transition probabilities between channels and removal effects will be returned.				</span>
+<span class="sd">	sep : string, default &quot;&gt;&quot;</span>
+<span class="sd">		separator between the channels.	</span>
+<span class="sd">	ncore : int, default 1</span>
+<span class="sd">		number of threads to be used in computation.		</span>
+<span class="sd">	nfold : int, default 10</span>
+<span class="sd">		how many repetitions to be used to verify if convergence has been reached at each iteration.	</span>
+<span class="sd">	seed : int, default 0</span>
+<span class="sd">		random seed. Giving this parameter the same value over different runs guarantees that results will not vary.	</span>
+<span class="sd">	conv_par : double, default 0.05</span>
+<span class="sd">		convergence parameter for the algorithm. The estimation process ends when the percentage of variation of the results over different repetions is less than convergence parameter.	</span>
+<span class="sd">	rate_step_sim : double, default 0</span>
+<span class="sd">		number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.	</span>
+<span class="sd">	verbose : bool, default True</span>
+<span class="sd">		if True, additional information about process convergence will be shown.	</span>
+<span class="sd">			</span>
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	list of DataFrames</span>
+<span class="sd">		result: Dataframe</span>
+<span class="sd">			(column) channel_name : channel names</span>
+<span class="sd">			(column) total_conversions : conversions attributed to each channel</span>
+<span class="sd">			(column) total_conversion_value : revenues attributed to each channel</span>
+<span class="sd">		transition_matrix : DataFrame</span>
+<span class="sd">			(column) channel_from: channel from</span>
+<span class="sd">			(column) channel_to : channel to</span>
+<span class="sd">			(column) transition_probability : transition probability from channel_from to channel_to</span>
+<span class="sd">		removal_effects:</span>
+<span class="sd">			(column) channel_name : channel names </span>
+<span class="sd">			(column) removal_effects_conversion : removal effects for each channel calculated using total conversions</span>
+<span class="sd">			(column) removal_effects_conversion_value : removal effects for each channel calculated using revenues</span>
+<span class="sd">				</span>
+<span class="sd">						</span>
+<span class="sd">	Examples</span>
+<span class="sd">	--------</span>
+<span class="sd">	</span>
+<span class="sd">	Load Data</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
+<span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
+<span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;www.channelattribution.net/static/csv/Data.csv&#39;,sep=&quot;;&quot;)</span>
+
+<span class="sd">	</span>
+<span class="sd">	Estimate an automatic Makov model </span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; auto_markov_model(Data, &quot;path&quot;, &quot;total_conversions&quot;, &quot;total_null&quot;)</span>
+<span class="sd">		</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="s2">&quot;DataFrame&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Data</span><span class="p">))):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Data must be a DataFrame&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">var_path</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">var_path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a column of Data&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_path must be a string&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_conv</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_conv</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a column of Data&quot;</span><span class="p">)</span>
+		
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_conv must be a string&quot;</span><span class="p">)</span>
+   
+   
+	<span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_null</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_null</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_null must be a column of Data&quot;</span><span class="p">)</span>
+		
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_null must be a string&quot;</span><span class="p">)</span>
+   
+   
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_value</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">var_value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Data</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;var_value must be a column of Data&quot;</span><span class="p">)</span>
+			  
+	<span class="k">if</span> <span class="p">(</span><span class="n">max_order</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;max_order must be &gt;= 1&quot;</span><span class="p">)</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">roc_npt</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;roc_npt must be &gt;= 10&quot;</span><span class="p">)</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">plot</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;plot must be False or True&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">nsim_start</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">nsim_start</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;nsim must be &gt;= 1&quot;</span><span class="p">)</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">max_step</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">max_step</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;max_step must be &gt;= 1&quot;</span><span class="p">)</span>
+		
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">out_more</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;out_more must be False or True&quot;</span><span class="p">)</span>
+	
+		
+	<span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;sep must have length 1&quot;</span><span class="p">)</span>
+
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">ncore</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;ncore must be &gt;= 1&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">nfold</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;nfold must be &gt;= 1&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">seed</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">seed</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;seed must be &gt;= 0&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="p">((</span><span class="n">conv_par</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">conv_par</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;conv_par must be into [0,1]&quot;</span><span class="p">)</span>
+
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">rate_step_sim</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;rate_step_sim must be &gt; 0&quot;</span><span class="p">)</span>
+		
+	<span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span> 
+		<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;verbose must be False or True&quot;</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="p">(</span><span class="n">var_value</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
+		<span class="n">vv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">vv</span><span class="o">=</span><span class="n">Data</span><span class="p">[</span><span class="n">var_value</span><span class="p">]</span>
+			
+	<span class="p">[</span><span class="n">res_auc</span><span class="p">,</span><span class="n">res_roc</span><span class="p">,</span><span class="n">best_order</span><span class="p">]</span> <span class="o">=</span> <span class="n">choose_order</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">var_path</span><span class="p">,</span> <span class="n">var_conv</span><span class="p">,</span> <span class="n">var_null</span><span class="p">,</span> <span class="n">max_order</span> <span class="o">=</span> <span class="n">max_order</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span><span class="p">,</span> <span class="n">ncore</span> <span class="o">=</span> <span class="n">ncore</span><span class="p">,</span> <span class="n">roc_npt</span> <span class="o">=</span> <span class="n">roc_npt</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="n">plot</span><span class="p">)</span>
+	
+	<span class="n">res</span> <span class="o">=</span> <span class="n">markov_model_mp</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">var_path</span><span class="p">,</span> <span class="n">var_conv</span><span class="p">,</span> <span class="n">var_value</span> <span class="o">=</span> <span class="n">var_value</span><span class="p">,</span> <span class="n">var_null</span> <span class="o">=</span> <span class="n">var_null</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">best_order</span><span class="p">,</span> <span class="n">nsim_start</span> <span class="o">=</span> <span class="n">nsim_start</span><span class="p">,</span> <span class="n">max_step</span> <span class="o">=</span> <span class="n">max_step</span><span class="p">,</span> <span class="n">out_more</span> <span class="o">=</span> <span class="n">out_more</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span><span class="p">,</span> <span class="n">ncore</span> <span class="o">=</span> <span class="n">ncore</span><span class="p">,</span> <span class="n">nfold</span> <span class="o">=</span> <span class="n">nfold</span><span class="p">,</span> <span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span><span class="p">,</span> <span class="n">conv_par</span> <span class="o">=</span> <span class="n">conv_par</span><span class="p">,</span> <span class="n">rate_step_sim</span> <span class="o">=</span> <span class="n">rate_step_sim</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span><span class="p">)</span>
+	
+	<span class="k">return</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 1.9.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Davide Altomare, David Loris.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.
+    </div>
+  </body>
+</html>
