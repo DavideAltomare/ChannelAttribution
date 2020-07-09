@@ -8,6 +8,11 @@ Python library
 
 /python contains Python library source code
 
+R package
+---------
+
+/R contains R package source code
+
 website
 -------
 
