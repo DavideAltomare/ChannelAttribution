@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to ChannelAttribution’s documentation! &#8212; ChannelAttribution 2.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-channelattribution-s-documentation">
+<h1>Welcome to ChannelAttribution’s documentation!<a class="headerlink" href="#welcome-to-channelattribution-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+<div class="section" id="module-ChannelAttribution">
+<span id="channelattribution"></span><h1>ChannelAttribution<a class="headerlink" href="#module-ChannelAttribution" title="Permalink to this headline">¶</a></h1>
+<p><strong>Markov Model for Online Multi-Channel Attribution Problem</strong>
+Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called online multichannel attribution problem. In many cases, advertisers approach this problem through some simple heuristics methods that do not take into account any customer interactions and often tend to underestimate the importance of small channels in marketing contribution. This package provides a function that approaches the attribution problem in a probabilistic way. It uses a k-order Markov representation to identify structural correlations in the customer journey data. This would allow advertisers to give a more reliable assessment of the marketing contribution of each channel. The approach basically follows the one presented in Eva Anderl, Ingo Becker, Florian v. Wangenheim,
+Jan H. Schumann (2014). Differently from them, we solved the estimation process using stochastic simulations. In this way it is also possible to take into account conversion values and their variability in the computation of the channel importance. The package also contains a function that estimates three heuristic models (first-touch, last-touch and linear-touch approach) for the same problem.</p>
+<dl class="py function">
+<dt id="ChannelAttribution.auto_markov_model">
+<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">auto_markov_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_null</span></em>, <em class="sig-param"><span class="n">var_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_order</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">roc_npt</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">plot</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">nsim_start</span><span class="o">=</span><span class="default_value">100000.0</span></em>, <em class="sig-param"><span class="n">max_step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out_more</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em>, <em class="sig-param"><span class="n">ncore</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">nfold</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">conv_par</span><span class="o">=</span><span class="default_value">0.05</span></em>, <em class="sig-param"><span class="n">rate_step_sim</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#auto_markov_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.auto_markov_model" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
+</dd>
+<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
+</dd>
+<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
+</dd>
+<dt><strong>var_null</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total paths that do not lead to conversion.</p>
+</dd>
+<dt><strong>var_value</strong><span class="classifier">string, optional, default None</span></dt><dd><p>column of Data containing revenue for each path</p>
+</dd>
+<dt><strong>max_order</strong><span class="classifier">int, default 10</span></dt><dd><p>maximum Markov Model order to be considered.</p>
+</dd>
+<dt><strong>roc_npt: int, default 100</strong></dt><dd><p>number of points to be used for the approximation of roc curve.</p>
+</dd>
+<dt><strong>plot: bool, default True</strong></dt><dd><p>if True, a plot with penalized auc with respect to order will be displayed.</p>
+</dd>
+<dt><strong>nsim_start</strong><span class="classifier">int, default 1e5</span></dt><dd><p>minimum number of simulations to be used in computation.</p>
+</dd>
+<dt><strong>max_step</strong><span class="classifier">int, default None</span></dt><dd><p>maximum number of steps for a single simulated path. if NULL, it is the maximum number of steps found into Data.</p>
+</dd>
+<dt><strong>out_more</strong><span class="classifier">bool, default False</span></dt><dd><p>if True, transition probabilities between channels and removal effects will be returned.</p>
+</dd>
+<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
+</dd>
+<dt><strong>ncore</strong><span class="classifier">int, default 1</span></dt><dd><p>number of threads to be used in computation.</p>
+</dd>
+<dt><strong>nfold</strong><span class="classifier">int, default 10</span></dt><dd><p>how many repetitions to be used to verify if convergence has been reached at each iteration.</p>
+</dd>
+<dt><strong>seed</strong><span class="classifier">int, default 0</span></dt><dd><p>random seed. Giving this parameter the same value over different runs guarantees that results will not vary.</p>
+</dd>
+<dt><strong>conv_par</strong><span class="classifier">double, default 0.05</span></dt><dd><p>convergence parameter for the algorithm. The estimation process ends when the percentage of variation of the results over different repetions is less than convergence parameter.</p>
+</dd>
+<dt><strong>rate_step_sim</strong><span class="classifier">double, default 0</span></dt><dd><p>number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, additional information about process convergence will be shown.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>list of DataFrames</dt><dd><dl class="simple">
+<dt>result: Dataframe</dt><dd><p>(column) channel_name : channel names
+(column) total_conversions : conversions attributed to each channel
+(column) total_conversion_value : revenues attributed to each channel</p>
+</dd>
+<dt>transition_matrix<span class="classifier">DataFrame</span></dt><dd><p>(column) channel_from: channel from
+(column) channel_to : channel to
+(column) transition_probability : transition probability from channel_from to channel_to</p>
+</dd>
+<dt>removal_effects:</dt><dd><p>(column) channel_name : channel names 
+(column) removal_effects_conversion : removal effects for each channel calculated using total conversions
+(column) removal_effects_conversion_value : removal effects for each channel calculated using revenues</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Load Data</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Estimate an automatic Makov model</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">auto_markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;total_conversions&quot;</span><span class="p">,</span> <span class="s2">&quot;total_null&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ChannelAttribution.choose_order">
+<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">choose_order</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_null</span></em>, <em class="sig-param"><span class="n">max_order</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em>, <em class="sig-param"><span class="n">ncore</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">roc_npt</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#choose_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.choose_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the minimum Markov Model order that gives a good representation of customers’ behaviour for data considered. It requires paths that do not lead to conversion as input. Minimum order is found maximizing a penalized area under ROC curve.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
+</dd>
+<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
+</dd>
+<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
+</dd>
+<dt><strong>var_null</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total paths that do not lead to conversion.</p>
+</dd>
+<dt><strong>max_order</strong><span class="classifier">int, default 10</span></dt><dd><p>maximum Markov Model order to be considered.</p>
+</dd>
+<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
+</dd>
+<dt><strong>ncore</strong><span class="classifier">int, default 1</span></dt><dd><p>number of threads to be used in computation.</p>
+</dd>
+<dt><strong>roc_npt: int, default 100</strong></dt><dd><p>number of points to be used for the approximation of roc curve.</p>
+</dd>
+<dt><strong>plot: bool, default True</strong></dt><dd><p>if True, a plot with penalized auc with respect to order will be displayed.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>list</dt><dd><dl class="simple">
+<dt>roc<span class="classifier">list DataFrame one for each order considered</span></dt><dd><p>(column) tpr: true positive rate
+(column) fpr: false positive rate</p>
+</dd>
+<dt>auc<span class="classifier">DataFrame with the following columns</span></dt><dd><p>(column) order: markov model order  
+(column) auc: area under the curve
+(column) pauc: penalized auc</p>
+</dd>
+<dt>suggested order<span class="classifier">int</span></dt><dd><p>estimated best order</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Estimate best makov model order for your data</p>
+<p>Load Data</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">choose_order</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">var_path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">var_conv</span><span class="o">=</span><span class="s2">&quot;total_conversions&quot;</span><span class="p">,</span> <span class="n">var_null</span><span class="o">=</span><span class="s2">&quot;total_null&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ChannelAttribution.heuristic_models">
+<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">heuristic_models</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#heuristic_models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.heuristic_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate three heuristic models (first-touch, last-touch and linear) from customer journey data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
+</dd>
+<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
+</dd>
+<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
+</dd>
+<dt><strong>var_value</strong><span class="classifier">string, optional, default None</span></dt><dd><p>column of Data containing revenue for each path.</p>
+</dd>
+<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>DataFrame</dt><dd><p>(column) channel_name : channel names
+(column) first_touch_conversions : conversions attributed to each channel using first touch attribution.
+(column) first_touch_value : revenues attributed to each channel using first touch attribution.
+(column) last_touch_conversions : conversions attributed to each channel using last touch attribution.
+(column) last_touch_value : revenues attributed to each channel using last touch attribution.
+(column) linear_touch_conversions : conversions attributed to each channel using linear attribution.
+(column) linear_touch_value : revenues attributed to each channel using linear attribution.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Load Data</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Estimate heuristic models on total conversions</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">heuristic_models</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">,</span><span class="s2">&quot;total_conversions&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Estimate heuristic models on total conversions and total revenues</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">heuristic_models</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">,</span><span class="s2">&quot;total_conversions&quot;</span><span class="p">,</span>\
+<span class="gp">&gt;&gt;&gt; </span><span class="n">var_value</span><span class="o">=</span><span class="s2">&quot;total_conversion_value&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ChannelAttribution.markov_model">
+<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">markov_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">var_null</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">nsim_start</span><span class="o">=</span><span class="default_value">100000.0</span></em>, <em class="sig-param"><span class="n">max_step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out_more</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em>, <em class="sig-param"><span class="n">ncore</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">nfold</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">conv_par</span><span class="o">=</span><span class="default_value">0.05</span></em>, <em class="sig-param"><span class="n">rate_step_sim</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#markov_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.markov_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate a k-order Markov model from customer journey data. Differently from markov_model, this function iterates estimation until a desidered convergence is reached and enables multiprocessing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
+</dd>
+<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
+</dd>
+<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
+</dd>
+<dt><strong>var_value</strong><span class="classifier">string, optional, default None</span></dt><dd><p>column of Data containing revenue for each path.</p>
+</dd>
+<dt><strong>var_null</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total paths that do not lead to conversion.</p>
+</dd>
+<dt><strong>order</strong><span class="classifier">int, default 1</span></dt><dd><p>Markov model order.</p>
+</dd>
+<dt><strong>nsim_start</strong><span class="classifier">int, default 1e5</span></dt><dd><p>minimum number of simulations to be used in computation.</p>
+</dd>
+<dt><strong>max_step</strong><span class="classifier">int, default None</span></dt><dd><p>maximum number of steps for a single simulated path. if NULL, it is the maximum number of steps found into Data.</p>
+</dd>
+<dt><strong>out_more</strong><span class="classifier">bool, default False</span></dt><dd><p>if True, transition probabilities between channels and removal effects will be returned.</p>
+</dd>
+<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
+</dd>
+<dt><strong>ncore</strong><span class="classifier">int, default 1</span></dt><dd><p>number of threads to be used in computation.</p>
+</dd>
+<dt><strong>nfold</strong><span class="classifier">int, default 10</span></dt><dd><p>how many repetitions to be used to verify if convergence has been reached at each iteration.</p>
+</dd>
+<dt><strong>seed</strong><span class="classifier">int, default 0</span></dt><dd><p>random seed. Giving this parameter the same value over different runs guarantees that results will not vary.</p>
+</dd>
+<dt><strong>conv_par</strong><span class="classifier">double, default 0.05</span></dt><dd><p>convergence parameter for the algorithm. The estimation process ends when the percentage of variation of the results over different repetions is less than convergence parameter.</p>
+</dd>
+<dt><strong>rate_step_sim</strong><span class="classifier">double, default 0</span></dt><dd><p>number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, additional information about process convergence will be shown.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>list of DataFrames</dt><dd><dl class="simple">
+<dt>result: Dataframe</dt><dd><p>(column) channel_name : channel names
+(column) total_conversions : conversions attributed to each channel
+(column) total_conversion_value : revenues attributed to each channel</p>
+</dd>
+<dt>transition_matrix<span class="classifier">DataFrame</span></dt><dd><p>(column) channel_from: channel from
+(column) channel_to : channel to
+(column) transition_probability : transition probability from channel_from to channel_to</p>
+</dd>
+<dt>removal_effects:</dt><dd><p>(column) channel_name : channel names 
+(column) removal_effects_conversion : removal effects for each channel calculated using total conversions
+(column) removal_effects_conversion_value : removal effects for each channel calculated using revenues</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Load Data</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Estimate a Makov model using total conversions</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;total_conversions&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Estimate a Makov model using total conversions and revenues</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;total_conversions&quot;</span><span class="p">,</span> <span class="n">var_value</span><span class="o">=</span><span class="s2">&quot;total_conversion_value&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Estimate a Makov model using total conversions, revenues and paths that do not lead to conversions</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;total_conversions&quot;</span><span class="p">,</span> <span class="n">var_value</span><span class="o">=</span><span class="s2">&quot;total_conversion_value&quot;</span><span class="p">,</span> <span class="n">var_null</span><span class="o">=</span><span class="s2">&quot;total_null&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Estimate a Makov model returning transition matrix and removal effects</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;total_conversions&quot;</span><span class="p">,</span> <span class="n">var_value</span><span class="o">=</span><span class="s2">&quot;total_conversion_value&quot;</span><span class="p">,</span> <span class="n">var_null</span><span class="o">=</span><span class="s2">&quot;total_null&quot;</span><span class="p">,</span> <span class="n">out_more</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Estimate a Markov model using 4 threads</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;total_conversions&quot;</span><span class="p">,</span> <span class="n">var_value</span><span class="o">=</span><span class="s2">&quot;total_conversion_value&quot;</span><span class="p">,</span> <span class="n">ncore</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ChannelAttribution.transition_matrix">
+<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">transition_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_null</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em>, <em class="sig-param"><span class="n">flg_equal</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#transition_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.transition_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate a k-order transition matrix from customer journey data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
+</dd>
+<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
+</dd>
+<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
+</dd>
+<dt><strong>var_null</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total paths that do not lead to conversion.</p>
+</dd>
+<dt><strong>order</strong><span class="classifier">int, default 1</span></dt><dd><p>Markov model order.</p>
+</dd>
+<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
+</dd>
+<dt><strong>flg_equal: bool, default True</strong></dt><dd><p>if True, transitions from a channel to itself will be considered.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>list of DataFrames</dt><dd><dl class="simple">
+<dt>channels: Dataframe</dt><dd><p>(column) id_channel : channel ids
+(column) channel_name : channel names</p>
+</dd>
+<dt>transition_matrix<span class="classifier">DataFrame</span></dt><dd><p>(column) channel_from: id channel from
+(column) channel_to : id channel to
+(column) transition_probability : transition probability from channel_from to channel_to</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Load Data</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Estimate a second-order transition matrix using total conversions and paths that do not lead to conversion</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;total_conversions&quot;</span><span class="p">,</span> <span class="n">var_null</span><span class="o">=</span><span class="s2">&quot;total_null&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to ChannelAttribution’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#module-ChannelAttribution">ChannelAttribution</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Davide Altomare and David Loris.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.
+    </div>
+  </body>
+</html>

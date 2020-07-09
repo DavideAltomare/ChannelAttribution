@@ -4,4 +4,4 @@ title: Documentation
 sidebar_label: Documentation
 ---
 
-Read [Python library Documentation](/static/pdf/PythonChannelAttribution.pdf)
+Read [Python library Documentation](/pdf/PythonChannelAttribution.pdf)

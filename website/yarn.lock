@@ -9414,7 +9414,7 @@ websocket-driver@0.6.5:
   resolved "https://registry.yarnpkg.com/websocket-driver/-/websocket-driver-0.6.5.tgz#5cb2556ceb85f4373c6d8238aa691c8454e13a36"
   integrity sha1-XLJVbOuF9Dc8bYI4qmkchFThOjY=
   dependencies:
-    websocket-extensions ">=0.1.1"
+    websocket-extensions ">=0.1.4"
 
 websocket-driver@>=0.5.1:
   version "0.7.4"

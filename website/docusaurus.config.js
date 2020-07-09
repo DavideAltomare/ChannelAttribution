@@ -1,10 +1,10 @@
 module.exports = {
   title: 'ChannelAttribution',
   tagline: 'Markov model for online Multi-Channel Attribution',
-  url: 'www.channelattribution.net',
+  url: 'http:\\www.channelattribution.net',
   baseUrl: '/',
   favicon: 'img/logo.ico',
-  organizationName: 'David Loris, Davide Altomare, Session Technologies SL',
+  organizationName: 'Davide Altomare, David Loris, Session Technologies SL',
   projectName: 'ChannelAttribution',
   themeConfig: {
     navbar: {
@@ -51,7 +51,7 @@ module.exports = {
         },
         // {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://gitlab.com/session-tech/ChannelAttribution',
+          href: 'https://github.com/DavideAltomare/ChannelAttribution',
           label: 'GitHub',
           position: 'right',
         },
@@ -95,12 +95,12 @@ module.exports = {
             // },
             {
               label: 'GitHub',
-              href: 'https://gitlab.com/session-tech/ChannelAttribution',
+              href: 'https://github.com/DavideAltomare/ChannelAttribution',
             },
           ],
         },
       ],
-      copyright: `Copyright © 2020 ChannelAttribution Built with Docusaurus.`,
+      copyright: `Copyright © 2015 - 2020 ChannelAttribution. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -111,13 +111,13 @@ module.exports = {
           homePageId: 'getting-started',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://gitlab.com/session-tech/ChannelAttribution/edit/master/website/',
+            '',
         },
-        blog: {
-          showReadingTime: true,
-          editUrl:
-            'https://gitlab.com/session-tech/ChannelAttribution/edit/master/website/blog/',
-        },
+        // blog: {
+          // showReadingTime: true,
+          // editUrl:
+            // '',
+        // },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
