@@ -12,18 +12,3 @@ Installation
 pip install --upgrade setuptools
 pip install ChannelAttribution
 ```
-
-Generating documentation
-------------------------
-
-```bash
-cd ...\src\cypack
-
-python generate_doc.py
-```
-
-The following .pdf will be generated:
-
-```bash
-.../src/cypack/docs/_build/rinoh/channelattribution.pdf
-```

@@ -8,6 +8,7 @@ Python library
 
 /python contains Python library source code
 
+
 R package
 ---------
 
@@ -17,3 +18,19 @@ website
 -------
 
 /website contains website source code
+
+
+Generating python documentation
+-------------------------------
+
+```bash
+cd ...python\src\cypack
+
+python generate_doc.py
+```
+
+The following .pdf will be generated:
+
+```bash
+...python/src/cypack/docs/_build/rinoh/channelattribution.pdf
+```
