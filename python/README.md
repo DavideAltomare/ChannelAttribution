@@ -1,7 +1,7 @@
 Python library *ChannelAttribution*
 ===================================
 
-Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called the online multi-channel attribution problem. ChannelAttribution implements a probabilistic algorithm for the attribution problem. The model uses a k-order Markov representation to identify structural correlations in the customer journey data.
+Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called online multi-channel attribution problem. ChannelAttribution implements a probabilistic algorithm for the attribution problem. The model uses a k-order Markov representation to identify structural correlations in the customer journey data.
 
 Installation
 ------------
@@ -13,3 +13,17 @@ pip install --upgrade setuptools
 pip install ChannelAttribution
 ```
 
+Generating documentation
+------------------------
+
+```bash
+cd ...\src\cypack
+
+python generate_doc.py
+```
+
+The following .pdf will be generated:
+
+```bash
+.../src/cypack/docs/_build/rinoh/channelattribution.pdf
+```

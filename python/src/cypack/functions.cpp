@@ -1498,7 +1498,7 @@ pair < list< vector<string> >,list< vector<double> > > markov_model_cpp(vector<s
  res1.push_back(TV[run_min_res_conv]);
  if(out_more==1){
  //removal effects conversion	
-  for(k=1; k<nch0; k++){
+  for(k=1; k<(nch0+1); k++){
    rTV[k-1]=T[run_min_res_conv][k]/nconv[run_min_res_conv];
   } 
  

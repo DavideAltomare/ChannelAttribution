@@ -57,7 +57,7 @@ def __transition_matrix_1(vector[string] vy, vector[unsigned long int] vc, vecto
 
 """
 
-**Markov Model for Online Multi-Channel Attribution Problem**
+**Markov Model for Online Multi-Channel Attribution**
 Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called online multichannel attribution problem. In many cases, advertisers approach this problem through some simple heuristics methods that do not take into account any customer interactions and often tend to underestimate the importance of small channels in marketing contribution. This package provides a function that approaches the attribution problem in a probabilistic way. It uses a k-order Markov representation to identify structural correlations in the customer journey data. This would allow advertisers to give a more reliable assessment of the marketing contribution of each channel. The approach basically follows the one presented in Eva Anderl, Ingo Becker, Florian v. Wangenheim,
 Jan H. Schumann (2014). Differently from them, we solved the estimation process using stochastic simulations. In this way it is also possible to take into account conversion values and their variability in the computation of the channel importance. The package also contains a function that estimates three heuristic models (first-touch, last-touch and linear-touch approach) for the same problem.
 
@@ -102,9 +102,9 @@ def heuristic_models(Data,var_path,var_conv,var_value=None, sep=">"):
 	>>> import pandas as pd	
 	>>> from ChannelAttribution import *
 	>>> Data = pd.read_csv('https://raw.githubusercontent.com/DavideAltomare/\\
-	>>> ChannelAttribution/master/ChannelAttribution/\\
+	>>> ChannelAttribution/master/python/\\
 	>>> src/cypack/data/Data.csv',sep=";")
-	
+		
 	Estimate heuristic models on total conversions
 	
 	>>> heuristic_models(Data,"path","total_conversions")
@@ -207,7 +207,7 @@ def choose_order(Data,var_path,var_conv,var_null,max_order=10,sep=">",ncore=1,ro
 	>>> import pandas as pd	
 	>>> from ChannelAttribution import *
 	>>> Data = pd.read_csv('https://raw.githubusercontent.com/DavideAltomare/\\
-	>>> ChannelAttribution/master/ChannelAttribution/\\
+	>>> ChannelAttribution/master/python/\\
 	>>> src/cypack/data/Data.csv',sep=";")
 
 	
@@ -351,7 +351,7 @@ def markov_model(Data,var_path,var_conv,var_value=None,var_null=None,order=1,nsi
 	>>> import pandas as pd	
 	>>> from ChannelAttribution import *
 	>>> Data = pd.read_csv('https://raw.githubusercontent.com/DavideAltomare/\\
-	>>> ChannelAttribution/master/ChannelAttribution/\\
+	>>> ChannelAttribution/master/python/\\
 	>>> src/cypack/data/Data.csv',sep=";")
 
 	Estimate a Makov model using total conversions 
@@ -535,7 +535,7 @@ def transition_matrix(Data,var_path,var_conv,var_null,order=1,sep=">",flg_equal=
 	>>> import pandas as pd	
 	>>> from ChannelAttribution import *
 	>>> Data = pd.read_csv('https://raw.githubusercontent.com/DavideAltomare/\\
-	>>> ChannelAttribution/master/ChannelAttribution/\\
+	>>> ChannelAttribution/master/python/\\
 	>>> src/cypack/data/Data.csv',sep=";")
 
 	Estimate a second-order transition matrix using total conversions and paths that do not lead to conversion 
@@ -656,7 +656,7 @@ def auto_markov_model(Data, var_path, var_conv, var_null, var_value=None, max_or
 	>>> import pandas as pd	
 	>>> from ChannelAttribution import *
 	>>> Data = pd.read_csv('https://raw.githubusercontent.com/DavideAltomare/\\
-	>>> ChannelAttribution/master/ChannelAttribution/\\
+	>>> ChannelAttribution/master/python/\\
 	>>> src/cypack/data/Data.csv',sep=";")
 
 	

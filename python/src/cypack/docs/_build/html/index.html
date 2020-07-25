@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Welcome to ChannelAttribution’s documentation! &#8212; ChannelAttribution 2.0.0 documentation</title>
+    <title>Welcome to ChannelAttribution’s documentation! &#8212; ChannelAttribution 2.0.2 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.0.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.0.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -49,7 +49,7 @@
 </div>
 <div class="section" id="module-ChannelAttribution">
 <span id="channelattribution"></span><h1>ChannelAttribution<a class="headerlink" href="#module-ChannelAttribution" title="Permalink to this headline">¶</a></h1>
-<p><strong>Markov Model for Online Multi-Channel Attribution Problem</strong>
+<p><strong>Markov Model for Online Multi-Channel Attribution</strong>
 Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called online multichannel attribution problem. In many cases, advertisers approach this problem through some simple heuristics methods that do not take into account any customer interactions and often tend to underestimate the importance of small channels in marketing contribution. This package provides a function that approaches the attribution problem in a probabilistic way. It uses a k-order Markov representation to identify structural correlations in the customer journey data. This would allow advertisers to give a more reliable assessment of the marketing contribution of each channel. The approach basically follows the one presented in Eva Anderl, Ingo Becker, Florian v. Wangenheim,
 Jan H. Schumann (2014). Differently from them, we solved the estimation process using stochastic simulations. In this way it is also possible to take into account conversion values and their variability in the computation of the channel importance. The package also contains a function that estimates three heuristic models (first-touch, last-touch and linear-touch approach) for the same problem.</p>
 <dl class="py function">
@@ -121,7 +121,7 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -181,7 +181,7 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -227,7 +227,7 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -308,7 +308,7 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -377,7 +377,7 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/ChannelAttribution/</span><span class="se">\</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -432,7 +432,7 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.0.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.0.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

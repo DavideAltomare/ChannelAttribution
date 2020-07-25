@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>ChannelAttribution &#8212; ChannelAttribution 2.0.0 documentation</title>
+    <title>ChannelAttribution &#8212; ChannelAttribution 2.0.2 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 2.0.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -39,7 +39,7 @@
 <span></span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">**Markov Model for Online Multi-Channel Attribution Problem**</span>
+<span class="sd">**Markov Model for Online Multi-Channel Attribution**</span>
 <span class="sd">Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called online multichannel attribution problem. In many cases, advertisers approach this problem through some simple heuristics methods that do not take into account any customer interactions and often tend to underestimate the importance of small channels in marketing contribution. This package provides a function that approaches the attribution problem in a probabilistic way. It uses a k-order Markov representation to identify structural correlations in the customer journey data. This would allow advertisers to give a more reliable assessment of the marketing contribution of each channel. The approach basically follows the one presented in Eva Anderl, Ingo Becker, Florian v. Wangenheim,</span>
 <span class="sd">Jan H. Schumann (2014). Differently from them, we solved the estimation process using stochastic simulations. In this way it is also possible to take into account conversion values and their variability in the computation of the channel importance. The package also contains a function that estimates three heuristic models (first-touch, last-touch and linear-touch approach) for the same problem.</span>
 
@@ -84,9 +84,9 @@
 <span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
 <span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
 <span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;https://raw.githubusercontent.com/DavideAltomare/\\</span>
-<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/ChannelAttribution/\\</span>
+<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/python/\\</span>
 <span class="sd">	&gt;&gt;&gt; src/cypack/data/Data.csv&#39;,sep=&quot;;&quot;)</span>
-<span class="sd">	</span>
+<span class="sd">		</span>
 <span class="sd">	Estimate heuristic models on total conversions</span>
 <span class="sd">	</span>
 <span class="sd">	&gt;&gt;&gt; heuristic_models(Data,&quot;path&quot;,&quot;total_conversions&quot;)</span>
@@ -189,7 +189,7 @@
 <span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
 <span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
 <span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;https://raw.githubusercontent.com/DavideAltomare/\\</span>
-<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/ChannelAttribution/\\</span>
+<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/python/\\</span>
 <span class="sd">	&gt;&gt;&gt; src/cypack/data/Data.csv&#39;,sep=&quot;;&quot;)</span>
 
 <span class="sd">	</span>
@@ -333,7 +333,7 @@
 <span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
 <span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
 <span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;https://raw.githubusercontent.com/DavideAltomare/\\</span>
-<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/ChannelAttribution/\\</span>
+<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/python/\\</span>
 <span class="sd">	&gt;&gt;&gt; src/cypack/data/Data.csv&#39;,sep=&quot;;&quot;)</span>
 
 <span class="sd">	Estimate a Makov model using total conversions </span>
@@ -517,7 +517,7 @@
 <span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
 <span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
 <span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;https://raw.githubusercontent.com/DavideAltomare/\\</span>
-<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/ChannelAttribution/\\</span>
+<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/python/\\</span>
 <span class="sd">	&gt;&gt;&gt; src/cypack/data/Data.csv&#39;,sep=&quot;;&quot;)</span>
 
 <span class="sd">	Estimate a second-order transition matrix using total conversions and paths that do not lead to conversion </span>
@@ -638,7 +638,7 @@
 <span class="sd">	&gt;&gt;&gt; import pandas as pd	</span>
 <span class="sd">	&gt;&gt;&gt; from ChannelAttribution import *</span>
 <span class="sd">	&gt;&gt;&gt; Data = pd.read_csv(&#39;https://raw.githubusercontent.com/DavideAltomare/\\</span>
-<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/ChannelAttribution/\\</span>
+<span class="sd">	&gt;&gt;&gt; ChannelAttribution/master/python/\\</span>
 <span class="sd">	&gt;&gt;&gt; src/cypack/data/Data.csv&#39;,sep=&quot;;&quot;)</span>
 
 <span class="sd">	</span>
@@ -763,7 +763,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 2.0.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
