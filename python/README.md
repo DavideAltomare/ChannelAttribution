@@ -6,9 +6,12 @@ Advertisers use a variety of online marketing channels to reach consumers and th
 Installation
 ------------
 
+Note! Only Python3 is supported!
+
 ### From PyPi
 
 ```bash
 pip install --upgrade setuptools
+pip install Cython
 pip install ChannelAttribution
 ```
