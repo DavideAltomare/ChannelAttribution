@@ -20,7 +20,20 @@ website
 /website contains website source code
 
 
-Generating python documentation
+Python installation
+-------------------
+
+Note! Only Python3 is supported!
+
+### From PyPi
+
+```bash
+pip install --upgrade setuptools
+pip install Cython
+pip install ChannelAttribution
+```
+
+Generating Python documentation
 -------------------------------
 
 ```bash

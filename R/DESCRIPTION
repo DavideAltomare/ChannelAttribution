@@ -1,6 +1,6 @@
 Package: ChannelAttribution
 Type: Package
-Title: Markov model for online Multi-Channel Attribution
+Title: Markov Model for Online Multi-Channel Attribution
 Version: 2.0.2
 Date: 2020-07-25
 Author: Davide Altomare, David Loris

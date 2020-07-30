@@ -4,7 +4,7 @@
 \docType{package}
 
 \title{
-Markov model for online Multi-Channel Attribution
+Markov Model for Online Multi-Channel Attribution
 }
 
 \description{
@@ -35,7 +35,8 @@ Maintainer Davide Altomare <info@channelattribution.net>
 
 \href{http://www.channelattribution.net}{ChannelAttribution Official Website}
 
-Eva Anderl, Ingo Becker, Florian v. Wangenheim, Jan H. Schumann. Mapping the Customer Journey (2014). A Graph-Based Framework for Online Attribution Modeling.
+\href{http://dx.doi.org/10.2139/ssrn.2343077}{Eva Anderl, Ingo Becker, Florian v. Wangenheim, Jan H. Schumann. Mapping the Customer Journey (2014)}
+
 }
 
 \keyword{marketing attribution}
