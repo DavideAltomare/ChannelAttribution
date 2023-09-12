@@ -1,5 +1,5 @@
 #ChannelAttribution: Markov model for online multi-channel attribution
-#Copyright (C) 2015 - 2020  Davide Altomare and David Loris <http://www.channelattribution.net>
+#Copyright (C) 2015 - 2023  Davide Altomare and David Loris <https://channelattribution.io>
 #
 #ChannelAttribution is free software: you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
@@ -30,7 +30,9 @@ with open(os.path.join(dir, 'ChannelAttribution.pyx')) as in_file:
             else:
                 out_file.write(line)
 				
-				
+
+if not os.path.exists(os.path.join(dir,"docs/")):
+    os.makedirs(os.path.join(dir,"docs/"))				
 
 os. chdir(os.path.join(dir,"docs/"))
 os.system("make clean && make html")

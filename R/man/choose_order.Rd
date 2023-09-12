@@ -13,7 +13,7 @@
 \usage{
 
 choose_order(Data, var_path, var_conv, var_null, max_order=10, sep=">", 
-             ncore=1, roc_npt=100, plot=TRUE)
+             ncore=1, roc_npt=100, plot=TRUE, flg_adv=TRUE)
 
 }
 
@@ -28,14 +28,14 @@ choose_order(Data, var_path, var_conv, var_null, max_order=10, sep=">",
   \item{ncore}{number of threads used in computation.}
   \item{roc_npt}{number of points used for approximating roc and auc.}
   \item{plot}{if TRUE, a plot with penalized auc with respect to order will be displayed.}
-
+  \item{flg_adv}{if TRUE, ChannelAttribution Pro banner is printed.}
 }
 
 
 \value{An object of \code{class} \code{List} with the estimated roc, auc and penalized auc.}
 
 \author{
-  Davide Altomare (\email{info@channelattribution.net}).
+  Davide Altomare (\email{info@channelattribution.io}).
 }
 
 

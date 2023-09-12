@@ -17,16 +17,16 @@ import locale
 
 sys.path.insert(0, os.path.abspath('.'))
 
-locale.setlocale(locale.LC_TIME, "en")
+locale.setlocale(locale.LC_TIME, "en_US.utf8")
 
 # -- Project information -----------------------------------------------------
 
 project = 'ChannelAttribution'
-copyright = '2020, Davide Altomare and David Loris'
+copyright = 'Davide Altomare and David Loris'
 author = 'Davide Altomare, David Loris'
 
 # The full version, including alpha/beta/rc tags
-release = '2.0.2'
+release = "2.1.4"
 
 
 # -- General configuration ---------------------------------------------------

@@ -1,4 +1,4 @@
-from  setuptools import setup
+from setuptools import setup
 from Cython.Distutils import build_ext, Extension
 
 extensions = [Extension(name="ChannelAttribution", 

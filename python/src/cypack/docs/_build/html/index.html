@@ -4,15 +4,15 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Welcome to ChannelAttribution’s documentation! &#8212; ChannelAttribution 2.0.2 documentation</title>
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to ChannelAttribution’s documentation! &#8212; ChannelAttribution 2.1.4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.0.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to ChannelAttribution’s documentation!</a></li> 
       </ul>
     </div>  
 
@@ -53,8 +54,8 @@
 Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called online multichannel attribution problem. In many cases, advertisers approach this problem through some simple heuristics methods that do not take into account any customer interactions and often tend to underestimate the importance of small channels in marketing contribution. This package provides a function that approaches the attribution problem in a probabilistic way. It uses a k-order Markov representation to identify structural correlations in the customer journey data. This would allow advertisers to give a more reliable assessment of the marketing contribution of each channel. The approach basically follows the one presented in Eva Anderl, Ingo Becker, Florian v. Wangenheim,
 Jan H. Schumann (2014). Differently from them, we solved the estimation process using stochastic simulations. In this way it is also possible to take into account conversion values and their variability in the computation of the channel importance. The package also contains a function that estimates three heuristic models (first-touch, last-touch and linear-touch approach) for the same problem.</p>
 <dl class="py function">
-<dt id="ChannelAttribution.auto_markov_model">
-<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">auto_markov_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_null</span></em>, <em class="sig-param"><span class="n">var_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_order</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">roc_npt</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">plot</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">nsim_start</span><span class="o">=</span><span class="default_value">100000.0</span></em>, <em class="sig-param"><span class="n">max_step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out_more</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em>, <em class="sig-param"><span class="n">ncore</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">nfold</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">conv_par</span><span class="o">=</span><span class="default_value">0.05</span></em>, <em class="sig-param"><span class="n">rate_step_sim</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#auto_markov_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.auto_markov_model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ChannelAttribution.auto_markov_model">
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">auto_markov_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roc_npt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsim_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_more</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_par</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_step_sim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#auto_markov_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.auto_markov_model" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -94,6 +95,8 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dd>
 <dt><strong>verbose</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, additional information about process convergence will be shown.</p>
 </dd>
+<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -118,11 +121,9 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dl>
 <p class="rubric">Examples</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>    
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Estimate an automatic Makov model</p>
@@ -132,8 +133,8 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dd></dl>
 
 <dl class="py function">
-<dt id="ChannelAttribution.choose_order">
-<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">choose_order</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_null</span></em>, <em class="sig-param"><span class="n">max_order</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em>, <em class="sig-param"><span class="n">ncore</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">roc_npt</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#choose_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.choose_order" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ChannelAttribution.choose_order">
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">choose_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roc_npt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#choose_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.choose_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the minimum Markov Model order that gives a good representation of customers’ behaviour for data considered. It requires paths that do not lead to conversion as input. Minimum order is found maximizing a penalized area under ROC curve.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -155,6 +156,8 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 <dt><strong>roc_npt: int, default 100</strong></dt><dd><p>number of points to be used for the approximation of roc curve.</p>
 </dd>
 <dt><strong>plot: bool, default True</strong></dt><dd><p>if True, a plot with penalized auc with respect to order will be displayed.</p>
+</dd>
+<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
 </dd>
 </dl>
 </dd>
@@ -178,11 +181,9 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 <p class="rubric">Examples</p>
 <p>Estimate best makov model order for your data</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>    
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">choose_order</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">var_path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">var_conv</span><span class="o">=</span><span class="s2">&quot;total_conversions&quot;</span><span class="p">,</span> <span class="n">var_null</span><span class="o">=</span><span class="s2">&quot;total_null&quot;</span><span class="p">)</span>
@@ -191,8 +192,8 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dd></dl>
 
 <dl class="py function">
-<dt id="ChannelAttribution.heuristic_models">
-<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">heuristic_models</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#heuristic_models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.heuristic_models" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ChannelAttribution.heuristic_models">
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">heuristic_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#heuristic_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.heuristic_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate three heuristic models (first-touch, last-touch and linear) from customer journey data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -206,6 +207,8 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 <dt><strong>var_value</strong><span class="classifier">string, optional, default None</span></dt><dd><p>column of Data containing revenue for each path.</p>
 </dd>
 <dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
+</dd>
+<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
 </dd>
 </dl>
 </dd>
@@ -224,11 +227,9 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dl>
 <p class="rubric">Examples</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>    
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Estimate heuristic models on total conversions</p>
@@ -243,8 +244,8 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dd></dl>
 
 <dl class="py function">
-<dt id="ChannelAttribution.markov_model">
-<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">markov_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">var_null</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">nsim_start</span><span class="o">=</span><span class="default_value">100000.0</span></em>, <em class="sig-param"><span class="n">max_step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out_more</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em>, <em class="sig-param"><span class="n">ncore</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">nfold</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">conv_par</span><span class="o">=</span><span class="default_value">0.05</span></em>, <em class="sig-param"><span class="n">rate_step_sim</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#markov_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.markov_model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ChannelAttribution.markov_model">
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">markov_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsim_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_more</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_par</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_step_sim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#markov_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.markov_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate a k-order Markov model from customer journey data. Differently from markov_model, this function iterates estimation until a desidered convergence is reached and enables multiprocessing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -281,6 +282,8 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dd>
 <dt><strong>verbose</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, additional information about process convergence will be shown.</p>
 </dd>
+<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -305,11 +308,9 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dl>
 <p class="rubric">Examples</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>    
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Estimate a Makov model using total conversions</p>
@@ -335,8 +336,8 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dd></dl>
 
 <dl class="py function">
-<dt id="ChannelAttribution.transition_matrix">
-<code class="sig-prename descclassname">ChannelAttribution.</code><code class="sig-name descname">transition_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Data</span></em>, <em class="sig-param"><span class="n">var_path</span></em>, <em class="sig-param"><span class="n">var_conv</span></em>, <em class="sig-param"><span class="n">var_null</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'&gt;'</span></em>, <em class="sig-param"><span class="n">flg_equal</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#transition_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ChannelAttribution.transition_matrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ChannelAttribution.transition_matrix">
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">transition_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_equal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#transition_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.transition_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate a k-order transition matrix from customer journey data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -354,6 +355,8 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 <dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
 </dd>
 <dt><strong>flg_equal: bool, default True</strong></dt><dd><p>if True, transitions from a channel to itself will be considered.</p>
+</dd>
+<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
 </dd>
 </dl>
 </dd>
@@ -374,11 +377,9 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dl>
 <p class="rubric">Examples</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>    
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ChannelAttribution</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/DavideAltomare/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">ChannelAttribution/master/python/</span><span class="se">\</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">src/cypack/data/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Estimate a second-order transition matrix using total conversions and paths that do not lead to conversion</p>
@@ -390,6 +391,7 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -413,7 +415,7 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -432,12 +434,13 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.0.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">ChannelAttribution 2.1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to ChannelAttribution’s documentation!</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2020, Davide Altomare and David Loris.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.
+        &#169; Copyright Davide Altomare and David Loris.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
     </div>
   </body>
 </html>
