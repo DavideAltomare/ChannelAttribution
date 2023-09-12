@@ -1,5 +1,3 @@
-**NOTE! This project have been moved to https://gitlab.com/session-tech/ChannelAttribution . See you there!**
-
 *ChannelAttribution*
 ====================
 
