@@ -16,12 +16,6 @@ R package
 
 /R contains R package source code
 
-website
--------
-
-/website contains website source code
-
-
 Python installation
 -------------------
 
