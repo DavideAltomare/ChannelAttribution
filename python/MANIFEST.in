@@ -1,2 +1,0 @@
-include LICENSE.txt
-recursive-include src\cypack\armadillo-9.860.2 *

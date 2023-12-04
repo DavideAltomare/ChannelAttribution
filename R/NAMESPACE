@@ -1,3 +1,0 @@
-useDynLib(ChannelAttribution, .registration = TRUE)
-importFrom(Rcpp, evalCpp)
-exportPattern("^[[:alpha:]]+")

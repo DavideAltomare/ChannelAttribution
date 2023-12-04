@@ -1,5 +1,0 @@
-setuptools
-wheel
-cython
-numpy
-pandas
