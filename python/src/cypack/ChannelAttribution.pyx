@@ -29,7 +29,7 @@ import sys
 import matplotlib.pyplot as plt 
 import importlib
 
-__version="2.1.4"
+__version="2.1.7"
 print("*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product")
 print("Version: " + str(__version))
 

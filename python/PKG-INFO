@@ -1,14 +1,14 @@
-Metadata-Version: 2.1.4
+Metadata-Version: 2.1.7
 Name: ChannelAttribution
-Version: 2.1.4
+Version: 2.1.7
 Summary: Markov Model for Online Multi-Channel Attribution
 ### Home-page: 
 Author: Davide Altomare, David Loris
 Author-email: info@channelattribution.io
 License: GPLv3
-Project-URL: Documentation, https://channelattribution.io
-Project-URL: Code, https://gitlab.com/session-tech/ChannelAttribution
-Project-URL: Issue tracker, https://gitlab.com/session-tech/ChannelAttribution/issues
+Project-URL: Documentation, https://channelattribution.io/docs/main-doc
+Project-URL: Code, https://github.com/DavideAltomare/ChannelAttribution
+Project-URL: Issue tracker, https://github.com/DavideAltomare/ChannelAttribution/issues
 Description: Markov Model for the Online Multi-Channel Attribution Problem
 ======================
 

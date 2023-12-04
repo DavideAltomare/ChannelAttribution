@@ -26,7 +26,7 @@ copyright = 'Davide Altomare and David Loris'
 author = 'Davide Altomare, David Loris'
 
 # The full version, including alpha/beta/rc tags
-release = "2.1.4"
+release = "2.1.7"
 
 
 # -- General configuration ---------------------------------------------------
