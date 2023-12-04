@@ -1,0 +1,52 @@
+Metadata-Version: 2.1.7
+Name: ChannelAttribution
+Version: 2.1.7
+Summary: Markov Model for Online Multi-Channel Attribution
+### Home-page: 
+Author: Davide Altomare, David Loris
+Author-email: info@channelattribution.io
+License: GPLv3
+Project-URL: Documentation, https://channelattribution.io/docs/main-doc
+Project-URL: Code, https://github.com/DavideAltomare/ChannelAttribution
+Project-URL: Issue tracker, https://github.com/DavideAltomare/ChannelAttribution/issues
+Description: Markov Model for the Online Multi-Channel Attribution Problem
+======================
+
+Purpose
+-------
+
+Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called online multi-channel attribution problem. This package contains a probabilistic algorithm for the attribution problem. The model uses a k-order Markov representation to identify structural correlations in the customer journey data. The package also contains three heuristic algorithms (first-touch, last-touch and linear-touch approach) for the same problem. The algorithms are implemented in C++.
+
+Installation
+------------
+
+### From PyPi
+
+```bash
+pip install --upgrade setuptools
+pip install ChannelAttribution
+```
+        
+Platform: UNKNOWN
+Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Cython
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.4
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Provides-Extra: docs
