@@ -1,52 +1,53 @@
-Metadata-Version: 2.1.7
+Metadata-Version: 2.1
 Name: ChannelAttribution
-Version: 2.1.7
-Summary: Markov Model for Online Multi-Channel Attribution
-### Home-page: 
+Version: 2.2.2
+Summary: Markov model for online multi-channel attribution
+Home-page: https://channelattribution.io
 Author: Davide Altomare, David Loris
 Author-email: info@channelattribution.io
-License: GPLv3
-Project-URL: Documentation, https://channelattribution.io/docs/main-doc
-Project-URL: Code, https://github.com/DavideAltomare/ChannelAttribution
-Project-URL: Issue tracker, https://github.com/DavideAltomare/ChannelAttribution/issues
-Description: Markov Model for the Online Multi-Channel Attribution Problem
-======================
-
-Purpose
--------
-
-Advertisers use a variety of online marketing channels to reach consumers and they want to know the degree each channel contributes to their marketing success. This is called online multi-channel attribution problem. This package contains a probabilistic algorithm for the attribution problem. The model uses a k-order Markov representation to identify structural correlations in the customer journey data. The package also contains three heuristic algorithms (first-touch, last-touch and linear-touch approach) for the same problem. The algorithms are implemented in C++.
-
-Installation
-------------
-
-### From PyPi
-
-```bash
-pip install --upgrade setuptools
-pip install ChannelAttribution
-```
-        
-Platform: UNKNOWN
-Development Status :: 5 - Production/Stable
-Classifier: License :: OSI Approved :: MIT License
-Classifier: Intended Audience :: Education
+License: GPL-3.0-or-later  
+Keywords: attribution,marketing,markov,customer-journey,channel attribution
+Project-URL: Documentation, https://app.channelattribution.io/docs/channelattribution.pdf
+Project-URL: Repository, https://github.com/DavideAltomare/ChannelAttribution
+Project-URL: Issue Tracker, https://github.com/DavideAltomare/ChannelAttribution/issues
+Requires-Python: >=3.8
+Requires-Dist: numpy>=1.22
+Requires-Dist: pandas>=1.5
+Classifier: Development Status :: 5 - Production/Stable
 Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Education
 Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
 Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
 Classifier: Natural Language :: English
 Classifier: Operating System :: OS Independent
-Classifier: Programming Language :: C++
-Classifier: Programming Language :: Cython
 Classifier: Programming Language :: Python
 Classifier: Programming Language :: Python :: 3
-Classifier: Programming Language :: Python :: 3.4
-Classifier: Programming Language :: Python :: 3.5
-Classifier: Programming Language :: Python :: 3.6
-Classifier: Programming Language :: Python :: 3.7
 Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
 Classifier: Programming Language :: Python :: Implementation :: CPython
-Requires-Python: >=3.4
+Classifier: Programming Language :: C
+Classifier: Programming Language :: Cython
 Description-Content-Type: text/markdown
 Provides-Extra: dev
 Provides-Extra: docs
+
+Description: 
+  # ChannelAttribution: Markov Model for Online Multi-Channel Attribution
+
+  ## Purpose
+
+  Advertisers use a variety of online marketing channels to reach consumers and want to know the degree each channel contributes to success. This is the online multi-channel attribution problem. This package implements a probabilistic solution using a k-order Markov model to capture structural correlations in customer-journey data. It also provides three heuristic algorithms (first-touch, last-touch, linear-touch). Core routines are implemented in C++/Cython for performance.
+
+  ## Installation
+
+  ### From PyPI
+
+  ```bash
+  pip install --upgrade pip setuptools wheel
+  pip install ChannelAttribution

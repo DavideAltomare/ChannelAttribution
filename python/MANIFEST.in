@@ -1,2 +1,31 @@
-include LICENSE.txt
-recursive-include src\cypack\armadillo-9.860.2 *
+# ---------------------------
+# Core docs / legal
+# ---------------------------
+include README.md
+include GPL-3.txt
+
+# ---------------------------
+# Cython / C++ sources
+# ---------------------------
+include src/cypack/ChannelAttribution.pyx
+include src/cypack/functions.cpp
+recursive-include src/cypack *.pxd *.pyi *.hpp *.h
+
+# ---------------------------
+# Armadillo headers (bundle)
+# IMPORTANT: include the 'armadillo' header (no extension)
+# ---------------------------
+recursive-include src/cypack/armadillo-9.860.2/include *.hpp *.h armadillo
+
+# ---------------------------
+# (Optional) docs in sdist
+# Uncomment if you want docs sources in the sdist
+# ---------------------------
+# graft docs
+# prune docs/_build
+
+# ---------------------------
+# Housekeeping
+# ---------------------------
+global-exclude *.pyc *.pyo *.pyd
+global-exclude __pycache__ .DS_Store

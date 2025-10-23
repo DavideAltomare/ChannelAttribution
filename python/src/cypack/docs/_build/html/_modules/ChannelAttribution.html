@@ -1,22 +1,20 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChannelAttribution &#8212; ChannelAttribution 2.1.4 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <title>ChannelAttribution &#8212; ChannelAttribution 2.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=219dea72"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -25,7 +23,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 2.1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 2.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">ChannelAttribution</a></li> 
       </ul>
@@ -47,9 +45,11 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
     
-<div class="viewcode-block" id="heuristic_models"><a class="viewcode-back" href="../index.html#ChannelAttribution.heuristic_models">[docs]</a><span class="k">def</span> <span class="nf">heuristic_models</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="heuristic_models">
+<a class="viewcode-back" href="../index.html#ChannelAttribution.heuristic_models">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">heuristic_models</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            </span>
 <span class="sd">    Estimate three heuristic models (first-touch, last-touch and linear) from customer journey data.</span>
 <span class="sd">    </span>
@@ -143,10 +143,13 @@
 
     <span class="k">return</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
 
-    
-<div class="viewcode-block" id="choose_order"><a class="viewcode-back" href="../index.html#ChannelAttribution.choose_order">[docs]</a><span class="k">def</span> <span class="nf">choose_order</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_null</span><span class="p">,</span><span class="n">max_order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">roc_npt</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="choose_order">
+<a class="viewcode-back" href="../index.html#ChannelAttribution.choose_order">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">choose_order</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_null</span><span class="p">,</span><span class="n">max_order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">roc_npt</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    </span>
 <span class="sd">    Find the minimum Markov Model order that gives a good representation of customers’ behaviour for data considered. It requires paths that do not lead to conversion as input. Minimum order is found maximizing a penalized area under ROC curve.</span>
 <span class="sd">    </span>
@@ -278,12 +281,15 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product&quot;</span><span class="p">)</span>
     
     <span class="k">return</span><span class="p">(</span><span class="n">res_auc</span><span class="p">,</span><span class="n">res_roc</span><span class="p">,</span><span class="n">best_order</span><span class="p">)</span></div>
+
             
     
         
-<div class="viewcode-block" id="markov_model"><a class="viewcode-back" href="../index.html#ChannelAttribution.markov_model">[docs]</a><span class="k">def</span> <span class="nf">markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">var_null</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nsim_start</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span><span class="n">max_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">out_more</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nfold</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">conv_par</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">rate_step_sim</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="markov_model">
+<a class="viewcode-back" href="../index.html#ChannelAttribution.markov_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">var_null</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">nsim_start</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span><span class="n">max_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">out_more</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nfold</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">conv_par</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">rate_step_sim</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    </span>
 <span class="sd">    Estimate a k-order Markov model from customer journey data. Differently from markov_model, this function iterates estimation until a desidered convergence is reached and enables multiprocessing.</span>
 <span class="sd">    </span>
@@ -489,11 +495,14 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product&quot;</span><span class="p">)</span>
     
     <span class="k">return</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+
     
 
-<div class="viewcode-block" id="transition_matrix"><a class="viewcode-back" href="../index.html#ChannelAttribution.transition_matrix">[docs]</a><span class="k">def</span> <span class="nf">transition_matrix</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_null</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="n">flg_equal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="transition_matrix">
+<a class="viewcode-back" href="../index.html#ChannelAttribution.transition_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">transition_matrix</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="n">var_path</span><span class="p">,</span><span class="n">var_conv</span><span class="p">,</span><span class="n">var_null</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span><span class="n">flg_equal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">    Estimate a k-order transition matrix from customer journey data.</span>
 <span class="sd">    </span>
@@ -585,12 +594,15 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product&quot;</span><span class="p">)</span>
 
     <span class="k">return</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
-    
-    
-    
-<div class="viewcode-block" id="auto_markov_model"><a class="viewcode-back" href="../index.html#ChannelAttribution.auto_markov_model">[docs]</a><span class="k">def</span> <span class="nf">auto_markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">var_path</span><span class="p">,</span> <span class="n">var_conv</span><span class="p">,</span> <span class="n">var_null</span><span class="p">,</span> <span class="n">var_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">roc_npt</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nsim_start</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_more</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nfold</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">conv_par</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rate_step_sim</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
-    <span class="sd">&#39;&#39;&#39;</span>
+    
+    
+    
+<div class="viewcode-block" id="auto_markov_model">
+<a class="viewcode-back" href="../index.html#ChannelAttribution.auto_markov_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">auto_markov_model</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">var_path</span><span class="p">,</span> <span class="n">var_conv</span><span class="p">,</span> <span class="n">var_null</span><span class="p">,</span> <span class="n">var_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">roc_npt</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nsim_start</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_more</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nfold</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">conv_par</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rate_step_sim</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flg_adv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -753,681 +765,376 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product&quot;</span><span class="p">)</span>
     
     <span class="k">return</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="installChPro">
+<a class="viewcode-back" href="../index.html#ChannelAttribution.installChPro">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">installChPro</span><span class="p">():</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Install ChannelAttribution Pro (binary wheel) for the current environment.</span>
+
+<span class="sd">    The function detects your OS, architecture, and Python version, requests a</span>
+<span class="sd">    prebuilt wheel (or a build job) from ChannelAttribution Pro’s build service,</span>
+<span class="sd">    resolves the final package URL, and installs it via `pip`. If installation</span>
+<span class="sd">    fails, it prints a compact system report you can send to support.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    (none)</span>
+
+<span class="sd">    Environment detection</span>
+<span class="sd">    ---------------------</span>
+<span class="sd">    OS:</span>
+<span class="sd">        - manylinux (Linux), macos (macOS), windows (Windows)</span>
+<span class="sd">    OS version mapping:</span>
+<span class="sd">        - macOS:   &quot;13&quot; for amd64 (Intel), &quot;15&quot; for arm64 (Apple Silicon)</span>
+<span class="sd">        - Windows: &quot;11&quot;</span>
+<span class="sd">        - Linux:   &quot;2014&quot; (ManyLinux2014 baseline)</span>
+<span class="sd">    Architecture:</span>
+<span class="sd">        - amd64 (x86_64)</span>
+<span class="sd">        - arm64 (aarch64)</span>
+<span class="sd">    Python:</span>
+<span class="sd">        - Major.minor version detected from the running interpreter (e.g., 3.11)</span>
+
+<span class="sd">    Behavior</span>
+<span class="sd">    --------</span>
+<span class="sd">    1) Builds a request URL to the ChannelAttribution Pro builder:</span>
+<span class="sd">       https://app.channelattribution.io/genpkg/genpkg.php</span>
+<span class="sd">       with the detected parameters.</span>
+<span class="sd">    2) Performs an HTTP GET. The service may:</span>
+<span class="sd">       - Return JSON with &quot;pkg&quot;: direct wheel URL or a directory containing wheels.</span>
+<span class="sd">       - Return HTTP 409 with a JSON body (&quot;exists&quot;/&quot;ok&quot;) pointing to an existing build.</span>
+<span class="sd">    3) Resolves the final wheel URL (if a directory is returned, picks the latest file).</span>
+<span class="sd">    4) Installs the wheel with `python -m pip install --prefer-binary`.</span>
+<span class="sd">    5) On success, prints a short message suggesting to restart the session and import:</span>
+<span class="sd">       `import ChannelAttributionPro`.</span>
+<span class="sd">    6) On failure, prints a JSON-like system info block (OS, distro, Python, compiler)</span>
+<span class="sd">       that you can email to info@channelattribution.io.</span>
+
+<span class="sd">    Network &amp; security</span>
+<span class="sd">    ------------------</span>
+<span class="sd">    - Uses HTTPS GET to the builder endpoint.</span>
+<span class="sd">    - Sends only non-personal environment traits (OS/arch/Python) as query parameters.</span>
+<span class="sd">    - Honors standard proxy settings if your Python/OS is configured accordingly.</span>
+
+<span class="sd">    Requirements</span>
+<span class="sd">    ------------</span>
+<span class="sd">    - Internet connectivity to reach app.channelattribution.io.</span>
+<span class="sd">    - `pip` available for the current interpreter (`python -m pip`).</span>
+<span class="sd">    - Sufficient permissions to install packages in the environment (use a venv or run</span>
+<span class="sd">      with appropriate privileges).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Depending on load, the remote build step may take several minutes.</span>
+<span class="sd">    - On macOS, `gcc` typically maps to Clang; compiler info is reported accordingly.</span>
+<span class="sd">    - The Linux baseline targets ManyLinux2014 for broad compatibility.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        The function performs installation as a side effect and writes progress</span>
+<span class="sd">        to stdout. On error, it raises SystemExit or RuntimeError in specific cases.</span>
+
+<span class="sd">    Exceptions</span>
+<span class="sd">    ----------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If the remote listing for a returned directory fails (non-200).</span>
+<span class="sd">    SystemExit</span>
+<span class="sd">        If `pip` returns a non-zero exit code or if no files are found/resolved.</span>
+<span class="sd">    urllib.error.URLError / urllib.error.HTTPError</span>
+<span class="sd">        May propagate in unexpected network failures not handled internally.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Basic usage</span>
+
+<span class="sd">    &gt;&gt;&gt; from ChannelAttributionPro import installChPro</span>
+<span class="sd">    &gt;&gt;&gt; installChPro()</span>
+<span class="sd">    Building the package. Estimated time: 5-30 minutes. Please wait...</span>
+<span class="sd">    ...</span>
+<span class="sd">    Package installed. Restart the session and try to import it with: import ChannelAttributionPro</span>
+
+<span class="sd">    After installation</span>
+
+<span class="sd">    &gt;&gt;&gt; import ChannelAttributionPro</span>
+<span class="sd">    &gt;&gt;&gt; ChannelAttributionPro.__version__</span>
+<span class="sd">    &#39;x.y.z&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">html.parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTMLParser</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">urlopen</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.error</span><span class="w"> </span><span class="kn">import</span> <span class="n">URLError</span><span class="p">,</span> <span class="n">HTTPError</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlencode</span><span class="p">,</span> <span class="n">urljoin</span>
+
+    <span class="c1"># -------- Detect OS / arch / python --------</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">):</span>
+        <span class="n">os_name</span> <span class="o">=</span> <span class="s2">&quot;manylinux&quot;</span>
+    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
+        <span class="n">os_name</span> <span class="o">=</span> <span class="s2">&quot;macos&quot;</span>
+    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;win32&quot;</span><span class="p">,</span> <span class="s2">&quot;cygwin&quot;</span><span class="p">,</span> <span class="s2">&quot;msys&quot;</span><span class="p">):</span>
+        <span class="n">os_name</span> <span class="o">=</span> <span class="s2">&quot;windows&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">os_name</span> <span class="o">=</span> <span class="s2">&quot;manylinux&quot;</span>
+
+    <span class="n">machine</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">machine</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;x86_64&quot;</span><span class="p">,</span> <span class="s2">&quot;amd64&quot;</span><span class="p">):</span>
+        <span class="n">arch</span> <span class="o">=</span> <span class="s2">&quot;amd64&quot;</span>
+    <span class="k">elif</span> <span class="n">machine</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;arm64&quot;</span><span class="p">,</span> <span class="s2">&quot;aarch64&quot;</span><span class="p">):</span>
+        <span class="n">arch</span> <span class="o">=</span> <span class="s2">&quot;arm64&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">arch</span> <span class="o">=</span> <span class="s2">&quot;amd64&quot;</span>
+
+    <span class="n">lang</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span>
+    <span class="n">lang_vers</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">minor</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># Fixed mapping for os_vers</span>
+    <span class="k">if</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;macos&quot;</span><span class="p">:</span>
+        <span class="n">os_vers</span> <span class="o">=</span> <span class="s2">&quot;13&quot;</span> <span class="k">if</span> <span class="n">arch</span> <span class="o">==</span> <span class="s2">&quot;amd64&quot;</span> <span class="k">else</span> <span class="s2">&quot;15&quot;</span>
+    <span class="k">elif</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>
+        <span class="n">os_vers</span> <span class="o">=</span> <span class="s2">&quot;11&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">os_vers</span> <span class="o">=</span> <span class="s2">&quot;2014&quot;</span>
+
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="n">os_name</span><span class="p">,</span>
+        <span class="s2">&quot;os_vers&quot;</span><span class="p">:</span> <span class="n">os_vers</span><span class="p">,</span>
+        <span class="s2">&quot;arch&quot;</span><span class="p">:</span> <span class="n">arch</span><span class="p">,</span>
+        <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="n">lang</span><span class="p">,</span>
+        <span class="s2">&quot;lang_vers&quot;</span><span class="p">:</span> <span class="n">lang_vers</span><span class="p">,</span>
+        <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uctr&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://app.channelattribution.io/genpkg/genpkg.php&quot;</span>
+    <span class="n">gen_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="n">UA</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 &quot;</span>
+          <span class="s2">&quot;(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;</span><span class="p">)</span>
+    <span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">UA</span><span class="p">,</span>
+        <span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Accept-Language&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US,en;q=0.7&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Accept-Encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;identity&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Connection&quot;</span><span class="p">:</span> <span class="s2">&quot;close&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">http_get</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">HEADERS</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get_content_type</span><span class="p">()</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">LinkCollector</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;a&quot;</span><span class="p">:</span>
+                <span class="n">href</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">href</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">href</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_dir_files</span><span class="p">(</span><span class="n">dir_url</span><span class="p">):</span>
+        <span class="n">status</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">http_get</span><span class="p">(</span><span class="n">dir_url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Listing </span><span class="si">{</span><span class="n">dir_url</span><span class="si">}</span><span class="s2"> failed with HTTP </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">LinkCollector</span><span class="p">()</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">links</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">and</span> <span class="n">h</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;../&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">h</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">resolve_pkg_url</span><span class="p">(</span><span class="n">pkg_value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Accepts either a wheel URL or a directory URL and returns a wheel URL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">pkg_value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.whl&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">pkg_value</span>
+        <span class="c1"># treat as directory</span>
+        <span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">pkg_value</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">list_dir_files</span><span class="p">(</span><span class="n">pkg_dir</span><span class="p">)</span>
+        <span class="n">wheels</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.whl&quot;</span><span class="p">)]</span>
+        <span class="n">chosen</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">wheels</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="kc">None</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">chosen</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No files found at </span><span class="si">{</span><span class="n">pkg_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">pkg_dir</span><span class="p">,</span> <span class="n">chosen</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">pip_install</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">extra_args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;--no-cache-dir&quot;</span><span class="p">,</span> <span class="s2">&quot;--disable-pip-version-check&quot;</span><span class="p">,</span> <span class="s2">&quot;--prefer-binary&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">extra_args</span><span class="p">:</span> <span class="n">cmd</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extra_args</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installing with:&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="p">)</span>
+
+    <span class="c1">#print(f&quot;Detected -&gt; os={os_name}, os_vers={os_vers}, arch={arch}, python={lang_vers}&quot;)</span>
+    <span class="c1">#print(f&quot;Requesting: {gen_url}&quot;)</span>
+
+    <span class="n">pkg_file_url</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">flg_success</span><span class="o">=</span><span class="mi">1</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Building the package. Estimated time: 0-30 minutes. Please wait...&quot;</span><span class="p">)</span>
+        <span class="n">status</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">http_get</span><span class="p">(</span><span class="n">gen_url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;pkg&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">pkg_file_url</span> <span class="o">=</span> <span class="n">resolve_pkg_url</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pkg&quot;</span><span class="p">])</span>
+            <span class="c1">#else:</span>
+                <span class="c1">#print(text)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flg_success</span><span class="o">=</span><span class="mi">0</span>
+
+    <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">409</span><span class="p">:</span>
+            <span class="n">err_body</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">err_body</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">flg_success</span><span class="o">=</span><span class="mi">0</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;exists&quot;</span><span class="p">,</span><span class="s2">&quot;ok&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;pkg&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="c1"># pkg may be a wheel or a directory</span>
+                <span class="n">pkg_file_url</span> <span class="o">=</span> <span class="n">resolve_pkg_url</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pkg&quot;</span><span class="p">])</span>
+                <span class="c1">#print(json.dumps({</span>
+                <span class="c1">#    &quot;status&quot;: data.get(&quot;status&quot;),</span>
+                <span class="c1">#    &quot;pkg_file_url&quot;: pkg_file_url</span>
+                <span class="c1">#}, indent=2))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">flg_success</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flg_success</span><span class="o">=</span><span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">flg_success</span><span class="p">:</span>
+        <span class="n">pip_install</span><span class="p">(</span><span class="n">pkg_file_url</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Package installed. Restart the session and try to import it with: import ChannelAttributionPro&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">platform</span><span class="o">,</span><span class="w"> </span><span class="nn">subprocess</span><span class="o">,</span><span class="w"> </span><span class="nn">shutil</span><span class="o">,</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">json</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_read_os_release</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/etc/os-release&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="s2">&quot;=&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                    <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_linux_distro_fallback</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">_read_os_release</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">info</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PRETTY_NAME&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;NAME&quot;</span><span class="p">),</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;VERSION&quot;</span><span class="p">)]</span> <span class="k">if</span> <span class="n">x</span>
+            <span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_which_compiler</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">exe</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="s2">&quot;cc&quot;</span><span class="p">,</span> <span class="s2">&quot;clang&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">exe</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_compiler_version</span><span class="p">(</span><span class="n">exe</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+            <span class="c1"># Try gcc-specific full version first</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">exe</span><span class="p">,</span> <span class="s2">&quot;-dumpfullversion&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">exe</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="c1"># Generic --version first line</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">exe</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="p">:</span>
+                    <span class="n">first</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(gcc|clang)[^0-9]*([0-9]+(?:\.[0-9]+){0,3})&quot;</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">m</span> <span class="k">else</span> <span class="n">first</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_system_info</span><span class="p">(</span><span class="n">as_json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Return system build info:</span>
+<span class="sd">              - os, os_release, architecture, distro</span>
+<span class="sd">              - python_implementation, python_version</span>
+<span class="sd">              - compiler (gcc/clang) version if available</span>
+<span class="sd">            Set as_json=True to get a JSON string.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">system</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>              <span class="c1"># &#39;Linux&#39;, &#39;Darwin&#39;, &#39;Windows&#39;, etc.</span>
+            <span class="n">release</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="n">arch</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span> <span class="ow">or</span> <span class="n">platform</span><span class="o">.</span><span class="n">processor</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;unknown&quot;</span>
+            <span class="n">py_impl</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_implementation</span><span class="p">()</span>
+            <span class="n">py_ver</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_version</span><span class="p">()</span>
+
+            <span class="c1"># Distro / product version</span>
+            <span class="n">distro_str</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">system</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
+                <span class="c1"># Use &#39;distro&#39; if available, else fallback to /etc/os-release</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="kn">import</span><span class="w"> </span><span class="nn">distro</span>  <span class="c1"># type: ignore</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">distro</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="n">distro</span><span class="o">.</span><span class="n">id</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+                    <span class="n">vers</span> <span class="o">=</span> <span class="n">distro</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="n">best</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+                    <span class="n">distro_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vers</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="kc">None</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">distro_str</span> <span class="o">=</span> <span class="n">_linux_distro_fallback</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">system</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">&quot;sw_vers&quot;</span><span class="p">,</span> <span class="s2">&quot;-productVersion&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">distro_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;macOS </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">system</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+                <span class="n">distro_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Windows </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">()</span><span class="si">}</span><span class="s2"> (build </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">version</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+            <span class="c1"># Compiler</span>
+            <span class="n">comp</span> <span class="o">=</span> <span class="n">_which_compiler</span><span class="p">()</span>
+            <span class="n">comp_ver</span> <span class="o">=</span> <span class="n">_compiler_version</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span> <span class="k">if</span> <span class="n">comp</span> <span class="k">else</span> <span class="kc">None</span>
+
+            <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="n">system</span><span class="p">,</span>
+                <span class="s2">&quot;os_release&quot;</span><span class="p">:</span> <span class="n">release</span><span class="p">,</span>
+                <span class="s2">&quot;architecture&quot;</span><span class="p">:</span> <span class="n">arch</span><span class="p">,</span>
+                <span class="s2">&quot;distro&quot;</span><span class="p">:</span> <span class="n">distro_str</span><span class="p">,</span>
+                <span class="s2">&quot;python_implementation&quot;</span><span class="p">:</span> <span class="n">py_impl</span><span class="p">,</span>
+                <span class="s2">&quot;python_version&quot;</span><span class="p">:</span> <span class="n">py_ver</span><span class="p">,</span>
+                <span class="s2">&quot;compiler&quot;</span><span class="p">:</span> <span class="n">comp_ver</span> <span class="ow">or</span> <span class="s2">&quot;not found&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">as_json</span> <span class="k">else</span> <span class="n">info</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installation failed. Send the following information:&quot;</span><span class="p">)</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">get_system_info</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;to info@channelattribution.io.&quot;</span><span class="p">)</span></div>
+
     
 
-<span class="c1">#######################################################################################################################################################################</span>
-<span class="c1">#APIS</span>
-<span class="c1">#######################################################################################################################################################################</span>
-
-<span class="c1"># if 0!=0:</span>
-
-<span class="c1">#     def __import_libs_for_api():</span>
-<span class="c1">#         global pysftp</span>
-<span class="c1">#         global tarfile</span>
-<span class="c1">#         global uuid</span>
-<span class="c1">#         global time</span>
-<span class="c1">#         global shutil</span>
-<span class="c1">#         global Fernet</span>
-<span class="c1">#         global json</span>
-<span class="c1">#         global requests</span>
-<span class="c1">#         global socket</span>
-<span class="c1">#         import pysftp</span>
-<span class="c1">#         import tarfile</span>
-<span class="c1">#         import uuid</span>
-<span class="c1">#         import time</span>
-<span class="c1">#         import shutil</span>
-<span class="c1">#         from cryptography.fernet import Fernet</span>
-<span class="c1">#         import json</span>
-<span class="c1">#         import requests</span>
-<span class="c1">#         import socket</span>
-        
-<span class="c1">#     def __check_libs_for_api():</span>
-<span class="c1">#         res=1</span>
-<span class="c1">#         libs=[&#39;pysftp&#39;,&#39;tarfile&#39;,&#39;uuid&#39;,&#39;time&#39;,&#39;urllib&#39;,&#39;shutil&#39;,&#39;cryptography&#39;,&#39;json&#39;,&#39;requests&#39;]</span>
-<span class="c1">#         no_libs=[]</span>
-<span class="c1">#         for lib0 in libs:</span>
-<span class="c1">#             ck=importlib.util.find_spec(lib0)</span>
-<span class="c1">#             if ck==None:</span>
-<span class="c1">#                 no_libs= no_libs+[lib0]</span>
-<span class="c1">#         if len(no_libs)&gt;0:</span>
-<span class="c1">#             print(&quot;There are some missing libraries you need for using our apis. Install them with:&quot;)</span>
-<span class="c1">#             print(&quot;pip install &quot; + &quot; &quot;.join(no_libs))</span>
-<span class="c1">#             res=0</span>
-<span class="c1">#         return(res)</span>
-    
-<span class="c1">#     def __f_list_files(sftp):</span>
-<span class="c1">#         directory_structure = sftp.listdir_attr()</span>
-<span class="c1">#         vattr=[]</span>
-<span class="c1">#         for attr in directory_structure:</span>
-<span class="c1">#             vattr=vattr+[attr.filename]</span>
-<span class="c1">#             #print(attr.filename, attr)</span>
-<span class="c1">#         return(vattr)</span>
-    
-<span class="c1">#     def __f_save_to_crypted(data,filename,key,cipher_suite):</span>
-<span class="c1">#         data=data.to_json(orient=&quot;records&quot;)</span>
-<span class="c1">#         data=str.encode(data)</span>
-        
-<span class="c1">#         cipher_text = cipher_suite.encrypt(data)</span>
-        
-<span class="c1">#         f = open(filename, &quot;wb&quot;)</span>
-<span class="c1">#         f.write(cipher_text)</span>
-<span class="c1">#         f.close()</span>
-        
-<span class="c1">#         tar = tarfile.open(filename+&quot;.tar.gz&quot;, &quot;w:gz&quot;)</span>
-<span class="c1">#         tar.add(filename, arcname=filename)</span>
-<span class="c1">#         tar.close()</span>
-        
-<span class="c1">#         return(0)</span>
-    
-<span class="c1">#     def __f_save_to_crypted_list(list_Data,filename,key,cipher_suite):</span>
-<span class="c1">#         tar = tarfile.open(filename+&quot;.tar.gz&quot;, &quot;w:gz&quot;)</span>
-<span class="c1">#         for filename0 in list_Data.keys():</span>
-            
-<span class="c1">#             data=list_Data[filename0]</span>
-            
-<span class="c1">#             data=data.to_json(orient=&quot;records&quot;)</span>
-<span class="c1">#             data=str.encode(data)</span>
-    
-<span class="c1">#             cipher_text = cipher_suite.encrypt(data)</span>
-    
-<span class="c1">#             f = open(filename0, &quot;wb&quot;)</span>
-<span class="c1">#             f.write(cipher_text)</span>
-<span class="c1">#             f.close()</span>
-    
-<span class="c1">#             tar.add(filename0, arcname=filename0)</span>
-<span class="c1">#             os.remove(filename0)</span>
-<span class="c1">#         tar.close()</span>
-    
-<span class="c1">#         return(0)</span>
-    
-<span class="c1">#     def __f_put_file(filename0,sftp,ntry=12):</span>
-<span class="c1">#         z=0</span>
-<span class="c1">#         flg_ok=0</span>
-<span class="c1">#         list_files=[]</span>
-<span class="c1">#         while (filename0 not in list_files) and (z&lt;ntry):</span>
-<span class="c1">#             sftp.put(filename0, filename0)</span>
-<span class="c1">#             list_files=__f_list_files(sftp)</span>
-<span class="c1">#             if filename0 in list_files:</span>
-<span class="c1">#                 flg_ok=1</span>
-<span class="c1">#                 break</span>
-<span class="c1">#             else:</span>
-<span class="c1">#                 time.sleep(5)</span>
-<span class="c1">#             z=z+1</span>
-<span class="c1">#         if flg_ok==1:</span>
-<span class="c1">#             print(&quot;Your data has been encrypted and sent to our server for the execution.&quot;)</span>
-<span class="c1">#         else:</span>
-<span class="c1">#             ValueError(&quot;put_file: timeout reached.&quot;)</span>
-        
-<span class="c1">#         return(0)</span>
-    
-<span class="c1">#     def __f_get_file(filename0,sftp,ntry=12):</span>
-<span class="c1">#         z=0</span>
-<span class="c1">#         flg_ok=0</span>
-<span class="c1">#         ck_file=False</span>
-<span class="c1">#         while (ck_file==False) and (z&lt;ntry):</span>
-<span class="c1">#             sftp.get(filename0, filename0)</span>
-<span class="c1">#             ck_file=os.path.exists(filename0)</span>
-<span class="c1">#             if ck_file:</span>
-<span class="c1">#                 flg_ok=1</span>
-<span class="c1">#                 break</span>
-<span class="c1">#             else:</span>
-<span class="c1">#                 time.sleep(5)</span>
-<span class="c1">#             z=z+1</span>
-<span class="c1">#         if flg_ok==1:</span>
-<span class="c1">#             print(&quot;Your output has been retrieved from our server.&quot;)</span>
-<span class="c1">#         else:</span>
-<span class="c1">#             ValueError(&quot;get_file: timeout reached.&quot;)</span>
-        
-<span class="c1">#         return(0)</span>
-    
-<span class="c1">#     def __f_initialize_connection(server,token):</span>
-        
-<span class="c1">#         filename = str(uuid.uuid4())</span>
-<span class="c1">#         os.mkdir(filename)</span>
-<span class="c1">#         os.chdir(filename)</span>
-        
-<span class="c1">#         url=&#39;https://{0}/api/api.php?type=pw&amp;filename={1}&amp;token={2}&#39;.format(server,filename,token)</span>
-<span class="c1">#         #print(url)</span>
-<span class="c1">#         info = requests.get(url)</span>
-<span class="c1">#         info=info.text.split(&quot;\n&quot;)</span>
-<span class="c1">#         Username=info[0]</span>
-<span class="c1">#         Password=info[1][0:-1]</span>
-    
-<span class="c1">#         sftp=pysftp.Connection(host=socket.gethostbyname(server) , username=Username, password=Password)</span>
-<span class="c1">#         sftp.cwd(&#39;/{0}&#39;.format(Username))</span>
-        
-<span class="c1">#         return([filename,sftp])</span>
-    
-<span class="c1">#     def __f_send_to_server(Data,is_list,filename,server,sftp):</span>
-        
-<span class="c1">#         url=&#39;https://{0}/api/max_size.php&#39;.format(server)</span>
-<span class="c1">#         resp=requests.get(url)</span>
-<span class="c1">#         msb=int(resp.text)</span>
-        
-<span class="c1">#         #filename = str(uuid.uuid4())</span>
-<span class="c1">#         key = Fernet.generate_key()</span>
-<span class="c1">#         cipher_suite = Fernet(key)</span>
-    
-<span class="c1">#         print(&quot;Encrypting your data...&quot;)</span>
-    
-<span class="c1">#         if is_list==False:</span>
-<span class="c1">#             __f_save_to_crypted(Data,filename,key,cipher_suite)</span>
-<span class="c1">#             os.remove(filename)</span>
-<span class="c1">#         else:</span>
-<span class="c1">#             __f_save_to_crypted_list(Data,filename,key,cipher_suite)</span>
-            
-<span class="c1">#         if os.path.getsize(filename+&quot;.tar.gz&quot;)&lt;(msb*1e6):</span>
-<span class="c1">#             print(&quot;Sending your encrypted data to our server...&quot;)</span>
-<span class="c1">#             print(&quot;filename: &quot; + filename)</span>
-<span class="c1">#             print(&quot;key: &quot; + key.decode(&quot;utf-8&quot;))</span>
-        
-<span class="c1">#             __f_put_file(filename+&quot;.tar.gz&quot;,sftp,ntry=12)</span>
-<span class="c1">#             os.remove(filename+&quot;.tar.gz&quot;)</span>
-<span class="c1">#             return([key,cipher_suite])</span>
-<span class="c1">#         else:</span>
-<span class="c1">#             print(&quot;Your filesize exceed &quot;+ str(msb) +&quot; Mb which is the maximum size allowed&quot;)</span>
-<span class="c1">#             os.remove(filename+&quot;.tar.gz&quot;)</span>
-<span class="c1">#             return([-1,-1])</span>
-    
-<span class="c1">#     def __f_retrieve_from_server(filename,sftp):</span>
-        
-<span class="c1">#         print(&quot;Retrieving output...&quot;)</span>
-        
-<span class="c1">#         __f_get_file(filename+&quot;-O.tar.gz&quot;,sftp,ntry=100)</span>
-<span class="c1">#         sftp.remove(filename+&quot;-O.tar.gz&quot;)</span>
-    
-<span class="c1">#         tar = tarfile.open(filename+&quot;-O.tar.gz&quot;, &quot;r:gz&quot;)</span>
-<span class="c1">#         tar.extractall()</span>
-<span class="c1">#         tar.close()</span>
-<span class="c1">#         os.remove(filename+&quot;-O.tar.gz&quot;)</span>
-        
-<span class="c1">#         return(0)</span>
-    
-<span class="c1">#     def generate_token(email,job,company):</span>
-    
-<span class="c1">#         &#39;&#39;&#39;</span>
-        
-<span class="c1">#         You can use this function to generate a token that enables the use of our apis for making path-level attribution. An email containing your personal token will be sent to the email address indicated. </span>
-        
-<span class="c1">#         Parameters</span>
-<span class="c1">#         ----------</span>
-<span class="c1">#         email : string</span>
-<span class="c1">#             a string with your business/university email at which we will send your personal token</span>
-<span class="c1">#         job : string</span>
-<span class="c1">#             a string describing your job</span>
-<span class="c1">#         company: string</span>
-<span class="c1">#             a string containing the name of your company/university</span>
-                            
-        
-<span class="c1">#         Examples</span>
-<span class="c1">#         --------</span>
-        
-<span class="c1">#         generate_token(&quot;mario.rossi@data.com&quot;,&quot;data scientist&quot;,&quot;data.com&quot;)</span>
-        
-<span class="c1">#         &#39;&#39;&#39;</span>
-        
-<span class="c1">#         server = &quot;api.channelattribution.net&quot;</span>
-        
-<span class="c1">#         try:</span>
-<span class="c1">#             ck_libs=__check_libs_for_api()</span>
-            
-<span class="c1">#             if ck_libs==1:</span>
-            
-<span class="c1">#                 __import_libs_for_api()</span>
-            
-<span class="c1">#                 if email==None:</span>
-<span class="c1">#                     raise NameError(&quot;email must be specified&quot;)</span>
-                
-<span class="c1">#                 if job==None:</span>
-<span class="c1">#                     raise NameError(&quot;job must be specified&quot;)</span>
-                    
-<span class="c1">#                 if company==None:</span>
-<span class="c1">#                     raise NameError(&quot;company must be specified&quot;)</span>
-                
-<span class="c1">#                 regex = r&#39;\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b&#39;</span>
-                
-<span class="c1">#                 def check(email):</span>
-<span class="c1">#                     if(re.fullmatch(regex, email)):</span>
-<span class="c1">#                         return(1)</span>
-                        
-<span class="c1">#                     else:</span>
-<span class="c1">#                         return(0)</span>
-                
-<span class="c1">#                 if check(email)==0:</span>
-<span class="c1">#                     print(&quot;Insert a valid email address&quot;)</span>
-<span class="c1">#                     return(-1)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     job=re.sub(&quot;[^0-9a-zA-Z]+&quot;, &quot;_&quot;, job)</span>
-<span class="c1">#                     company=re.sub(&quot;[^0-9a-zA-Z]+&quot;, &quot;_&quot;, company)</span>
-                    
-<span class="c1">#                 token = str(uuid.uuid4())</span>
-                    
-<span class="c1">#                 url=&quot;https://{0}/api/token_registration.php?mail={1}&amp;job={2}&amp;company={3}&amp;token={4}&quot;.format(server,email,job,company,token)</span>
-<span class="c1">#                 resp=requests.get(url)</span>
-<span class="c1">#                 resp=resp.text</span>
-                
-<span class="c1">#                 if resp[0]==&#39;1&#39;:</span>
-<span class="c1">#                     print(&quot;Your token has been sent to your email address.&quot;)</span>
-<span class="c1">#                     return(0)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     print(&quot;Token generation failed. Try again.&quot;)</span>
-<span class="c1">#                     return(-1)</span>
-            
-<span class="c1">#         else:    </span>
-<span class="c1">#             print(&quot;Your token has not been created. Try again or write to info@channelattribution.io&quot;)</span>
-<span class="c1">#             return(-1)</span>
-        
-    
-<span class="c1">#     def markov_model_local_api(token, Data,var_path, var_conv,var_value=None, var_null=None, order=1, sep=&quot;&gt;&quot;, ncore=1, conv_par_glob=0.05,</span>
-<span class="c1">#     conv_par_loc=0.01,verbose=True):</span>
-    
-<span class="c1">#         &#39;&#39;&#39;</span>
-<span class="c1">#         Through this function, you can make path-level attribution using Markov model. It requires a token that can be generated using the function &quot;generate_token&quot;. Your Data will be encrypted and sent to our server for being elaborated and the output will be returned. We will not share your Data or store it, it will be canceled at the end of the elaboration. If you prefer to make path attribution locally, you can write us at info@channelattribution.net.</span>
-        
-<span class="c1">#         Parameters</span>
-<span class="c1">#         ----------</span>
-<span class="c1">#         token : string</span>
-<span class="c1">#             your personal token generated with function &quot;generate_token&quot;</span>
-<span class="c1">#         Data : DataFrame</span>
-<span class="c1">#             customer journeys.</span>
-<span class="c1">#         var_path: string</span>
-<span class="c1">#             column of Data containing paths.</span>
-<span class="c1">#         var_conv : string</span>
-<span class="c1">#             column of Data containing total conversions for each path.</span>
-<span class="c1">#         var_value : string, default None</span>
-<span class="c1">#             column of Data containing revenue for each path</span>
-<span class="c1">#         var_null : string, default None</span>
-<span class="c1">#             column of Data containing total paths that do not lead to conversion.</span>
-<span class="c1">#         order : int, default 1</span>
-<span class="c1">#             Markov Model order to be considered.</span>
-<span class="c1">#         sep : string, default &quot;&gt;&quot;</span>
-<span class="c1">#             separator between the channels.</span>
-<span class="c1">#         ncore : int, default 1</span>
-<span class="c1">#             number of threads to be used in computation.</span>
-<span class="c1">#         conv_par_glob : float, default 0.05</span>
-<span class="c1">#             convergence parameter for the global attribution. The estimation process ends when the percentage of variation of the results over dierent repetitions is less than conv_par_loc (this is equal to conv_par parameter of function &quot;markov_model&quot;)</span>
-<span class="c1">#         conv_par_loc : float, default 0.05</span>
-<span class="c1">#             convergence parameter for the local attribution. The estimation process ends when the percentage difference between global and aggregated local attribution is less than conv_par_loc</span>
-<span class="c1">#         verbose : bool, default True</span>
-<span class="c1">#             if True, additional information about process convergence will be shown.</span>
-                
-<span class="c1">#         Returns</span>
-<span class="c1">#         -------</span>
-<span class="c1">#         list</span>
-<span class="c1">#             path_attribution: Dataframe</span>
-<span class="c1">#                 (column) path : path.</span>
-<span class="c1">#                 (column) idpath : path identification number.</span>
-<span class="c1">#                 (column) channel : channel name.</span>
-<span class="c1">#                 (column) weight_total_conversion : percentage of conversions associated to channel for the path considered.</span>
-<span class="c1">#                 (column) weight_total_conversion_value : percentage of conversion value associated to channel for the path considered.</span>
-<span class="c1">#             removal_effects: Dataframe</span>
-<span class="c1">#                 (column) channel_name : channel name.</span>
-<span class="c1">#                 (column) removal_effects_conversion : removal effects for conversion attribution from global attribution.</span>
-<span class="c1">#                 (column) removal_effects_value : removal effects for value attribution from global attribution.</span>
-<span class="c1">#             corrective_factors: list</span>
-<span class="c1">#                 total conversions: Dataframe</span>
-<span class="c1">#                     (column) channel : channel name</span>
-<span class="c1">#                     (column) perc_corr_j : correction percentage at iteration j from the iterative matching process between global and local attribution.</span>
-<span class="c1">#                 total conversion_value: Dataframe</span>
-<span class="c1">#                     (column) channel : channel name</span>
-<span class="c1">#                     (column) perc_corr_j : correction percentage at iteration j from the iterative matching process between global and local attribution.</span>
-                            
-<span class="c1">#         Examples</span>
-<span class="c1">#         --------</span>
-        
-<span class="c1">#         Load Data</span>
-        
-<span class="c1">#         &gt;&gt;&gt; import pandas as pd    </span>
-<span class="c1">#         &gt;&gt;&gt; from ChannelAttribution import *</span>
-<span class="c1">#         &gt;&gt;&gt; Data = pd.read_csv(&#39;https://channelattribution.io/csv/Data.csv&#39;,sep=&quot;;&quot;)</span>
-        
-<span class="c1">#         Path level attribution </span>
-        
-<span class="c1">#         &gt;&gt;&gt; res=markov_model_local_api(token, Data,var_path=&quot;path&quot;, var_conv=&quot;total_conversions&quot;, \\ </span>
-<span class="c1">#         &gt;&gt;&gt; var_value=&quot;total_conversion_value&quot;, var_null=&quot;total_null&quot;, order=1, sep=&quot;&gt;&quot;)</span>
-        
-<span class="c1">#         &#39;&#39;&#39;</span>
-        
-<span class="c1">#         server = &quot;api.channelattribution.net&quot;</span>
-        
-<span class="c1">#         try:</span>
-<span class="c1">#             ck_libs=__check_libs_for_api()</span>
-            
-<span class="c1">#             if ck_libs==1:</span>
-            
-<span class="c1">#                 __import_libs_for_api()</span>
-                
-<span class="c1">#                 if &quot;NoneType&quot; in str(type(token)):</span>
-<span class="c1">#                     raise NameError(&quot;token must be specified. Use function generate_token(email,job,company)&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;str&quot; not in str(type(token)):</span>
-<span class="c1">#                         print(&quot;token must be a string&quot;)</span>
-                
-<span class="c1">#                 if &quot;NoneType&quot; in str(type(Data)):</span>
-<span class="c1">#                     raise NameError(&quot;Data must be specified&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;DataFrame&quot; not in str(type(Data)):</span>
-<span class="c1">#                          raise NameError(&quot;Data must be a DataFrame&quot;)</span>
-                        
-<span class="c1">#                 if &quot;NoneType&quot; in str(type(var_path)):</span>
-<span class="c1">#                     raise NameError(&quot;var_path must be specified&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;str&quot; not in str(type(var_path)):</span>
-<span class="c1">#                         print(&quot;var_path must be a string&quot;)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         var_path_old=var_path</span>
-<span class="c1">#                         var_path=re.sub(r&quot;\s+&quot;, &#39;_&#39;, var_path)</span>
-<span class="c1">#                         Data.rename(columns={var_path_old: var_path},inplace=True)</span>
-                
-<span class="c1">#                 if &quot;NoneType&quot; in str(type(var_conv)):</span>
-<span class="c1">#                     raise NameError(&quot;var_conv must be specified&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;str&quot; not in str(type(var_conv)):</span>
-<span class="c1">#                         print(&quot;var_conv must be a string&quot;)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         var_conv_old=var_conv</span>
-<span class="c1">#                         var_conv=re.sub(r&quot;\s+&quot;, &#39;_&#39;, var_conv)</span>
-<span class="c1">#                         Data.rename(columns={var_conv_old: var_conv},inplace=True)</span>
-                
-<span class="c1">#                 if &quot;NoneType&quot; not in str(type(var_value)):</span>
-<span class="c1">#                     var_value=re.sub(r&quot;\s+&quot;, &#39;_&#39;, var_value)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;str&quot; not in str(type(var_value)):</span>
-<span class="c1">#                         print(&quot;var_value must be a string&quot;)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         var_value_old=var_value</span>
-<span class="c1">#                         var_value=re.sub(r&quot;\s+&quot;, &#39;_&#39;, var_value)</span>
-<span class="c1">#                         Data.rename(columns={var_value_old: var_value},inplace=True)</span>
-                        
-<span class="c1">#                 if &quot;NoneType&quot; not in str(type(var_null)):</span>
-<span class="c1">#                     var_null=re.sub(r&quot;\s+&quot;, &#39;_&#39;, var_null)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;str&quot; not in type(var_null):</span>
-<span class="c1">#                         print(&quot;var_null must be a string&quot;)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         var_null_old=var_null</span>
-<span class="c1">#                         var_null=re.sub(r&quot;\s+&quot;, &#39;_&#39;, var_null)</span>
-<span class="c1">#                         Data.rename(columns={var_null_old: var_null},inplace=True)</span>
-                    
-<span class="c1">#                 if &quot;NoneType&quot; not in str(type(order)):</span>
-<span class="c1">#                     if &quot;int&quot; not in str(type(order)):</span>
-<span class="c1">#                         print(&quot;order must be a int&quot;)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         if order&lt;1:</span>
-<span class="c1">#                             print(&quot;order must be &gt; 0&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     print(&quot;order must be specified&quot;)</span>
-                    
-<span class="c1">#                 if &quot;NoneType&quot; not in str(type(sep)):</span>
-<span class="c1">#                     if &quot;str&quot; not in str(type(sep)):</span>
-<span class="c1">#                         print(&quot;sep must be a string&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     print(&quot;sep must be specified&quot;)</span>
-                    
-<span class="c1">#                 if &quot;NoneType&quot; not in str(type(conv_par_glob)):</span>
-<span class="c1">#                     if &quot;float&quot; not in str(type(conv_par_glob)):</span>
-<span class="c1">#                         print(&quot;conv_par_glob must be a float&quot;)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         if conv_par_glob&lt;=0:</span>
-<span class="c1">#                             print(&quot;conv_par_glob must be &gt; 0&quot;)</span>
-                            
-<span class="c1">#                 if &quot;NoneType&quot; not in str(type(conv_par_loc)):</span>
-<span class="c1">#                     if &quot;float&quot; not in str(type(conv_par_loc)):</span>
-<span class="c1">#                         print(&quot;conv_par_loc must be a float&quot;)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         if conv_par_loc&lt;=0:</span>
-<span class="c1">#                             print(&quot;conv_par_loc must be &gt; 0&quot;)</span>
-                            
-<span class="c1">#                 if &quot;NoneType&quot; not in str(type(verbose)):</span>
-<span class="c1">#                     if &quot;bool&quot; not in str(type(verbose)):</span>
-<span class="c1">#                         print(&quot;verbose must be True or False&quot;)</span>
-                        
-                
-<span class="c1">#                 path0=os.getcwd()</span>
-                
-<span class="c1">#                 #initialize connection</span>
-                
-<span class="c1">#                 [filename,sftp]=__f_initialize_connection(server,token)</span>
-                
-<span class="c1">#                 #send input to server</span>
-                
-<span class="c1">#                 [key,cipher_suite]=__f_send_to_server(Data,False,filename,server,sftp)</span>
-                
-<span class="c1">#                 if key!=-1:</span>
-<span class="c1">#                     #elaborate on server</span>
-                    
-<span class="c1">#                     print(&quot;Asking to our server to start the elaboration...&quot;)</span>
-<span class="c1">#                     url=&#39;https://{0}/api/api.php?type=markov-model-local&amp;filename={1}&amp;key={2}&amp;var_path={3}&amp;var_conv={4}&amp;var_value={5}&amp;var_null={6}&amp;order={7}&amp;sep={8}&amp;ncore={9}&amp;conv_par_glob={10}&amp;conv_par_loc={11}&amp;verbose={12}&amp;token={13}&#39;.format(server,filename,key.decode(&quot;utf-8&quot;),var_path,var_conv,var_value,var_null,order,sep,ncore,conv_par_glob,conv_par_loc,verbose,token)</span>
-<span class="c1">#                     #print(url)</span>
-<span class="c1">#                     resp=requests.get(url)</span>
-<span class="c1">#                     resp=resp.text</span>
-<span class="c1">#                     print(resp)</span>
-                    
-<span class="c1">#                     if &quot;token_ko&quot; not in resp:</span>
-<span class="c1">#                         &#39;&#39;&#39;&#39;</span>
-<span class="c1">#                           cipher_suite = Fernet(str.encode(key))</span>
-<span class="c1">#                         &#39;&#39;&#39;</span>
-<span class="c1">#                         #retrieving output</span>
-                        
-<span class="c1">#                         __f_retrieve_from_server(filename,sftp)</span>
-                        
-<span class="c1">#                         print(&quot;Composing output...&quot;)</span>
-                        
-<span class="c1">#                         res=dict()</span>
-<span class="c1">#                         for elem in [&#39;path_attribution&#39;,&#39;removal_effects&#39;,&#39;corrective_factors&#39;]:</span>
-<span class="c1">#                             cipher_text = open(elem, &#39;r&#39;).read()</span>
-<span class="c1">#                             plain_text = cipher_suite.decrypt(str.encode(cipher_text),)</span>
-<span class="c1">#                             res[elem]=pd.read_json(plain_text,orient=&#39;records&#39;)</span>
-                            
-<span class="c1">#                         tmp=res[&#39;corrective_factors&#39;].copy()</span>
-<span class="c1">#                         tmp1=tmp[tmp.type==&#39;total_conversions&#39;]</span>
-<span class="c1">#                         del tmp1[&#39;type&#39;]</span>
-<span class="c1">#                         tmp2=tmp[tmp.type==&#39;total_conversion_value&#39;]</span>
-<span class="c1">#                         del tmp2[&#39;type&#39;]</span>
-                        
-<span class="c1">#                         res[&#39;corrective_factors&#39;]=dict()</span>
-<span class="c1">#                         res[&#39;corrective_factors&#39;][&#39;total_conversions&#39;]=tmp1 </span>
-<span class="c1">#                         res[&#39;corrective_factors&#39;][&#39;total_conversion_value&#39;]=tmp2 </span>
-                        
-<span class="c1">#                         shutil.rmtree(path0+&#39;/&#39;+filename)</span>
-<span class="c1">#                         os.chdir(path0)</span>
-                        
-<span class="c1">#                         print(&quot;Your data has been cancelled from our server&quot;)</span>
-<span class="c1">#                         print(&quot;Elaboration finished!&quot;)</span>
-                        
-<span class="c1">#                         return(res)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         print(&quot;Your token is not valid. Try again or try to generate a new one.&quot;)</span>
-<span class="c1">#                         return(-1)</span>
-                    
-<span class="c1">#                 else:</span>
-<span class="c1">#                     return(-1)</span>
-                
-<span class="c1">#             else:</span>
-<span class="c1">#                 return(-1)</span>
-            
-<span class="c1">#         except:</span>
-<span class="c1">#             url=&#39;https://{0}/api/remove_data.php?filename={1}&#39;.format(server,filename)</span>
-<span class="c1">#             resp=requests.get(url)</span>
-<span class="c1">#             print(&quot;Your data has been cancelled from our server&quot;)</span>
-<span class="c1">#             print(&quot;Elaboration interrupted with errors. Try again or write to info@channelattribution.io&quot;)</span>
-<span class="c1">#             return(-1)</span>
-<span class="c1">#             #raise</span>
-        
-<span class="c1">#     def new_paths_attribution_api(token, tab_new,var_path,Tab_re,D_tab_corr,sep=&quot;&gt;&quot;):</span>
-    
-<span class="c1">#         &#39;&#39;&#39;</span>
-        
-<span class="c1">#         Through this function, you can make path-level attribution using Markov model on paths you have not observed before. This function can be also used in real-time attribution. It requires a token that can be generated using the function &quot;generate_token&quot;. Your Data will be encrypted and sent to our server for being elaborated and the output will be returned. We will not share your Data or store it, it will be canceled at the end of the elaboration. If you prefer to make path attribution locally, you can write us at info@channelattribution.io.</span>
-        
-<span class="c1">#         Parameters</span>
-<span class="c1">#         ----------</span>
-<span class="c1">#         token : string</span>
-<span class="c1">#             your personal token generated with generate_token function.</span>
-<span class="c1">#         tab_new : DataFrame containing new paths for which you want to make path level attribution.</span>
-<span class="c1">#             paths</span>
-<span class="c1">#         var_path: string</span>
-<span class="c1">#             column of tab_new containing paths.</span>
-<span class="c1">#         Tab_re : DataFrame</span>
-<span class="c1">#             removal effects from global attribution.</span>
-<span class="c1">#         D_tab_corr : list of DataFrames</span>
-<span class="c1">#             corrective factors from local attribution.</span>
-<span class="c1">#         sep : string, default &quot;&gt;&quot;</span>
-<span class="c1">#             separator between the channels.</span>
-    
-                
-<span class="c1">#         Returns</span>
-<span class="c1">#         -------</span>
-<span class="c1">#         DataFrame</span>
-<span class="c1">#             result: Dataframe</span>
-<span class="c1">#                 (column) path : path.</span>
-<span class="c1">#                 (column) idpath : path identification number.</span>
-<span class="c1">#                 (column) channel : channel name.</span>
-<span class="c1">#                 (column) weight_total_conversion : percentage of conversions associated to channel for the path considered.</span>
-<span class="c1">#                 (column) weight_total_conversion_value : percentage of conversion value associated to channel for the path considered.</span>
-                            
-<span class="c1">#         Examples</span>
-<span class="c1">#         --------</span>
-        
-<span class="c1">#         Load Data</span>
-        
-<span class="c1">#         &gt;&gt;&gt; import pandas as pd    </span>
-<span class="c1">#         &gt;&gt;&gt; from ChannelAttribution import *</span>
-<span class="c1">#         &gt;&gt;&gt; Data = pd.read_csv(&#39;https://channelattribution.io/csv/Data.csv&#39;,sep=&quot;;&quot;)</span>
-        
-<span class="c1">#         Path level attribution </span>
-        
-<span class="c1">#         &gt;&gt;&gt; res=markov_model_local_api(token, Data,var_path=&quot;path&quot;, var_conv=&quot;total_conversions&quot;, \\</span>
-<span class="c1">#         &gt;&gt;&gt; var_value=&quot;total_conversion_value&quot;, var_null=&quot;total_null&quot;, order=1, sep=&quot;&gt;&quot;)</span>
-        
-<span class="c1">#         Path level attribution on new paths</span>
-        
-<span class="c1">#         &gt;&gt;&gt; res_new=new_paths_attribution_api(token, tab_new,var_path=&quot;path&quot;, \\ </span>
-<span class="c1">#         &gt;&gt;&gt; Tab_re=res[&#39;removal_effects&#39;],D_tab_corr=res[&#39;corrective_factors&#39;],sep=&quot;&gt;&quot;)</span>
-        
-<span class="c1">#         &#39;&#39;&#39;</span>
-        
-<span class="c1">#         server = &quot;api.channelattribution.net&quot;</span>
-    
-<span class="c1">#         try:</span>
-<span class="c1">#             ck_libs=__check_libs_for_api()</span>
-            
-<span class="c1">#             if ck_libs==1:</span>
-            
-<span class="c1">#                 __import_libs_for_api()</span>
-            
-<span class="c1">#                 if &quot;NoneType&quot; in str(type(token)):</span>
-<span class="c1">#                     raise NameError(&quot;token must be specified. Use function generate_token(email,job,company)&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;str&quot; not in str(type(token)):</span>
-<span class="c1">#                         print(&quot;token must be a string&quot;)</span>
-                
-<span class="c1">#                 if &quot;NoneType&quot; in str(type(tab_new)):</span>
-<span class="c1">#                     raise NameError(&quot;tab_new must be specified&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;DataFrame&quot; not in str(type(tab_new)):</span>
-<span class="c1">#                          raise NameError(&quot;tab_new must be a DataFrame&quot;)</span>
-                        
-<span class="c1">#                 if &quot;NoneType&quot; in str(type(var_path)):</span>
-<span class="c1">#                     raise NameError(&quot;var_path must be specified&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;str&quot; not in str(type(var_path)):</span>
-<span class="c1">#                         print(&quot;var_path must be a string&quot;)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         var_path_old=var_path</span>
-<span class="c1">#                         var_path=re.sub(r&quot;\s+&quot;, &#39;_&#39;, var_path)</span>
-<span class="c1">#                         tab_new.rename(columns={var_path_old: var_path},inplace=True)</span>
-                
-<span class="c1">#                 if &quot;NoneType&quot; in str(type(Tab_re)):</span>
-<span class="c1">#                     raise NameError(&quot;Tab_re must be specified&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;DataFrame&quot; not in str(type(Tab_re)):</span>
-<span class="c1">#                          raise NameError(&quot;Tab_re must be a DataFrame&quot;)</span>
-                
-<span class="c1">#                 if &quot;NoneType&quot; in str(type(D_tab_corr)):</span>
-<span class="c1">#                     raise NameError(&quot;D_tab_corr must be specified&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     if &quot;dict&quot; not in str(type(D_tab_corr)):</span>
-<span class="c1">#                          raise NameError(&quot;D_tab_corr must be a dictionary&quot;)</span>
-                
-<span class="c1">#                 if &quot;NoneType&quot; not in str(type(sep)):</span>
-<span class="c1">#                     if &quot;str&quot; not in str(type(sep)):</span>
-<span class="c1">#                         print(&quot;sep must be a string&quot;)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     print(&quot;sep must be specified&quot;)</span>
-                    
-                
-<span class="c1">#                 path0=os.getcwd()</span>
-                
-<span class="c1">#                 #initialize connection</span>
-                
-<span class="c1">#                 [filename,sftp]=__f_initialize_connection(server,token)</span>
-                
-<span class="c1">#                 #send input to server</span>
-                
-<span class="c1">#                 list_Data=dict()</span>
-<span class="c1">#                 list_Data[&#39;tab_new&#39;]=tab_new</span>
-<span class="c1">#                 list_Data[&#39;Tab_re&#39;]=Tab_re</span>
-<span class="c1">#                 list_Data[&#39;D_tab_corr_conv&#39;]=D_tab_corr[&#39;total_conversions&#39;]</span>
-<span class="c1">#                 list_Data[&#39;D_tab_corr_value&#39;]=D_tab_corr[&#39;total_conversion_value&#39;]</span>
-                
-<span class="c1">#                 [key,cipher_suite]=__f_send_to_server(list_Data,True,filename,server,sftp)</span>
-                
-<span class="c1">#                 if key!=-1:</span>
-<span class="c1">#                     # #elaborate on server</span>
-                    
-<span class="c1">#                     print(&quot;Asking to our server to start the elaboration...&quot;)</span>
-<span class="c1">#                     url=&#39;https://{0}/api/api.php?type=new-paths-attribution&amp;filename={1}&amp;key={2}&amp;var_path={3}&amp;sep={4}&amp;token={5}&#39;.format(server,filename,key.decode(&quot;utf-8&quot;),var_path,sep,token)</span>
-<span class="c1">#                     #print(url)</span>
-<span class="c1">#                     resp=requests.get(url)</span>
-<span class="c1">#                     resp=resp.text</span>
-<span class="c1">#                     print(resp)</span>
-                    
-<span class="c1">#                     if &quot;token_ko&quot; not in resp:</span>
-                        
-<span class="c1">#                         #retrieving output</span>
-                        
-<span class="c1">#                         __f_retrieve_from_server(filename,sftp)</span>
-                        
-<span class="c1">#                         print(&quot;Composing output...&quot;)</span>
-                        
-<span class="c1">#                         cipher_text = open(filename+&#39;-O&#39;, &#39;r&#39;).read()</span>
-<span class="c1">#                         plain_text = cipher_suite.decrypt(str.encode(cipher_text))</span>
-<span class="c1">#                         res=pd.read_json(plain_text,orient=&#39;records&#39;)</span>
-                        
-<span class="c1">#                         shutil.rmtree(path0+&#39;/&#39;+filename)</span>
-<span class="c1">#                         os.chdir(path0)</span>
-                        
-<span class="c1">#                         print(&quot;Your data has been cancelled from our server&quot;)</span>
-<span class="c1">#                         print(&quot;Elaboration finished!&quot;) </span>
-                        
-<span class="c1">#                         return(res)</span>
-                    
-<span class="c1">#                     else:</span>
-<span class="c1">#                         print(&quot;Your token is not valid. Try again or try to generate a new one.&quot;)</span>
-<span class="c1">#                         return(-1)</span>
-                
-<span class="c1">#                 else:</span>
-<span class="c1">#                     return(-1)</span>
-            
-<span class="c1">#         except:</span>
-<span class="c1">#             url=&#39;https://{0}/api/remove_data.php?filename={1}&#39;.format(server,filename)</span>
-<span class="c1">#             resp=requests.get(url)</span>
-<span class="c1">#             print(&quot;Your data has been cancelled from our server&quot;)</span>
-<span class="c1">#             print(&quot;Elaboration interrupted with errors. Try again or write to info@channelattribution.io&quot;)</span>
-<span class="c1">#             return(-1)</span>
-            
-            
-    
 </pre></div>
 
             <div class="clearer"></div>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
@@ -1435,13 +1142,13 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1450,14 +1157,14 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 2.1.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ChannelAttribution 2.2.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">ChannelAttribution</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright Davide Altomare and David Loris.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    &#169; Copyright Davide Altomare and David Loris.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

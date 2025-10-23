@@ -1,8 +1,8 @@
 Package: ChannelAttribution
 Type: Package
 Title: Markov Model for Online Multi-Channel Attribution
-Version: 2.0.7
-Date: 2023-12-04
+Version: 2.2.1
+Date: 2025-10-23
 Authors@R: c(
   person("Davide", "Altomare", email = "info@channelattribution.io", role = c("cre", "aut")),
   person("David", "Loris", email = "david@channelattribution.io", role = "aut")

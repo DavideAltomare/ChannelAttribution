@@ -714,669 +714,360 @@ def auto_markov_model(Data, var_path, var_conv, var_null, var_value=None, max_or
         print("*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product")
     
     return(res)
+
+
+def installChPro():
+
+    '''
+    Install ChannelAttribution Pro (binary wheel) for the current environment.
+
+    The function detects your OS, architecture, and Python version, requests a
+    prebuilt wheel (or a build job) from ChannelAttribution Pro’s build service,
+    resolves the final package URL, and installs it via `pip`. If installation
+    fails, it prints a compact system report you can send to support.
+
+    Parameters
+    ----------
+    (none)
+
+    Environment detection
+    ---------------------
+    OS:
+        - manylinux (Linux), macos (macOS), windows (Windows)
+    OS version mapping:
+        - macOS:   "13" for amd64 (Intel), "15" for arm64 (Apple Silicon)
+        - Windows: "11"
+        - Linux:   "2014" (ManyLinux2014 baseline)
+    Architecture:
+        - amd64 (x86_64)
+        - arm64 (aarch64)
+    Python:
+        - Major.minor version detected from the running interpreter (e.g., 3.11)
+
+    Behavior
+    --------
+    1) Builds a request URL to the ChannelAttribution Pro builder:
+       https://app.channelattribution.io/genpkg/genpkg.php
+       with the detected parameters.
+    2) Performs an HTTP GET. The service may:
+       - Return JSON with "pkg": direct wheel URL or a directory containing wheels.
+       - Return HTTP 409 with a JSON body ("exists"/"ok") pointing to an existing build.
+    3) Resolves the final wheel URL (if a directory is returned, picks the latest file).
+    4) Installs the wheel with `python -m pip install --prefer-binary`.
+    5) On success, prints a short message suggesting to restart the session and import:
+       `import ChannelAttributionPro`.
+    6) On failure, prints a JSON-like system info block (OS, distro, Python, compiler)
+       that you can email to info@channelattribution.io.
+
+    Network & security
+    ------------------
+    - Uses HTTPS GET to the builder endpoint.
+    - Sends only non-personal environment traits (OS/arch/Python) as query parameters.
+    - Honors standard proxy settings if your Python/OS is configured accordingly.
+
+    Requirements
+    ------------
+    - Internet connectivity to reach app.channelattribution.io.
+    - `pip` available for the current interpreter (`python -m pip`).
+    - Sufficient permissions to install packages in the environment (use a venv or run
+      with appropriate privileges).
+
+    Notes
+    -----
+    - Depending on load, the remote build step may take several minutes.
+    - On macOS, `gcc` typically maps to Clang; compiler info is reported accordingly.
+    - The Linux baseline targets ManyLinux2014 for broad compatibility.
+
+    Returns
+    -------
+    None
+        The function performs installation as a side effect and writes progress
+        to stdout. On error, it raises SystemExit or RuntimeError in specific cases.
+
+    Exceptions
+    ----------
+    RuntimeError
+        If the remote listing for a returned directory fails (non-200).
+    SystemExit
+        If `pip` returns a non-zero exit code or if no files are found/resolved.
+    urllib.error.URLError / urllib.error.HTTPError
+        May propagate in unexpected network failures not handled internally.
+
+    Examples
+    --------
+    Basic usage
+
+    >>> from ChannelAttributionPro import installChPro
+    >>> installChPro()
+    Building the package. Estimated time: 5-30 minutes. Please wait...
+    ...
+    Package installed. Restart the session and try to import it with: import ChannelAttributionPro
+
+    After installation
+
+    >>> import ChannelAttributionPro
+    >>> ChannelAttributionPro.__version__
+    'x.y.z'
+    '''
+
+    import platform
+    import json
+    import subprocess
+    from html.parser import HTMLParser
+    from urllib.request import Request, urlopen
+    from urllib.error import URLError, HTTPError
+    from urllib.parse import urlencode, urljoin
+
+    # -------- Detect OS / arch / python --------
+    if sys.platform.startswith("linux"):
+        os_name = "manylinux"
+    elif sys.platform == "darwin":
+        os_name = "macos"
+    elif sys.platform in ("win32", "cygwin", "msys"):
+        os_name = "windows"
+    else:
+        os_name = "manylinux"
+
+    machine = platform.machine().lower()
+    if machine in ("x86_64", "amd64"):
+        arch = "amd64"
+    elif machine in ("arm64", "aarch64"):
+        arch = "arm64"
+    else:
+        arch = "amd64"
+
+    lang = "python"
+    lang_vers = f"{sys.version_info.major}.{sys.version_info.minor}"
+
+    # Fixed mapping for os_vers
+    if os_name == "macos":
+        os_vers = "13" if arch == "amd64" else "15"
+    elif os_name == "windows":
+        os_vers = "11"
+    else:
+        os_vers = "2014"
+
+    params = {
+        "os": os_name,
+        "os_vers": os_vers,
+        "arch": arch,
+        "lang": lang,
+        "lang_vers": lang_vers,
+        "replace": "0",
+        "uctr": "0",
+    }
+
+    base_url = "https://app.channelattribution.io/genpkg/genpkg.php"
+    gen_url = f"{base_url}?{urlencode(params)}"
+
+    UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+          "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+    HEADERS = {
+        "User-Agent": UA,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.7",
+        "Accept-Encoding": "identity",
+        "Connection": "close",
+    }
+
+    def http_get(u, timeout=300):
+        req = Request(u, headers=HEADERS)
+        with urlopen(req, timeout=timeout) as resp:
+            return resp.status, resp.read(), resp.headers.get_content_type()
+
+    class LinkCollector(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.links = []
+        def handle_starttag(self, tag, attrs):
+            if tag.lower() == "a":
+                href = dict(attrs).get("href")
+                if href:
+                    self.links.append(href)
+
+    def list_dir_files(dir_url):
+        status, body, _ = http_get(dir_url)
+        if status != 200:
+            raise RuntimeError(f"Listing {dir_url} failed with HTTP {status}")
+        html = body.decode("utf-8", errors="replace")
+        p = LinkCollector()
+        p.feed(html)
+        return [h for h in p.links if h and h not in ("/", "../") and not h.endswith("/")]
+
+    def resolve_pkg_url(pkg_value):
+        """
+        Accepts either a wheel URL or a directory URL and returns a wheel URL.
+        """
+        if pkg_value.lower().endswith(".whl"):
+            return pkg_value
+        # treat as directory
+        pkg_dir = pkg_value.rstrip("/") + "/"
+        files = list_dir_files(pkg_dir)
+        wheels = [f for f in files if f.endswith(".whl")]
+        chosen = (sorted(wheels) or sorted(files) or [None])[-1]
+        if not chosen:
+            raise SystemExit(f"No files found at {pkg_dir}")
+        return urljoin(pkg_dir, chosen)
+
+    def pip_install(url, extra_args=None):
+        cmd = [sys.executable, "-m", "pip", "install",
+               "--no-cache-dir", "--disable-pip-version-check", "--prefer-binary", url]
+        if extra_args: cmd.extend(extra_args)
+        print("Installing with:", " ".join(cmd))
+        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        print(proc.stdout)
+        if proc.returncode != 0:
+            raise SystemExit(proc.returncode)
+
+    #print(f"Detected -> os={os_name}, os_vers={os_vers}, arch={arch}, python={lang_vers}")
+    #print(f"Requesting: {gen_url}")
+
+    pkg_file_url = None
+    flg_success=1
+
+    try:
+        print("Building the package. Estimated time: 0-30 minutes. Please wait...")
+        status, body, _ = http_get(gen_url)
+        if status == 200:
+            text = body.decode("utf-8", errors="replace")
+            try:
+                data = json.loads(text)
+            except Exception:
+                data = None
+            if isinstance(data, dict) and "pkg" in data:
+                pkg_file_url = resolve_pkg_url(data["pkg"])
+            #else:
+                #print(text)
+        else:
+            flg_success=0
+
+    except HTTPError as e:
+        if e.code == 409:
+            err_body = e.read().decode("utf-8", errors="replace")
+            try:
+                data = json.loads(err_body)
+            except Exception:
+                flg_success=0
+            if isinstance(data, dict) and data.get("status") in ("exists","ok") and "pkg" in data:
+                # pkg may be a wheel or a directory
+                pkg_file_url = resolve_pkg_url(data["pkg"])
+                #print(json.dumps({
+                #    "status": data.get("status"),
+                #    "pkg_file_url": pkg_file_url
+                #}, indent=2))
+            else:
+                flg_success=0
+        else:
+            flg_success=0
+
+    if flg_success:
+        pip_install(pkg_file_url)
+        print("Package installed. Restart the session and try to import it with: import ChannelAttributionPro")
+    else:
+        import platform, subprocess, shutil, re, os, json
+        from typing import Optional, Dict, Any
+
+        def _read_os_release() -> Optional[dict]:
+            path = "/etc/os-release"
+            if not os.path.exists(path):
+                return None
+            data = {}
+            with open(path, "r", encoding="utf-8", errors="ignore") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or "=" not in line or line.startswith("#"):
+                        continue
+                    k, v = line.split("=", 1)
+                    data[k] = v.strip().strip('"').strip("'")
+            return data
+
+        def _linux_distro_fallback() -> Optional[str]:
+            info = _read_os_release()
+            if not info:
+                return None
+            return info.get("PRETTY_NAME") or " ".join(
+                x for x in [info.get("NAME"), info.get("VERSION")] if x
+            )
+
+        def _which_compiler() -> Optional[str]:
+            for exe in ("gcc", "cc", "clang"):
+                if shutil.which(exe):
+                    return exe
+            return None
+
+        def _compiler_version(exe: str) -> Optional[str]:
+            # Try gcc-specific full version first
+            try:
+                p = subprocess.run([exe, "-dumpfullversion"], capture_output=True, text=True)
+                if p.returncode == 0 and p.stdout.strip():
+                    return f"{exe} {p.stdout.strip()}"
+            except Exception:
+                pass
+            # Generic --version first line
+            try:
+                p = subprocess.run([exe, "--version"], capture_output=True, text=True)
+                if p.returncode == 0 and p.stdout:
+                    first = p.stdout.splitlines()[0].strip()
+                    m = re.search(r"(gcc|clang)[^0-9]*([0-9]+(?:\.[0-9]+){0,3})", first, re.I)
+                    return f"{m.group(1).lower()} {m.group(2)}" if m else first
+            except Exception:
+                pass
+            return None
+
+        def get_system_info(as_json: bool = False) -> Dict[str, Any] | str:
+            """
+            Return system build info:
+              - os, os_release, architecture, distro
+              - python_implementation, python_version
+              - compiler (gcc/clang) version if available
+            Set as_json=True to get a JSON string.
+            """
+            system = platform.system()              # 'Linux', 'Darwin', 'Windows', etc.
+            release = platform.release()
+            arch = platform.machine() or platform.processor() or "unknown"
+            py_impl = platform.python_implementation()
+            py_ver = platform.python_version()
+
+            # Distro / product version
+            distro_str = None
+            if system == "Linux":
+                # Use 'distro' if available, else fallback to /etc/os-release
+                try:
+                    import distro  # type: ignore
+                    name = distro.name(pretty=True) or distro.id() or ""
+                    vers = distro.version(best=True) or ""
+                    distro_str = " ".join(x for x in (name, vers) if x).strip() or None
+                except Exception:
+                    distro_str = _linux_distro_fallback()
+            elif system == "Darwin":
+                try:
+                    p = subprocess.run(["sw_vers", "-productVersion"], capture_output=True, text=True)
+                    if p.returncode == 0:
+                        distro_str = f"macOS {p.stdout.strip()}"
+                except Exception:
+                    pass
+            elif system == "Windows":
+                distro_str = f"Windows {platform.release()} (build {platform.version()})"
+
+            # Compiler
+            comp = _which_compiler()
+            comp_ver = _compiler_version(comp) if comp else None
+
+            info = {
+                "os": system,
+                "os_release": release,
+                "architecture": arch,
+                "distro": distro_str,
+                "python_implementation": py_impl,
+                "python_version": py_ver,
+                "compiler": comp_ver or "not found",
+            }
+            return json.dumps(info, indent=2) if as_json else info
+
+        print("Installation failed. Send the following information:") 
+        print(" ")
+        print(get_system_info())
+        print(" ")
+        print("to info@channelattribution.io.")
     
 
-#######################################################################################################################################################################
-#APIS
-#######################################################################################################################################################################
-
-# if 0!=0:
-
-#     def __import_libs_for_api():
-#         global pysftp
-#         global tarfile
-#         global uuid
-#         global time
-#         global shutil
-#         global Fernet
-#         global json
-#         global requests
-#         global socket
-#         import pysftp
-#         import tarfile
-#         import uuid
-#         import time
-#         import shutil
-#         from cryptography.fernet import Fernet
-#         import json
-#         import requests
-#         import socket
-        
-#     def __check_libs_for_api():
-#         res=1
-#         libs=['pysftp','tarfile','uuid','time','urllib','shutil','cryptography','json','requests']
-#         no_libs=[]
-#         for lib0 in libs:
-#             ck=importlib.util.find_spec(lib0)
-#             if ck==None:
-#                 no_libs= no_libs+[lib0]
-#         if len(no_libs)>0:
-#             print("There are some missing libraries you need for using our apis. Install them with:")
-#             print("pip install " + " ".join(no_libs))
-#             res=0
-#         return(res)
-    
-#     def __f_list_files(sftp):
-#         directory_structure = sftp.listdir_attr()
-#         vattr=[]
-#         for attr in directory_structure:
-#             vattr=vattr+[attr.filename]
-#             #print(attr.filename, attr)
-#         return(vattr)
-    
-#     def __f_save_to_crypted(data,filename,key,cipher_suite):
-#         data=data.to_json(orient="records")
-#         data=str.encode(data)
-        
-#         cipher_text = cipher_suite.encrypt(data)
-        
-#         f = open(filename, "wb")
-#         f.write(cipher_text)
-#         f.close()
-        
-#         tar = tarfile.open(filename+".tar.gz", "w:gz")
-#         tar.add(filename, arcname=filename)
-#         tar.close()
-        
-#         return(0)
-    
-#     def __f_save_to_crypted_list(list_Data,filename,key,cipher_suite):
-#         tar = tarfile.open(filename+".tar.gz", "w:gz")
-#         for filename0 in list_Data.keys():
-            
-#             data=list_Data[filename0]
-            
-#             data=data.to_json(orient="records")
-#             data=str.encode(data)
-    
-#             cipher_text = cipher_suite.encrypt(data)
-    
-#             f = open(filename0, "wb")
-#             f.write(cipher_text)
-#             f.close()
-    
-#             tar.add(filename0, arcname=filename0)
-#             os.remove(filename0)
-#         tar.close()
-    
-#         return(0)
-    
-#     def __f_put_file(filename0,sftp,ntry=12):
-#         z=0
-#         flg_ok=0
-#         list_files=[]
-#         while (filename0 not in list_files) and (z<ntry):
-#             sftp.put(filename0, filename0)
-#             list_files=__f_list_files(sftp)
-#             if filename0 in list_files:
-#                 flg_ok=1
-#                 break
-#             else:
-#                 time.sleep(5)
-#             z=z+1
-#         if flg_ok==1:
-#             print("Your data has been encrypted and sent to our server for the execution.")
-#         else:
-#             ValueError("put_file: timeout reached.")
-        
-#         return(0)
-    
-#     def __f_get_file(filename0,sftp,ntry=12):
-#         z=0
-#         flg_ok=0
-#         ck_file=False
-#         while (ck_file==False) and (z<ntry):
-#             sftp.get(filename0, filename0)
-#             ck_file=os.path.exists(filename0)
-#             if ck_file:
-#                 flg_ok=1
-#                 break
-#             else:
-#                 time.sleep(5)
-#             z=z+1
-#         if flg_ok==1:
-#             print("Your output has been retrieved from our server.")
-#         else:
-#             ValueError("get_file: timeout reached.")
-        
-#         return(0)
-    
-#     def __f_initialize_connection(server,token):
-        
-#         filename = str(uuid.uuid4())
-#         os.mkdir(filename)
-#         os.chdir(filename)
-        
-#         url='https://{0}/api/api.php?type=pw&filename={1}&token={2}'.format(server,filename,token)
-#         #print(url)
-#         info = requests.get(url)
-#         info=info.text.split("\n")
-#         Username=info[0]
-#         Password=info[1][0:-1]
-    
-#         sftp=pysftp.Connection(host=socket.gethostbyname(server) , username=Username, password=Password)
-#         sftp.cwd('/{0}'.format(Username))
-        
-#         return([filename,sftp])
-    
-#     def __f_send_to_server(Data,is_list,filename,server,sftp):
-        
-#         url='https://{0}/api/max_size.php'.format(server)
-#         resp=requests.get(url)
-#         msb=int(resp.text)
-        
-#         #filename = str(uuid.uuid4())
-#         key = Fernet.generate_key()
-#         cipher_suite = Fernet(key)
-    
-#         print("Encrypting your data...")
-    
-#         if is_list==False:
-#             __f_save_to_crypted(Data,filename,key,cipher_suite)
-#             os.remove(filename)
-#         else:
-#             __f_save_to_crypted_list(Data,filename,key,cipher_suite)
-            
-#         if os.path.getsize(filename+".tar.gz")<(msb*1e6):
-#             print("Sending your encrypted data to our server...")
-#             print("filename: " + filename)
-#             print("key: " + key.decode("utf-8"))
-        
-#             __f_put_file(filename+".tar.gz",sftp,ntry=12)
-#             os.remove(filename+".tar.gz")
-#             return([key,cipher_suite])
-#         else:
-#             print("Your filesize exceed "+ str(msb) +" Mb which is the maximum size allowed")
-#             os.remove(filename+".tar.gz")
-#             return([-1,-1])
-    
-#     def __f_retrieve_from_server(filename,sftp):
-        
-#         print("Retrieving output...")
-        
-#         __f_get_file(filename+"-O.tar.gz",sftp,ntry=100)
-#         sftp.remove(filename+"-O.tar.gz")
-    
-#         tar = tarfile.open(filename+"-O.tar.gz", "r:gz")
-#         tar.extractall()
-#         tar.close()
-#         os.remove(filename+"-O.tar.gz")
-        
-#         return(0)
-    
-#     def generate_token(email,job,company):
-    
-#         '''
-        
-#         You can use this function to generate a token that enables the use of our apis for making path-level attribution. An email containing your personal token will be sent to the email address indicated. 
-        
-#         Parameters
-#         ----------
-#         email : string
-#             a string with your business/university email at which we will send your personal token
-#         job : string
-#             a string describing your job
-#         company: string
-#             a string containing the name of your company/university
-                            
-        
-#         Examples
-#         --------
-        
-#         generate_token("mario.rossi@data.com","data scientist","data.com")
-        
-#         '''
-        
-#         server = "api.channelattribution.net"
-        
-#         try:
-#             ck_libs=__check_libs_for_api()
-            
-#             if ck_libs==1:
-            
-#                 __import_libs_for_api()
-            
-#                 if email==None:
-#                     raise NameError("email must be specified")
-                
-#                 if job==None:
-#                     raise NameError("job must be specified")
-                    
-#                 if company==None:
-#                     raise NameError("company must be specified")
-                
-#                 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-                
-#                 def check(email):
-#                     if(re.fullmatch(regex, email)):
-#                         return(1)
-                        
-#                     else:
-#                         return(0)
-                
-#                 if check(email)==0:
-#                     print("Insert a valid email address")
-#                     return(-1)
-#                 else:
-#                     job=re.sub("[^0-9a-zA-Z]+", "_", job)
-#                     company=re.sub("[^0-9a-zA-Z]+", "_", company)
-                    
-#                 token = str(uuid.uuid4())
-                    
-#                 url="https://{0}/api/token_registration.php?mail={1}&job={2}&company={3}&token={4}".format(server,email,job,company,token)
-#                 resp=requests.get(url)
-#                 resp=resp.text
-                
-#                 if resp[0]=='1':
-#                     print("Your token has been sent to your email address.")
-#                     return(0)
-#                 else:
-#                     print("Token generation failed. Try again.")
-#                     return(-1)
-            
-#         else:    
-#             print("Your token has not been created. Try again or write to info@channelattribution.io")
-#             return(-1)
-        
-    
-#     def markov_model_local_api(token, Data,var_path, var_conv,var_value=None, var_null=None, order=1, sep=">", ncore=1, conv_par_glob=0.05,
-#     conv_par_loc=0.01,verbose=True):
-    
-#         '''
-#         Through this function, you can make path-level attribution using Markov model. It requires a token that can be generated using the function "generate_token". Your Data will be encrypted and sent to our server for being elaborated and the output will be returned. We will not share your Data or store it, it will be canceled at the end of the elaboration. If you prefer to make path attribution locally, you can write us at info@channelattribution.net.
-        
-#         Parameters
-#         ----------
-#         token : string
-#             your personal token generated with function "generate_token"
-#         Data : DataFrame
-#             customer journeys.
-#         var_path: string
-#             column of Data containing paths.
-#         var_conv : string
-#             column of Data containing total conversions for each path.
-#         var_value : string, default None
-#             column of Data containing revenue for each path
-#         var_null : string, default None
-#             column of Data containing total paths that do not lead to conversion.
-#         order : int, default 1
-#             Markov Model order to be considered.
-#         sep : string, default ">"
-#             separator between the channels.
-#         ncore : int, default 1
-#             number of threads to be used in computation.
-#         conv_par_glob : float, default 0.05
-#             convergence parameter for the global attribution. The estimation process ends when the percentage of variation of the results over dierent repetitions is less than conv_par_loc (this is equal to conv_par parameter of function "markov_model")
-#         conv_par_loc : float, default 0.05
-#             convergence parameter for the local attribution. The estimation process ends when the percentage difference between global and aggregated local attribution is less than conv_par_loc
-#         verbose : bool, default True
-#             if True, additional information about process convergence will be shown.
-                
-#         Returns
-#         -------
-#         list
-#             path_attribution: Dataframe
-#                 (column) path : path.
-#                 (column) idpath : path identification number.
-#                 (column) channel : channel name.
-#                 (column) weight_total_conversion : percentage of conversions associated to channel for the path considered.
-#                 (column) weight_total_conversion_value : percentage of conversion value associated to channel for the path considered.
-#             removal_effects: Dataframe
-#                 (column) channel_name : channel name.
-#                 (column) removal_effects_conversion : removal effects for conversion attribution from global attribution.
-#                 (column) removal_effects_value : removal effects for value attribution from global attribution.
-#             corrective_factors: list
-#                 total conversions: Dataframe
-#                     (column) channel : channel name
-#                     (column) perc_corr_j : correction percentage at iteration j from the iterative matching process between global and local attribution.
-#                 total conversion_value: Dataframe
-#                     (column) channel : channel name
-#                     (column) perc_corr_j : correction percentage at iteration j from the iterative matching process between global and local attribution.
-                            
-#         Examples
-#         --------
-        
-#         Load Data
-        
-#         >>> import pandas as pd    
-#         >>> from ChannelAttribution import *
-#         >>> Data = pd.read_csv('https://channelattribution.io/csv/Data.csv',sep=";")
-        
-#         Path level attribution 
-        
-#         >>> res=markov_model_local_api(token, Data,var_path="path", var_conv="total_conversions", \\ 
-#         >>> var_value="total_conversion_value", var_null="total_null", order=1, sep=">")
-        
-#         '''
-        
-#         server = "api.channelattribution.net"
-        
-#         try:
-#             ck_libs=__check_libs_for_api()
-            
-#             if ck_libs==1:
-            
-#                 __import_libs_for_api()
-                
-#                 if "NoneType" in str(type(token)):
-#                     raise NameError("token must be specified. Use function generate_token(email,job,company)")
-#                 else:
-#                     if "str" not in str(type(token)):
-#                         print("token must be a string")
-                
-#                 if "NoneType" in str(type(Data)):
-#                     raise NameError("Data must be specified")
-#                 else:
-#                     if "DataFrame" not in str(type(Data)):
-#                          raise NameError("Data must be a DataFrame")
-                        
-#                 if "NoneType" in str(type(var_path)):
-#                     raise NameError("var_path must be specified")
-#                 else:
-#                     if "str" not in str(type(var_path)):
-#                         print("var_path must be a string")
-#                     else:
-#                         var_path_old=var_path
-#                         var_path=re.sub(r"\s+", '_', var_path)
-#                         Data.rename(columns={var_path_old: var_path},inplace=True)
-                
-#                 if "NoneType" in str(type(var_conv)):
-#                     raise NameError("var_conv must be specified")
-#                 else:
-#                     if "str" not in str(type(var_conv)):
-#                         print("var_conv must be a string")
-#                     else:
-#                         var_conv_old=var_conv
-#                         var_conv=re.sub(r"\s+", '_', var_conv)
-#                         Data.rename(columns={var_conv_old: var_conv},inplace=True)
-                
-#                 if "NoneType" not in str(type(var_value)):
-#                     var_value=re.sub(r"\s+", '_', var_value)
-#                 else:
-#                     if "str" not in str(type(var_value)):
-#                         print("var_value must be a string")
-#                     else:
-#                         var_value_old=var_value
-#                         var_value=re.sub(r"\s+", '_', var_value)
-#                         Data.rename(columns={var_value_old: var_value},inplace=True)
-                        
-#                 if "NoneType" not in str(type(var_null)):
-#                     var_null=re.sub(r"\s+", '_', var_null)
-#                 else:
-#                     if "str" not in type(var_null):
-#                         print("var_null must be a string")
-#                     else:
-#                         var_null_old=var_null
-#                         var_null=re.sub(r"\s+", '_', var_null)
-#                         Data.rename(columns={var_null_old: var_null},inplace=True)
-                    
-#                 if "NoneType" not in str(type(order)):
-#                     if "int" not in str(type(order)):
-#                         print("order must be a int")
-#                     else:
-#                         if order<1:
-#                             print("order must be > 0")
-#                 else:
-#                     print("order must be specified")
-                    
-#                 if "NoneType" not in str(type(sep)):
-#                     if "str" not in str(type(sep)):
-#                         print("sep must be a string")
-#                 else:
-#                     print("sep must be specified")
-                    
-#                 if "NoneType" not in str(type(conv_par_glob)):
-#                     if "float" not in str(type(conv_par_glob)):
-#                         print("conv_par_glob must be a float")
-#                     else:
-#                         if conv_par_glob<=0:
-#                             print("conv_par_glob must be > 0")
-                            
-#                 if "NoneType" not in str(type(conv_par_loc)):
-#                     if "float" not in str(type(conv_par_loc)):
-#                         print("conv_par_loc must be a float")
-#                     else:
-#                         if conv_par_loc<=0:
-#                             print("conv_par_loc must be > 0")
-                            
-#                 if "NoneType" not in str(type(verbose)):
-#                     if "bool" not in str(type(verbose)):
-#                         print("verbose must be True or False")
-                        
-                
-#                 path0=os.getcwd()
-                
-#                 #initialize connection
-                
-#                 [filename,sftp]=__f_initialize_connection(server,token)
-                
-#                 #send input to server
-                
-#                 [key,cipher_suite]=__f_send_to_server(Data,False,filename,server,sftp)
-                
-#                 if key!=-1:
-#                     #elaborate on server
-                    
-#                     print("Asking to our server to start the elaboration...")
-#                     url='https://{0}/api/api.php?type=markov-model-local&filename={1}&key={2}&var_path={3}&var_conv={4}&var_value={5}&var_null={6}&order={7}&sep={8}&ncore={9}&conv_par_glob={10}&conv_par_loc={11}&verbose={12}&token={13}'.format(server,filename,key.decode("utf-8"),var_path,var_conv,var_value,var_null,order,sep,ncore,conv_par_glob,conv_par_loc,verbose,token)
-#                     #print(url)
-#                     resp=requests.get(url)
-#                     resp=resp.text
-#                     print(resp)
-                    
-#                     if "token_ko" not in resp:
-#                         ''''
-#                           cipher_suite = Fernet(str.encode(key))
-#                         '''
-#                         #retrieving output
-                        
-#                         __f_retrieve_from_server(filename,sftp)
-                        
-#                         print("Composing output...")
-                        
-#                         res=dict()
-#                         for elem in ['path_attribution','removal_effects','corrective_factors']:
-#                             cipher_text = open(elem, 'r').read()
-#                             plain_text = cipher_suite.decrypt(str.encode(cipher_text),)
-#                             res[elem]=pd.read_json(plain_text,orient='records')
-                            
-#                         tmp=res['corrective_factors'].copy()
-#                         tmp1=tmp[tmp.type=='total_conversions']
-#                         del tmp1['type']
-#                         tmp2=tmp[tmp.type=='total_conversion_value']
-#                         del tmp2['type']
-                        
-#                         res['corrective_factors']=dict()
-#                         res['corrective_factors']['total_conversions']=tmp1 
-#                         res['corrective_factors']['total_conversion_value']=tmp2 
-                        
-#                         shutil.rmtree(path0+'/'+filename)
-#                         os.chdir(path0)
-                        
-#                         print("Your data has been cancelled from our server")
-#                         print("Elaboration finished!")
-                        
-#                         return(res)
-#                     else:
-#                         print("Your token is not valid. Try again or try to generate a new one.")
-#                         return(-1)
-                    
-#                 else:
-#                     return(-1)
-                
-#             else:
-#                 return(-1)
-            
-#         except:
-#             url='https://{0}/api/remove_data.php?filename={1}'.format(server,filename)
-#             resp=requests.get(url)
-#             print("Your data has been cancelled from our server")
-#             print("Elaboration interrupted with errors. Try again or write to info@channelattribution.io")
-#             return(-1)
-#             #raise
-        
-#     def new_paths_attribution_api(token, tab_new,var_path,Tab_re,D_tab_corr,sep=">"):
-    
-#         '''
-        
-#         Through this function, you can make path-level attribution using Markov model on paths you have not observed before. This function can be also used in real-time attribution. It requires a token that can be generated using the function "generate_token". Your Data will be encrypted and sent to our server for being elaborated and the output will be returned. We will not share your Data or store it, it will be canceled at the end of the elaboration. If you prefer to make path attribution locally, you can write us at info@channelattribution.io.
-        
-#         Parameters
-#         ----------
-#         token : string
-#             your personal token generated with generate_token function.
-#         tab_new : DataFrame containing new paths for which you want to make path level attribution.
-#             paths
-#         var_path: string
-#             column of tab_new containing paths.
-#         Tab_re : DataFrame
-#             removal effects from global attribution.
-#         D_tab_corr : list of DataFrames
-#             corrective factors from local attribution.
-#         sep : string, default ">"
-#             separator between the channels.
-    
-                
-#         Returns
-#         -------
-#         DataFrame
-#             result: Dataframe
-#                 (column) path : path.
-#                 (column) idpath : path identification number.
-#                 (column) channel : channel name.
-#                 (column) weight_total_conversion : percentage of conversions associated to channel for the path considered.
-#                 (column) weight_total_conversion_value : percentage of conversion value associated to channel for the path considered.
-                            
-#         Examples
-#         --------
-        
-#         Load Data
-        
-#         >>> import pandas as pd    
-#         >>> from ChannelAttribution import *
-#         >>> Data = pd.read_csv('https://channelattribution.io/csv/Data.csv',sep=";")
-        
-#         Path level attribution 
-        
-#         >>> res=markov_model_local_api(token, Data,var_path="path", var_conv="total_conversions", \\
-#         >>> var_value="total_conversion_value", var_null="total_null", order=1, sep=">")
-        
-#         Path level attribution on new paths
-        
-#         >>> res_new=new_paths_attribution_api(token, tab_new,var_path="path", \\ 
-#         >>> Tab_re=res['removal_effects'],D_tab_corr=res['corrective_factors'],sep=">")
-        
-#         '''
-        
-#         server = "api.channelattribution.net"
-    
-#         try:
-#             ck_libs=__check_libs_for_api()
-            
-#             if ck_libs==1:
-            
-#                 __import_libs_for_api()
-            
-#                 if "NoneType" in str(type(token)):
-#                     raise NameError("token must be specified. Use function generate_token(email,job,company)")
-#                 else:
-#                     if "str" not in str(type(token)):
-#                         print("token must be a string")
-                
-#                 if "NoneType" in str(type(tab_new)):
-#                     raise NameError("tab_new must be specified")
-#                 else:
-#                     if "DataFrame" not in str(type(tab_new)):
-#                          raise NameError("tab_new must be a DataFrame")
-                        
-#                 if "NoneType" in str(type(var_path)):
-#                     raise NameError("var_path must be specified")
-#                 else:
-#                     if "str" not in str(type(var_path)):
-#                         print("var_path must be a string")
-#                     else:
-#                         var_path_old=var_path
-#                         var_path=re.sub(r"\s+", '_', var_path)
-#                         tab_new.rename(columns={var_path_old: var_path},inplace=True)
-                
-#                 if "NoneType" in str(type(Tab_re)):
-#                     raise NameError("Tab_re must be specified")
-#                 else:
-#                     if "DataFrame" not in str(type(Tab_re)):
-#                          raise NameError("Tab_re must be a DataFrame")
-                
-#                 if "NoneType" in str(type(D_tab_corr)):
-#                     raise NameError("D_tab_corr must be specified")
-#                 else:
-#                     if "dict" not in str(type(D_tab_corr)):
-#                          raise NameError("D_tab_corr must be a dictionary")
-                
-#                 if "NoneType" not in str(type(sep)):
-#                     if "str" not in str(type(sep)):
-#                         print("sep must be a string")
-#                 else:
-#                     print("sep must be specified")
-                    
-                
-#                 path0=os.getcwd()
-                
-#                 #initialize connection
-                
-#                 [filename,sftp]=__f_initialize_connection(server,token)
-                
-#                 #send input to server
-                
-#                 list_Data=dict()
-#                 list_Data['tab_new']=tab_new
-#                 list_Data['Tab_re']=Tab_re
-#                 list_Data['D_tab_corr_conv']=D_tab_corr['total_conversions']
-#                 list_Data['D_tab_corr_value']=D_tab_corr['total_conversion_value']
-                
-#                 [key,cipher_suite]=__f_send_to_server(list_Data,True,filename,server,sftp)
-                
-#                 if key!=-1:
-#                     # #elaborate on server
-                    
-#                     print("Asking to our server to start the elaboration...")
-#                     url='https://{0}/api/api.php?type=new-paths-attribution&filename={1}&key={2}&var_path={3}&sep={4}&token={5}'.format(server,filename,key.decode("utf-8"),var_path,sep,token)
-#                     #print(url)
-#                     resp=requests.get(url)
-#                     resp=resp.text
-#                     print(resp)
-                    
-#                     if "token_ko" not in resp:
-                        
-#                         #retrieving output
-                        
-#                         __f_retrieve_from_server(filename,sftp)
-                        
-#                         print("Composing output...")
-                        
-#                         cipher_text = open(filename+'-O', 'r').read()
-#                         plain_text = cipher_suite.decrypt(str.encode(cipher_text))
-#                         res=pd.read_json(plain_text,orient='records')
-                        
-#                         shutil.rmtree(path0+'/'+filename)
-#                         os.chdir(path0)
-                        
-#                         print("Your data has been cancelled from our server")
-#                         print("Elaboration finished!") 
-                        
-#                         return(res)
-                    
-#                     else:
-#                         print("Your token is not valid. Try again or try to generate a new one.")
-#                         return(-1)
-                
-#                 else:
-#                     return(-1)
-            
-#         except:
-#             url='https://{0}/api/remove_data.php?filename={1}'.format(server,filename)
-#             resp=requests.get(url)
-#             print("Your data has been cancelled from our server")
-#             print("Elaboration interrupted with errors. Try again or write to info@channelattribution.io")
-#             return(-1)
-            
-            
-    
