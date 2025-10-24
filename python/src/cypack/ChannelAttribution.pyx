@@ -776,19 +776,131 @@ def auto_markov_model(Data, var_path, var_conv, var_null, var_value=None, max_or
     return(res)
 
 
-def installChPro():
+
+def request_token_channelattributionpro(
+    email: str,
+    endpoint: str = "https://app.channelattribution.io/genpkg/generate_token.php",
+    timeout: int = 10,
+    verify_ssl: bool = True
+) -> str:
+
+    """
+    Send an email address to ChannelAttributionPro's `generate_token.php` endpoint and
+    return the raw response body emitted by the server.
+
+    Parameters
+    ----------
+    email : str
+        Target email address to which the token should be sent. Must be non-empty and
+        syntactically valid; otherwise a ``ValueError`` is raised.
+    endpoint : str, default "https://app.channelattribution.io/genpkg/generate_token.php"
+        Full URL of the token-generation PHP endpoint. You can override this for testing.
+    timeout : int, default 10
+        Timeout in seconds applied to the HTTP request(s).
+    verify_ssl : bool, default True
+        Whether to verify the server's TLS certificate. Set to ``False`` only for
+        controlled testing environments.
+
+    Returns
+    -------
+    str
+        The exact response body (trimmed) returned by the server. Typical values include:
+        - ``"We’ve sent the token to your email address. ..."``
+        - ``"Token already generated"``
+        - ``"Provider not admitted"``
+        - ``"mail not valid"``
+        - ``"db query error"``, ``"db connection error"``, etc.
+
+    Raises
+    ------
+    ValueError
+        If ``email`` is empty.
+    RuntimeError
+        For network or SSL issues (connection errors, DNS failure, timeouts, TLS problems),
+        with a message prefixed by ``"network_or_ssl_error:"`` or ``"request_error:"``.
+
+    Notes
+    -----
+    - The function **prefers POST** and will **retry with GET** if the server rejects the method
+      (e.g., HTTP 405/403 with a “method” hint in the body).
+    - The function does **not** raise for non-2xx HTTP statuses; it returns the body as-is so the
+      calling code can display the server’s message to the user.
+
+    Examples
+    --------
+    Basic usage
+
+    >>> request_token_channelattributionpro("alice@example.com")
+    'We’ve sent the token to your email address. Please check your Spam or Junk folder if it’s not in your inbox. If you still can’t find it, write to info@channelattribution.io.'
+
+    Handling network errors
+
+    >>> try:
+    ...     request_token_channelattributionpro("alice@example.com", timeout=3)
+    ... except RuntimeError as e:
+    ...     print(e)  # e.g., "network_or_ssl_error: HTTPSConnectionPool(...): Read timed out."
+    """
+
+    import requests
+    from requests.exceptions import RequestException, Timeout, SSLError
+
+    if not email:
+        raise ValueError("email must be a non-empty string")
+
+    try:
+        # Prefer POST
+        resp = requests.post(
+            endpoint,
+            data={"email": email},
+            timeout=timeout,
+            verify=verify_ssl,
+            allow_redirects=True,
+            headers={"User-Agent": "capro-token-client/1.0"}
+        )
+
+        # If server disallows POST (rare), retry with GET
+        if resp.status_code in (405, 403) and "method" in (resp.text or "").lower():
+            resp = requests.get(
+                endpoint,
+                params={"email": email},
+                timeout=timeout,
+                verify=verify_ssl,
+                allow_redirects=True,
+                headers={"User-Agent": "capro-token-client/1.0"}
+            )
+
+        # We return the body regardless of status, as requested.
+        # If you prefer to fail on non-2xx, uncomment the two lines below.
+        # if not resp.ok:
+        #     raise RuntimeError(f"Server returned HTTP {resp.status_code}: {resp.text.strip()}")
+
+        return (resp.text or "").strip()
+
+    except (Timeout, SSLError) as e:
+        raise RuntimeError(f"network_or_ssl_error: {e}") from e
+    except RequestException as e:
+        # Covers connection errors, invalid URLs, etc.
+        raise RuntimeError(f"request_error: {e}") from e
+
+
+def install_channelattributionpro(token: str | None = None):
 
     '''
     Install ChannelAttribution Pro (binary wheel) for the current environment.
 
-    The function detects your OS, architecture, and Python version, requests a
-    prebuilt wheel (or a build job) from ChannelAttribution Pro’s build service,
-    resolves the final package URL, and installs it via `pip`. If installation
-    fails, it prints a compact system report you can send to support.
+    This installer detects your OS, architecture, and Python version, requests a
+    prebuilt wheel (or triggers a build) from ChannelAttribution Pro’s build
+    service, resolves the final package URL, and installs it via `pip`. If
+    installation fails, it prints a compact system report you can send to support.
 
     Parameters
     ----------
-    (none)
+    token : str, optional
+        Access token for the build service. If omitted, the function will read
+        the environment variable `CHPRO_TOKEN`. If neither is provided, the
+        installer prints a message and returns. If the token is invalid or
+        expired, the installer prints **"token non valid or expired"** and
+        returns.
 
     Environment detection
     ---------------------
@@ -808,29 +920,36 @@ def installChPro():
     --------
     1) Builds a request URL to the ChannelAttribution Pro builder:
        https://app.channelattribution.io/genpkg/genpkg.php
-       with the detected parameters.
-    2) Performs an HTTP GET. The service may:
-       - Return JSON with "pkg": direct wheel URL or a directory containing wheels.
-       - Return HTTP 409 with a JSON body ("exists"/"ok") pointing to an existing build.
+       with the detected parameters **and the `token`**.
+    2) Performs an HTTPS GET. The service may:
+       - Return HTTP 200 with JSON containing "pkg": a direct wheel URL or a
+         directory containing wheels.
+       - Return HTTP 409 with JSON ("exists"/"ok") pointing to an existing build.
+       - Return HTTP 401 if the token is invalid/expired. In this case the
+         installer prints **"token non valid or expired"** and returns.
     3) Resolves the final wheel URL (if a directory is returned, picks the latest file).
     4) Installs the wheel with `python -m pip install --prefer-binary`.
     5) On success, prints a short message suggesting to restart the session and import:
        `import ChannelAttributionPro`.
-    6) On failure, prints a JSON-like system info block (OS, distro, Python, compiler)
-       that you can email to info@channelattribution.io.
+    6) On failure (network/build issues), prints a JSON-like system info block
+       (OS, distro, Python, compiler) that you can email to info@channelattribution.io.
 
     Network & security
     ------------------
     - Uses HTTPS GET to the builder endpoint.
-    - Sends only non-personal environment traits (OS/arch/Python) as query parameters.
+    - Sends only non-personal environment traits (OS/arch/Python) and your **token**
+      as query parameters.
+    - You can pass the token as a function argument or via the `CHPRO_TOKEN`
+      environment variable to avoid hardcoding in code/notebooks.
     - Honors standard proxy settings if your Python/OS is configured accordingly.
 
     Requirements
     ------------
     - Internet connectivity to reach app.channelattribution.io.
     - `pip` available for the current interpreter (`python -m pip`).
-    - Sufficient permissions to install packages in the environment (use a venv or run
-      with appropriate privileges).
+    - Sufficient permissions to install packages in the environment (use a venv or
+      run with appropriate privileges).
+    - A valid access token.
 
     Notes
     -----
@@ -842,26 +961,39 @@ def installChPro():
     -------
     None
         The function performs installation as a side effect and writes progress
-        to stdout. On error, it raises SystemExit or RuntimeError in specific cases.
+        to stdout. On error, it prints diagnostic information and returns without
+        raising exceptions.
 
     Exceptions
     ----------
-    RuntimeError
-        If the remote listing for a returned directory fails (non-200).
-    SystemExit
-        If `pip` returns a non-zero exit code or if no files are found/resolved.
-    urllib.error.URLError / urllib.error.HTTPError
-        May propagate in unexpected network failures not handled internally.
+    None raised by this function.
+        All error conditions are handled by printing a message and returning.
+        (Network errors, invalid token, missing/invalid response, and pip failures
+        are reported via stdout.)
 
     Examples
     --------
-    Basic usage
+    Basic usage with explicit token
 
-    >>> from ChannelAttributionPro import installChPro
-    >>> installChPro()
+    >>> from ChannelAttributionPro import install_channelattributionpro
+    >>> install_channelattributionpro(token="YOUR_TOKEN_HERE")
     Building the package. Estimated time: 5-30 minutes. Please wait...
     ...
     Package installed. Restart the session and try to import it with: import ChannelAttributionPro
+
+    Using environment variable
+
+    # Linux/macOS:
+    # export CHPRO_TOKEN=YOUR_TOKEN_HERE
+    # Windows (new shells):
+    # setx CHPRO_TOKEN YOUR_TOKEN_HERE
+    >>> install_channelattributionpro()
+    ...
+
+    Invalid/expired token
+
+    >>> install_channelattributionpro(token="bad_or_expired")
+    token non valid or expired
 
     After installation
 
@@ -870,6 +1002,39 @@ def installChPro():
     'x.y.z'
     '''
 
+    import requests
+    from requests.exceptions import RequestException, Timeout, SSLError
+    
+    def notify_package_request(
+        token: str,
+        action: str,
+        endpoint: str = "https://app.channelattribution.io/genpkg/build_check_email.php",
+        timeout: int = 10,
+        verify_ssl: bool = True,
+    ) -> str:
+    
+        if not token:
+            return "missing_token_param"
+    
+        try:
+            resp = requests.get(
+                endpoint,
+                params={"token": token, "action": action},
+                timeout=timeout,
+                verify=verify_ssl,
+                allow_redirects=True,
+                headers={"User-Agent": "capro-build-check/1.0"},
+            )
+            return (resp.text or "").strip()
+        except (Timeout, SSLError) as e:
+            return f"network_or_ssl_error: {e}"
+        except RequestException as e:
+            return f"request_error: {e}"
+    
+    resp=notify_package_request(token,"START")
+
+    import os
+    import sys
     import platform
     import json
     import subprocess
@@ -877,6 +1042,13 @@ def installChPro():
     from urllib.request import Request, urlopen
     from urllib.error import URLError, HTTPError
     from urllib.parse import urlencode, urljoin
+
+    # -------- Token handling (print-only) --------
+    if token is None:
+        token = os.environ.get("CHPRO_TOKEN")
+    if not token:
+        print("Missing token. Pass token=... or set CHPRO_TOKEN in the environment.")
+        return
 
     # -------- Detect OS / arch / python --------
     if sys.platform.startswith("linux"):
@@ -915,6 +1087,7 @@ def installChPro():
         "lang_vers": lang_vers,
         "replace": "0",
         "uctr": "0",
+        "token": token,
     }
 
     base_url = "https://app.channelattribution.io/genpkg/genpkg.php"
@@ -924,16 +1097,27 @@ def installChPro():
           "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
     HEADERS = {
         "User-Agent": UA,
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept": "application/json,text/html;q=0.8,*/*;q=0.5",
         "Accept-Language": "en-US,en;q=0.7",
         "Accept-Encoding": "identity",
         "Connection": "close",
     }
 
     def http_get(u, timeout=300):
-        req = Request(u, headers=HEADERS)
-        with urlopen(req, timeout=timeout) as resp:
-            return resp.status, resp.read(), resp.headers.get_content_type()
+        try:
+            req = Request(u, headers=HEADERS)
+            with urlopen(req, timeout=timeout) as resp:
+                return resp.status, resp.read(), resp.headers
+        except HTTPError as e:
+            # Return the code and body so caller can inspect without raising
+            try:
+                body = e.read()
+            except Exception:
+                body = b""
+            return e.code, body, getattr(e, "headers", {})
+        except URLError as e:
+            # Network failure — status 0
+            return 0, str(e).encode("utf-8", errors="replace"), {}
 
     class LinkCollector(HTMLParser):
         def __init__(self):
@@ -946,9 +1130,10 @@ def installChPro():
                     self.links.append(href)
 
     def list_dir_files(dir_url):
-        status, body, _ = http_get(dir_url)
+        status, body, _headers = http_get(dir_url)
         if status != 200:
-            raise RuntimeError(f"Listing {dir_url} failed with HTTP {status}")
+            print(f"Listing {dir_url} failed with HTTP {status}")
+            return None
         html = body.decode("utf-8", errors="replace")
         p = LinkCollector()
         p.feed(html)
@@ -957,74 +1142,100 @@ def installChPro():
     def resolve_pkg_url(pkg_value):
         """
         Accepts either a wheel URL or a directory URL and returns a wheel URL.
+        Print-only failure; returns None if cannot resolve.
         """
+        if not isinstance(pkg_value, str) or not pkg_value:
+            print("Invalid 'pkg' value in response.")
+            return None
+
         if pkg_value.lower().endswith(".whl"):
             return pkg_value
+
         # treat as directory
         pkg_dir = pkg_value.rstrip("/") + "/"
         files = list_dir_files(pkg_dir)
+        if files is None:
+            return None
         wheels = [f for f in files if f.endswith(".whl")]
         chosen = (sorted(wheels) or sorted(files) or [None])[-1]
         if not chosen:
-            raise SystemExit(f"No files found at {pkg_dir}")
+            print(f"No files found at {pkg_dir}")
+            return None
         return urljoin(pkg_dir, chosen)
 
     def pip_install(url, extra_args=None):
+        if not url:
+            print("No package URL to install.")
+            return False
         cmd = [sys.executable, "-m", "pip", "install",
                "--no-cache-dir", "--disable-pip-version-check", "--prefer-binary", url]
-        if extra_args: cmd.extend(extra_args)
+        if extra_args:
+            cmd.extend(extra_args)
         print("Installing with:", " ".join(cmd))
         proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
         print(proc.stdout)
         if proc.returncode != 0:
-            raise SystemExit(proc.returncode)
+            print(f"pip failed with exit code {proc.returncode}")
+            return False
+        return True
 
-    #print(f"Detected -> os={os_name}, os_vers={os_vers}, arch={arch}, python={lang_vers}")
-    #print(f"Requesting: {gen_url}")
+    # -------- main flow --------
+    print("Building the package. Estimated time: 0-30 minutes. Please wait...")
+    status, body, headers = http_get(gen_url)
+    text = body.decode("utf-8", errors="replace") if isinstance(body, (bytes, bytearray)) else str(body)
+
+    # 401 → token invalid (exact message requested)
+    if status == 401:
+        print("Token non valid or expired.")
+        return
 
     pkg_file_url = None
-    flg_success=1
+    flg_success = 1
 
+    # Try to parse JSON if possible
+    data = None
     try:
-        print("Building the package. Estimated time: 0-30 minutes. Please wait...")
-        status, body, _ = http_get(gen_url)
-        if status == 200:
-            text = body.decode("utf-8", errors="replace")
-            try:
-                data = json.loads(text)
-            except Exception:
-                data = None
-            if isinstance(data, dict) and "pkg" in data:
-                pkg_file_url = resolve_pkg_url(data["pkg"])
-            #else:
-                #print(text)
-        else:
-            flg_success=0
+        data = json.loads(text)
+    except Exception:
+        data = None
 
-    except HTTPError as e:
-        if e.code == 409:
-            err_body = e.read().decode("utf-8", errors="replace")
-            try:
-                data = json.loads(err_body)
-            except Exception:
-                flg_success=0
-            if isinstance(data, dict) and data.get("status") in ("exists","ok") and "pkg" in data:
-                # pkg may be a wheel or a directory
-                pkg_file_url = resolve_pkg_url(data["pkg"])
-                #print(json.dumps({
-                #    "status": data.get("status"),
-                #    "pkg_file_url": pkg_file_url
-                #}, indent=2))
-            else:
-                flg_success=0
-        else:
-            flg_success=0
+    # If JSON indicates token failure despite 200 (defensive)
+    if isinstance(data, dict):
+        err = (data.get("error") or "").lower()
+        stat = (data.get("status") or "").lower()
+        if "invalid token" in err or (stat in ("fail", "error") and "token" in err):
+            print("token non valid or expired")
+            return
 
-    if flg_success:
-        pip_install(pkg_file_url)
-        print("Package installed. Restart the session and try to import it with: import ChannelAttributionPro")
+    # Happy paths
+    if status == 200 and isinstance(data, dict) and "pkg" in data:
+        pkg_file_url = resolve_pkg_url(data["pkg"])
+        if not pkg_file_url:
+            flg_success = 0
+    elif status == 409 and isinstance(data, dict) and data.get("status") in ("exists", "ok") and "pkg" in data:
+        pkg_file_url = resolve_pkg_url(data["pkg"])
+        if not pkg_file_url:
+            flg_success = 0
     else:
-        import platform, subprocess, shutil, re, os, json
+        flg_success = 0
+        # print a concise server hint
+        if status == 0:
+            print(f"Network error while contacting builder: {text[:500]}")
+        else:
+            print(f"Unexpected response from builder (HTTP {status}). Body: {text[:500]}")
+
+    if flg_success and pkg_file_url:
+        ok = pip_install(pkg_file_url)
+        if ok:
+            print("Package installed. Restart the session and try to import it with: import ChannelAttributionPro")
+            resp=notify_package_request(token,"END")
+        else:
+            # fallthrough to system report
+            flg_success = 0
+
+    if not flg_success:
+        # System report (same style as install_channelattributionpro)
+        import shutil, re
         from typing import Optional, Dict, Any
 
         def _read_os_release() -> Optional[dict]:
@@ -1056,14 +1267,12 @@ def installChPro():
             return None
 
         def _compiler_version(exe: str) -> Optional[str]:
-            # Try gcc-specific full version first
             try:
                 p = subprocess.run([exe, "-dumpfullversion"], capture_output=True, text=True)
                 if p.returncode == 0 and p.stdout.strip():
                     return f"{exe} {p.stdout.strip()}"
             except Exception:
                 pass
-            # Generic --version first line
             try:
                 p = subprocess.run([exe, "--version"], capture_output=True, text=True)
                 if p.returncode == 0 and p.stdout:
@@ -1075,23 +1284,14 @@ def installChPro():
             return None
 
         def get_system_info(as_json: bool = False) -> Dict[str, Any] | str:
-            """
-            Return system build info:
-              - os, os_release, architecture, distro
-              - python_implementation, python_version
-              - compiler (gcc/clang) version if available
-            Set as_json=True to get a JSON string.
-            """
-            system = platform.system()              # 'Linux', 'Darwin', 'Windows', etc.
+            system = platform.system()
             release = platform.release()
             arch = platform.machine() or platform.processor() or "unknown"
             py_impl = platform.python_implementation()
             py_ver = platform.python_version()
 
-            # Distro / product version
             distro_str = None
             if system == "Linux":
-                # Use 'distro' if available, else fallback to /etc/os-release
                 try:
                     import distro  # type: ignore
                     name = distro.name(pretty=True) or distro.id() or ""
@@ -1109,7 +1309,6 @@ def installChPro():
             elif system == "Windows":
                 distro_str = f"Windows {platform.release()} (build {platform.version()})"
 
-            # Compiler
             comp = _which_compiler()
             comp_ver = _compiler_version(comp) if comp else None
 
@@ -1124,10 +1323,13 @@ def installChPro():
             }
             return json.dumps(info, indent=2) if as_json else info
 
-        print("Installation failed. Send the following information:") 
-        print(" ")
+        print("Installation failed. Send the following information:")
+        print()
         print(get_system_info())
-        print(" ")
+        print()
         print("to info@channelattribution.io.")
-    
+        # just return (no exceptions)
+        return
 
+    # success path already printed; return quietly
+    return
