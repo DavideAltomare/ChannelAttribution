@@ -243,23 +243,30 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="ChannelAttribution.installChPro">
-<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">installChPro</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#installChPro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.installChPro" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ChannelAttribution.install_channelattributionpro">
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">install_channelattributionpro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#install_channelattributionpro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.install_channelattributionpro" title="Link to this definition">¶</a></dt>
 <dd><p>Install ChannelAttribution Pro (binary wheel) for the current environment.</p>
-<p>The function detects your OS, architecture, and Python version, requests a
-prebuilt wheel (or a build job) from ChannelAttribution Pro’s build service,
-resolves the final package URL, and installs it via <cite>pip</cite>. If installation
-fails, it prints a compact system report you can send to support.</p>
+<p>This installer detects your OS, architecture, and Python version, requests a
+prebuilt wheel (or triggers a build) from ChannelAttribution Pro’s build
+service via HTTPS <strong>POST</strong>, resolves the final package URL, and installs it
+with <cite>pip</cite>. Whether the install succeeds or fails, it sends <strong>one final</strong>
+notification to <cite>build_check_email.php</cite> with a compact info payload.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>(none)</strong></dt><dd></dd>
+<dt><strong>token</strong><span class="classifier">str, optional</span></dt><dd><p>Access token for the build service. If omitted, the function reads the
+environment variable <cite>CHPRO_TOKEN</cite>. If neither is provided, the installer
+prints a message and returns. If the token is invalid or expired, the
+installer prints <strong>“Token non valid or expired. Write to info&#64;channelattribution.io.”</strong>
+and returns.</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>None</dt><dd><p>The function performs installation as a side effect and writes progress
-to stdout. On error, it raises SystemExit or RuntimeError in specific cases.</p>
+to stdout. On error, it prints diagnostic information and returns without
+raising exceptions.</p>
 </dd>
 </dl>
 </dd>
@@ -269,20 +276,16 @@ to stdout. On error, it raises SystemExit or RuntimeError in specific cases.</p>
 <li><p>Depending on load, the remote build step may take several minutes.</p></li>
 <li><p>On macOS, <cite>gcc</cite> typically maps to Clang; compiler info is reported accordingly.</p></li>
 <li><p>The Linux baseline targets ManyLinux2014 for broad compatibility.</p></li>
+<li><p>The helper auto-installs <cite>requests</cite> (and <cite>distro</cite> on Linux) into the <strong>current interpreter</strong>.</p></li>
 </ul>
 <p class="rubric">Examples</p>
-<p>Basic usage</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttributionPro</span><span class="w"> </span><span class="kn">import</span> <span class="n">installChPro</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">installChPro</span><span class="p">()</span>
-<span class="go">Building the package. Estimated time: 5-30 minutes. Please wait...</span>
-<span class="go">...</span>
-<span class="go">Package installed. Restart the session and try to import it with: import ChannelAttributionPro</span>
+<p>Basic usage with explicit token</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="n">install_channelattributionpro</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">install_channelattributionpro</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;YOUR_TOKEN_HERE&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>After installation</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ChannelAttributionPro</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ChannelAttributionPro</span><span class="o">.</span><span class="n">__version__</span>
-<span class="go">&#39;x.y.z&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -380,6 +383,61 @@ to stdout. On error, it raises SystemExit or RuntimeError in specific cases.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="ChannelAttribution.request_token_channelattributionpro">
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">request_token_channelattributionpro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://app.channelattribution.io/genpkg/generate_token.php'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify_ssl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ChannelAttribution.html#request_token_channelattributionpro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.request_token_channelattributionpro" title="Link to this definition">¶</a></dt>
+<dd><p>Send an email address to ChannelAttribution Pro’s <cite>generate_token.php</cite> endpoint and
+return the server’s response body.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>email</strong><span class="classifier">str</span></dt><dd><p>Target email address to which the token should be sent. Must be <strong>non-empty</strong>.
+(No syntactic validation is performed by this function.)</p>
+</dd>
+<dt><strong>endpoint</strong><span class="classifier">str, default “<a class="reference external" href="https://app.channelattribution.io/genpkg/generate_token.php">https://app.channelattribution.io/genpkg/generate_token.php</a>”</span></dt><dd><p>Full URL of the token-generation PHP endpoint. You can override this for testing.</p>
+</dd>
+<dt><strong>timeout</strong><span class="classifier">int, default 10</span></dt><dd><p>Timeout in seconds applied to the HTTP request.</p>
+</dd>
+<dt><strong>verify_ssl</strong><span class="classifier">bool, default True</span></dt><dd><p>Whether to verify the server’s TLS certificate. Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> only in
+controlled testing environments.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd><p>The exact response body (trimmed) returned by the server. Typical values include:
+- “We’ve sent the token to your email address. …”
+- “Token already generated”
+- “Provider not admitted”
+- “mail not valid”
+- “db query error”, “db connection error”, etc.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">email</span></code> is empty.</p>
+</dd>
+<dt>RuntimeError</dt><dd><p>For network/TLS issues (connection errors, DNS failure, timeouts, SSL problems),
+with a message prefixed by <code class="docutils literal notranslate"><span class="pre">&quot;network_or_ssl_error:&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;request_error:&quot;</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>To validate the email syntax before calling this function, do it in the caller
+(e.g., <cite>from email.utils import parseaddr</cite> and check that <cite>parseaddr(email)[1]</cite> is non-empty).</p></li>
+<li><p>Honors system proxy settings if they are configured for Python/OS.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Basic usage</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="n">request_token_channelattributionpro</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request_token_channelattributionpro</span><span class="p">(</span><span class="s2">&quot;john.black@company.com&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="ChannelAttribution.transition_matrix">
 <span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">transition_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_equal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#transition_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.transition_matrix" title="Link to this definition">¶</a></dt>
 <dd><p>Estimate a k-order transition matrix from customer journey data.</p>
@@ -450,8 +508,9 @@ to stdout. On error, it raises SystemExit or RuntimeError in specific cases.</p>
 <li><a class="reference internal" href="#ChannelAttribution.auto_markov_model"><code class="docutils literal notranslate"><span class="pre">auto_markov_model()</span></code></a></li>
 <li><a class="reference internal" href="#ChannelAttribution.choose_order"><code class="docutils literal notranslate"><span class="pre">choose_order()</span></code></a></li>
 <li><a class="reference internal" href="#ChannelAttribution.heuristic_models"><code class="docutils literal notranslate"><span class="pre">heuristic_models()</span></code></a></li>
-<li><a class="reference internal" href="#ChannelAttribution.installChPro"><code class="docutils literal notranslate"><span class="pre">installChPro()</span></code></a></li>
+<li><a class="reference internal" href="#ChannelAttribution.install_channelattributionpro"><code class="docutils literal notranslate"><span class="pre">install_channelattributionpro()</span></code></a></li>
 <li><a class="reference internal" href="#ChannelAttribution.markov_model"><code class="docutils literal notranslate"><span class="pre">markov_model()</span></code></a></li>
+<li><a class="reference internal" href="#ChannelAttribution.request_token_channelattributionpro"><code class="docutils literal notranslate"><span class="pre">request_token_channelattributionpro()</span></code></a></li>
 <li><a class="reference internal" href="#ChannelAttribution.transition_matrix"><code class="docutils literal notranslate"><span class="pre">transition_matrix()</span></code></a></li>
 </ul>
 </li>

@@ -768,21 +768,150 @@
 
 
 
-<div class="viewcode-block" id="installChPro">
-<a class="viewcode-back" href="../index.html#ChannelAttribution.installChPro">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">installChPro</span><span class="p">():</span>
 
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<div class="viewcode-block" id="request_token_channelattributionpro">
+<a class="viewcode-back" href="../index.html#ChannelAttribution.request_token_channelattributionpro">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">request_token_channelattributionpro</span><span class="p">(</span>
+    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;https://app.channelattribution.io/genpkg/generate_token.php&quot;</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">verify_ssl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Send an email address to ChannelAttribution Pro&#39;s `generate_token.php` endpoint and</span>
+<span class="sd">    return the server&#39;s response body.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    email : str</span>
+<span class="sd">        Target email address to which the token should be sent. Must be **non-empty**.</span>
+<span class="sd">        (No syntactic validation is performed by this function.)</span>
+<span class="sd">    endpoint : str, default &quot;https://app.channelattribution.io/genpkg/generate_token.php&quot;</span>
+<span class="sd">        Full URL of the token-generation PHP endpoint. You can override this for testing.</span>
+<span class="sd">    timeout : int, default 10</span>
+<span class="sd">        Timeout in seconds applied to the HTTP request.</span>
+<span class="sd">    verify_ssl : bool, default True</span>
+<span class="sd">        Whether to verify the server&#39;s TLS certificate. Set to ``False`` only in</span>
+<span class="sd">        controlled testing environments.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The exact response body (trimmed) returned by the server. Typical values include:</span>
+<span class="sd">        - &quot;We’ve sent the token to your email address. ...&quot;</span>
+<span class="sd">        - &quot;Token already generated&quot;</span>
+<span class="sd">        - &quot;Provider not admitted&quot;</span>
+<span class="sd">        - &quot;mail not valid&quot;</span>
+<span class="sd">        - &quot;db query error&quot;, &quot;db connection error&quot;, etc.</span>
+<span class="sd">    </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If ``email`` is empty.</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        For network/TLS issues (connection errors, DNS failure, timeouts, SSL problems),</span>
+<span class="sd">        with a message prefixed by ``&quot;network_or_ssl_error:&quot;`` or ``&quot;request_error:&quot;``.</span>
+<span class="sd">    </span>
+<span class="sd">    Behavior</span>
+<span class="sd">    --------</span>
+<span class="sd">    - **Prefers POST** (form data). If the server rejects the method (e.g., HTTP 405/403</span>
+<span class="sd">      with a “method” hint in the body), it **retries with GET**.</span>
+<span class="sd">    - Does **not** raise for non-2xx HTTP statuses; it returns the body as-is so the caller</span>
+<span class="sd">      can show the server’s message to the user.</span>
+<span class="sd">    - If the ``requests`` package is missing, it is installed into the **current interpreter**</span>
+<span class="sd">      (respecting Debian/Ubuntu PEP 668 by setting ``PIP_BREAK_SYSTEM_PACKAGES=1`` only when</span>
+<span class="sd">      not in a virtualenv).</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - To validate the email syntax before calling this function, do it in the caller</span>
+<span class="sd">      (e.g., `from email.utils import parseaddr` and check that `parseaddr(email)[1]` is non-empty).</span>
+<span class="sd">    - Honors system proxy settings if they are configured for Python/OS.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Basic usage</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; from ChannelAttribution import request_token_channelattributionpro</span>
+<span class="sd">    &gt;&gt;&gt; request_token_channelattributionpro(&quot;john.black@company.com&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">subprocess</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="n">sys</span><span class="o">.</span><span class="n">base_prefix</span><span class="p">:</span>  <span class="c1"># not in venv → allow system install (PEP 668)</span>
+            <span class="n">env</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;PIP_BREAK_SYSTEM_PACKAGES&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;requests&quot;</span><span class="p">],</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+    
+    <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">requests.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">RequestException</span><span class="p">,</span> <span class="n">Timeout</span><span class="p">,</span> <span class="n">SSLError</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">email</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;email must be a non-empty string&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Prefer POST</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">endpoint</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">email</span><span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">verify</span><span class="o">=</span><span class="n">verify_ssl</span><span class="p">,</span>
+            <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;capro-token-client/1.0&quot;</span><span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="c1"># If server disallows POST (rare), retry with GET</span>
+        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">405</span><span class="p">,</span> <span class="mi">403</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;method&quot;</span> <span class="ow">in</span> <span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">endpoint</span><span class="p">,</span>
+                <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">email</span><span class="p">},</span>
+                <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+                <span class="n">verify</span><span class="o">=</span><span class="n">verify_ssl</span><span class="p">,</span>
+                <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;capro-token-client/1.0&quot;</span><span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="c1"># We return the body regardless of status, as requested.</span>
+        <span class="c1"># If you prefer to fail on non-2xx, uncomment the two lines below.</span>
+        <span class="c1"># if not resp.ok:</span>
+        <span class="c1">#     raise RuntimeError(f&quot;Server returned HTTP {resp.status_code}: {resp.text.strip()}&quot;)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="p">(</span><span class="n">Timeout</span><span class="p">,</span> <span class="n">SSLError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;network_or_ssl_error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+    <span class="k">except</span> <span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># Covers connection errors, invalid URLs, etc.</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;request_error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+
+
+<div class="viewcode-block" id="install_channelattributionpro">
+<a class="viewcode-back" href="../index.html#ChannelAttribution.install_channelattributionpro">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">install_channelattributionpro</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Install ChannelAttribution Pro (binary wheel) for the current environment.</span>
 
-<span class="sd">    The function detects your OS, architecture, and Python version, requests a</span>
-<span class="sd">    prebuilt wheel (or a build job) from ChannelAttribution Pro’s build service,</span>
-<span class="sd">    resolves the final package URL, and installs it via `pip`. If installation</span>
-<span class="sd">    fails, it prints a compact system report you can send to support.</span>
+<span class="sd">    This installer detects your OS, architecture, and Python version, requests a</span>
+<span class="sd">    prebuilt wheel (or triggers a build) from ChannelAttribution Pro’s build</span>
+<span class="sd">    service via HTTPS **POST**, resolves the final package URL, and installs it</span>
+<span class="sd">    with `pip`. Whether the install succeeds or fails, it sends **one final**</span>
+<span class="sd">    notification to `build_check_email.php` with a compact info payload.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    (none)</span>
+<span class="sd">    token : str, optional</span>
+<span class="sd">        Access token for the build service. If omitted, the function reads the</span>
+<span class="sd">        environment variable `CHPRO_TOKEN`. If neither is provided, the installer</span>
+<span class="sd">        prints a message and returns. If the token is invalid or expired, the</span>
+<span class="sd">        installer prints **&quot;Token non valid or expired. Write to info@channelattribution.io.&quot;**</span>
+<span class="sd">        and returns.</span>
 
 <span class="sd">    Environment detection</span>
 <span class="sd">    ---------------------</span>
@@ -796,83 +925,256 @@
 <span class="sd">        - amd64 (x86_64)</span>
 <span class="sd">        - arm64 (aarch64)</span>
 <span class="sd">    Python:</span>
-<span class="sd">        - Major.minor version detected from the running interpreter (e.g., 3.11)</span>
+<span class="sd">        - Major.minor from the running interpreter (e.g., 3.11)</span>
 
 <span class="sd">    Behavior</span>
 <span class="sd">    --------</span>
-<span class="sd">    1) Builds a request URL to the ChannelAttribution Pro builder:</span>
-<span class="sd">       https://app.channelattribution.io/genpkg/genpkg.php</span>
-<span class="sd">       with the detected parameters.</span>
-<span class="sd">    2) Performs an HTTP GET. The service may:</span>
-<span class="sd">       - Return JSON with &quot;pkg&quot;: direct wheel URL or a directory containing wheels.</span>
-<span class="sd">       - Return HTTP 409 with a JSON body (&quot;exists&quot;/&quot;ok&quot;) pointing to an existing build.</span>
-<span class="sd">    3) Resolves the final wheel URL (if a directory is returned, picks the latest file).</span>
+<span class="sd">    1) Builds a **POST** form to the builder:</span>
+<span class="sd">       `https://app.channelattribution.io/genpkg/genpkg.php`</span>
+<span class="sd">       including the detected parameters **and the `token`**.</span>
+<span class="sd">    2) Parses the JSON response:</span>
+<span class="sd">       - HTTP 200 with `&quot;pkg&quot;` → direct wheel URL or a directory containing wheels.</span>
+<span class="sd">       - HTTP 409 with `&quot;status&quot;:&quot;exists&quot;|&quot;ok&quot;` and `&quot;pkg&quot;` → use that location.</span>
+<span class="sd">       - HTTP 401 → invalid/expired token → prints the message above and returns.</span>
+<span class="sd">    3) If `&quot;pkg&quot;` is a directory, lists it and picks the latest wheel.</span>
 <span class="sd">    4) Installs the wheel with `python -m pip install --prefer-binary`.</span>
-<span class="sd">    5) On success, prints a short message suggesting to restart the session and import:</span>
-<span class="sd">       `import ChannelAttributionPro`.</span>
-<span class="sd">    6) On failure, prints a JSON-like system info block (OS, distro, Python, compiler)</span>
-<span class="sd">       that you can email to info@channelattribution.io.</span>
+<span class="sd">    5) On success, prints:</span>
+<span class="sd">       `Package installed. Restart the session and try to import it with: import ChannelAttributionPro`</span>
+<span class="sd">    6) On any failure (network/build/pip), prints a small system report</span>
+<span class="sd">       (OS, distro, Python, compiler) that you can email to info@channelattribution.io.</span>
+<span class="sd">    7) **Exactly once at the end** (success or error), POSTs to</span>
+<span class="sd">       `build_check_email.php` with fields:</span>
+<span class="sd">       - `token` (your token),</span>
+<span class="sd">       - `action` = `&quot;SUCCESS&quot;` or `&quot;ERROR&quot;`,</span>
+<span class="sd">       - `info` = a compact JSON-ish blob (trimmed to ~8 KiB) with the outcome and system info.</span>
 
 <span class="sd">    Network &amp; security</span>
 <span class="sd">    ------------------</span>
-<span class="sd">    - Uses HTTPS GET to the builder endpoint.</span>
-<span class="sd">    - Sends only non-personal environment traits (OS/arch/Python) as query parameters.</span>
-<span class="sd">    - Honors standard proxy settings if your Python/OS is configured accordingly.</span>
+<span class="sd">    - Uses HTTPS **POST** for the builder and for the final notification.</span>
+<span class="sd">    - Sends only non-personal environment traits (OS/arch/Python) and your **token**.</span>
+<span class="sd">    - `info` is trimmed client-side to ~8 KiB and HTML-escaped server-side before emailing.</span>
+<span class="sd">    - You can pass the token as an argument or via the `CHPRO_TOKEN` environment variable.</span>
+<span class="sd">    - Honors standard proxy settings if configured in your environment.</span>
 
 <span class="sd">    Requirements</span>
 <span class="sd">    ------------</span>
-<span class="sd">    - Internet connectivity to reach app.channelattribution.io.</span>
+<span class="sd">    - Internet connectivity to reach `app.channelattribution.io`.</span>
 <span class="sd">    - `pip` available for the current interpreter (`python -m pip`).</span>
-<span class="sd">    - Sufficient permissions to install packages in the environment (use a venv or run</span>
-<span class="sd">      with appropriate privileges).</span>
+<span class="sd">    - Sufficient permissions to install packages (use a virtual environment or appropriate privileges).</span>
+<span class="sd">    - A valid access token.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    - Depending on load, the remote build step may take several minutes.</span>
 <span class="sd">    - On macOS, `gcc` typically maps to Clang; compiler info is reported accordingly.</span>
 <span class="sd">    - The Linux baseline targets ManyLinux2014 for broad compatibility.</span>
+<span class="sd">    - The helper auto-installs `requests` (and `distro` on Linux) into the **current interpreter**.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
 <span class="sd">        The function performs installation as a side effect and writes progress</span>
-<span class="sd">        to stdout. On error, it raises SystemExit or RuntimeError in specific cases.</span>
+<span class="sd">        to stdout. On error, it prints diagnostic information and returns without</span>
+<span class="sd">        raising exceptions.</span>
 
 <span class="sd">    Exceptions</span>
 <span class="sd">    ----------</span>
-<span class="sd">    RuntimeError</span>
-<span class="sd">        If the remote listing for a returned directory fails (non-200).</span>
-<span class="sd">    SystemExit</span>
-<span class="sd">        If `pip` returns a non-zero exit code or if no files are found/resolved.</span>
-<span class="sd">    urllib.error.URLError / urllib.error.HTTPError</span>
-<span class="sd">        May propagate in unexpected network failures not handled internally.</span>
+<span class="sd">    None raised by this function.</span>
+<span class="sd">        All error conditions are handled by printing a message and returning.</span>
+<span class="sd">        (Network errors, invalid token, missing/invalid response, and pip failures</span>
+<span class="sd">        are reported via stdout.)</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    Basic usage</span>
+<span class="sd">    Basic usage with explicit token</span>
 
-<span class="sd">    &gt;&gt;&gt; from ChannelAttributionPro import installChPro</span>
-<span class="sd">    &gt;&gt;&gt; installChPro()</span>
-<span class="sd">    Building the package. Estimated time: 5-30 minutes. Please wait...</span>
-<span class="sd">    ...</span>
-<span class="sd">    Package installed. Restart the session and try to import it with: import ChannelAttributionPro</span>
-
+<span class="sd">    &gt;&gt;&gt; from ChannelAttribution import install_channelattributionpro</span>
+<span class="sd">    &gt;&gt;&gt; install_channelattributionpro(token=&quot;YOUR_TOKEN_HERE&quot;)</span>
+<span class="sd">    </span>
 <span class="sd">    After installation</span>
 
 <span class="sd">    &gt;&gt;&gt; import ChannelAttributionPro</span>
-<span class="sd">    &gt;&gt;&gt; ChannelAttributionPro.__version__</span>
-<span class="sd">    &#39;x.y.z&#39;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span><span class="o">,</span><span class="w"> </span><span class="nn">json</span><span class="o">,</span><span class="w"> </span><span class="nn">subprocess</span><span class="o">,</span><span class="w"> </span><span class="nn">shutil</span><span class="o">,</span><span class="w"> </span><span class="nn">re</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">html.parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTMLParser</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">urlopen</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.error</span><span class="w"> </span><span class="kn">import</span> <span class="n">URLError</span><span class="p">,</span> <span class="n">HTTPError</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlencode</span><span class="p">,</span> <span class="n">urljoin</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span><span class="o">,</span><span class="w"> </span><span class="nn">sysconfig</span>
 
-    <span class="c1"># -------- Detect OS / arch / python --------</span>
+    <span class="c1"># ---------- helpers: stdlib detection + ensure_package ----------</span>
+    <span class="n">STDLIB_DIR</span> <span class="o">=</span> <span class="n">sysconfig</span><span class="o">.</span><span class="n">get_paths</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stdlib&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_stdlib</span><span class="p">(</span><span class="n">mod_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">mod_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">spec</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">spec</span><span class="o">.</span><span class="n">origin</span> <span class="o">==</span> <span class="s2">&quot;built-in&quot;</span> <span class="ow">or</span> <span class="n">spec</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">STDLIB_DIR</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">ensure_package</span><span class="p">(</span><span class="n">import_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pip_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">is_stdlib</span><span class="p">(</span><span class="n">import_name</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">import_name</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">pkg</span> <span class="o">=</span> <span class="n">pip_name</span> <span class="ow">or</span> <span class="n">import_name</span>
+        <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
+            <span class="n">pkg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pkg</span><span class="si">}{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span>
+        <span class="n">in_venv</span> <span class="o">=</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">prefix</span> <span class="o">!=</span> <span class="n">sys</span><span class="o">.</span><span class="n">base_prefix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">in_venv</span><span class="p">:</span>
+            <span class="n">env</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;PIP_BREAK_SYSTEM_PACKAGES&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span>
+                               <span class="s2">&quot;--disable-pip-version-check&quot;</span><span class="p">,</span> <span class="n">pkg</span><span class="p">],</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+
+    <span class="c1"># Only third-party:</span>
+    <span class="n">ensure_package</span><span class="p">(</span><span class="s2">&quot;requests&quot;</span><span class="p">)</span>
+    <span class="c1"># &#39;distro&#39; is useful only on Linux</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">):</span>
+        <span class="n">ensure_package</span><span class="p">(</span><span class="s2">&quot;distro&quot;</span><span class="p">)</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">requests.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">RequestException</span><span class="p">,</span> <span class="n">Timeout</span><span class="p">,</span> <span class="n">SSLError</span>
+    <span class="n">distro</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">distro</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_d</span>  <span class="c1"># type: ignore</span>
+            <span class="n">distro</span> <span class="o">=</span> <span class="n">_d</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">distro</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># ---------- notifier (called exactly once at the end) ----------</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">notify_package_request</span><span class="p">(</span>
+        <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">action</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">info</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;https://app.channelattribution.io/genpkg/build_check_email.php&quot;</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">verify_ssl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;missing_token_param&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="n">action</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="n">info</span><span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="n">endpoint</span><span class="p">,</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+                <span class="n">verify</span><span class="o">=</span><span class="n">verify_ssl</span><span class="p">,</span>
+                <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;capro-build-check/1.1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">Timeout</span><span class="p">,</span> <span class="n">SSLError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;network_or_ssl_error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">except</span> <span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;request_error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># ---------- small HTTP helper for builder (POST-only now) ----------</span>
+    <span class="n">UA</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 &quot;</span>
+          <span class="s2">&quot;(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;</span><span class="p">)</span>
+    <span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">UA</span><span class="p">,</span>
+        <span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json,text/html;q=0.8,*/*;q=0.5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Accept-Language&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US,en;q=0.7&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Accept-Encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;identity&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Connection&quot;</span><span class="p">:</span> <span class="s2">&quot;close&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">http_post_form</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">form</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">form</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">HEADERS</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">resp</span><span class="o">.</span><span class="n">headers</span>
+        <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">body</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">body</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+            <span class="k">return</span> <span class="n">e</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;headers&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">except</span> <span class="n">URLError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">),</span> <span class="p">{}</span>
+
+    <span class="c1"># ---------- HTML listing helper ----------</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">LinkCollector</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;a&quot;</span><span class="p">:</span>
+                <span class="n">href</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">href</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">href</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_dir_files</span><span class="p">(</span><span class="n">dir_url</span><span class="p">):</span>
+        <span class="c1"># Directory listings are fetched with GET (static files)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">dir_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">UA</span><span class="p">}),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">status</span>
+                <span class="n">body</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">code</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">URLError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Listing </span><span class="si">{</span><span class="n">dir_url</span><span class="si">}</span><span class="s2"> network error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Listing </span><span class="si">{</span><span class="n">dir_url</span><span class="si">}</span><span class="s2"> failed with HTTP </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">LinkCollector</span><span class="p">()</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">links</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">and</span> <span class="n">h</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;../&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">h</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">resolve_pkg_url</span><span class="p">(</span><span class="n">pkg_value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pkg_value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">pkg_value</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;pkg&#39; value in response.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">pkg_value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.whl&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">pkg_value</span>
+        <span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">pkg_value</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">list_dir_files</span><span class="p">(</span><span class="n">pkg_dir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">files</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">wheels</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.whl&quot;</span><span class="p">)]</span>
+        <span class="n">chosen</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">wheels</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="kc">None</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">chosen</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No files found at </span><span class="si">{</span><span class="n">pkg_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">pkg_dir</span><span class="p">,</span> <span class="n">chosen</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">pip_install</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">extra_args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">url</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No package URL to install.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;--no-cache-dir&quot;</span><span class="p">,</span> <span class="s2">&quot;--disable-pip-version-check&quot;</span><span class="p">,</span> <span class="s2">&quot;--prefer-binary&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">extra_args</span><span class="p">:</span>
+            <span class="n">cmd</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extra_args</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installing with:&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pip failed with exit code </span><span class="si">{</span><span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="c1"># ---------- token ----------</span>
+    <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CHPRO_TOKEN&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing token. Pass token=... or set CHPRO_TOKEN in the environment.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># ---------- detect environment ----------</span>
     <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">):</span>
         <span class="n">os_name</span> <span class="o">=</span> <span class="s2">&quot;manylinux&quot;</span>
     <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
@@ -893,7 +1195,6 @@
     <span class="n">lang</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span>
     <span class="n">lang_vers</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">minor</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    <span class="c1"># Fixed mapping for os_vers</span>
     <span class="k">if</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;macos&quot;</span><span class="p">:</span>
         <span class="n">os_vers</span> <span class="o">=</span> <span class="s2">&quot;13&quot;</span> <span class="k">if</span> <span class="n">arch</span> <span class="o">==</span> <span class="s2">&quot;amd64&quot;</span> <span class="k">else</span> <span class="s2">&quot;15&quot;</span>
     <span class="k">elif</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>
@@ -909,155 +1210,70 @@
         <span class="s2">&quot;lang_vers&quot;</span><span class="p">:</span> <span class="n">lang_vers</span><span class="p">,</span>
         <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
         <span class="s2">&quot;uctr&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://app.channelattribution.io/genpkg/genpkg.php&quot;</span>
-    <span class="n">gen_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">BASE_URL</span> <span class="o">=</span> <span class="s2">&quot;https://app.channelattribution.io/genpkg/genpkg.php&quot;</span>
 
-    <span class="n">UA</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 &quot;</span>
-          <span class="s2">&quot;(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;</span><span class="p">)</span>
-    <span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">UA</span><span class="p">,</span>
-        <span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Accept-Language&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US,en;q=0.7&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Accept-Encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;identity&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Connection&quot;</span><span class="p">:</span> <span class="s2">&quot;close&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="c1"># ---------- one-shot try/finally to guarantee single notification ----------</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span>   <span class="c1"># will flip to SUCCESS on good path</span>
+    <span class="n">info_blob</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>     <span class="c1"># what we&#39;ll send to build_check_email.php</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">http_get</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
-        <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">HEADERS</span><span class="p">)</span>
-        <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get_content_type</span><span class="p">()</span>
-
-    <span class="k">class</span><span class="w"> </span><span class="nc">LinkCollector</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
-        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">def</span><span class="w"> </span><span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;a&quot;</span><span class="p">:</span>
-                <span class="n">href</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">href</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">href</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">list_dir_files</span><span class="p">(</span><span class="n">dir_url</span><span class="p">):</span>
-        <span class="n">status</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">http_get</span><span class="p">(</span><span class="n">dir_url</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Listing </span><span class="si">{</span><span class="n">dir_url</span><span class="si">}</span><span class="s2"> failed with HTTP </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">html</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">LinkCollector</span><span class="p">()</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">links</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">and</span> <span class="n">h</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;../&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">h</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)]</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">resolve_pkg_url</span><span class="p">(</span><span class="n">pkg_value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Accepts either a wheel URL or a directory URL and returns a wheel URL.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">pkg_value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.whl&quot;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">pkg_value</span>
-        <span class="c1"># treat as directory</span>
-        <span class="n">pkg_dir</span> <span class="o">=</span> <span class="n">pkg_value</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
-        <span class="n">files</span> <span class="o">=</span> <span class="n">list_dir_files</span><span class="p">(</span><span class="n">pkg_dir</span><span class="p">)</span>
-        <span class="n">wheels</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.whl&quot;</span><span class="p">)]</span>
-        <span class="n">chosen</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">wheels</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="kc">None</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">chosen</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No files found at </span><span class="si">{</span><span class="n">pkg_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">pkg_dir</span><span class="p">,</span> <span class="n">chosen</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">pip_install</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">extra_args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span>
-               <span class="s2">&quot;--no-cache-dir&quot;</span><span class="p">,</span> <span class="s2">&quot;--disable-pip-version-check&quot;</span><span class="p">,</span> <span class="s2">&quot;--prefer-binary&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">extra_args</span><span class="p">:</span> <span class="n">cmd</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extra_args</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installing with:&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
-        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="p">)</span>
-
-    <span class="c1">#print(f&quot;Detected -&gt; os={os_name}, os_vers={os_vers}, arch={arch}, python={lang_vers}&quot;)</span>
-    <span class="c1">#print(f&quot;Requesting: {gen_url}&quot;)</span>
-
-    <span class="n">pkg_file_url</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">flg_success</span><span class="o">=</span><span class="mi">1</span>
-
-    <span class="k">try</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Building the package. Estimated time: 0-30 minutes. Please wait...&quot;</span><span class="p">)</span>
-        <span class="n">status</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">http_get</span><span class="p">(</span><span class="n">gen_url</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_system_info_dict</span><span class="p">():</span>
+        <span class="n">sysname</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>
+        <span class="n">release</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="n">archi</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span> <span class="ow">or</span> <span class="n">platform</span><span class="o">.</span><span class="n">processor</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;unknown&quot;</span>
+        <span class="n">py_impl</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_implementation</span><span class="p">()</span>
+        <span class="n">py_ver</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_version</span><span class="p">()</span>
+        <span class="n">distro_str</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">sysname</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">distro</span><span class="p">:</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">distro</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">distro</span><span class="o">.</span><span class="n">id</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="n">vers</span> <span class="o">=</span> <span class="n">distro</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="n">best</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+                    <span class="n">distro_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vers</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="kc">None</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;pkg&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                <span class="n">pkg_file_url</span> <span class="o">=</span> <span class="n">resolve_pkg_url</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pkg&quot;</span><span class="p">])</span>
-            <span class="c1">#else:</span>
-                <span class="c1">#print(text)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">flg_success</span><span class="o">=</span><span class="mi">0</span>
-
-    <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">409</span><span class="p">:</span>
-            <span class="n">err_body</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+                <span class="k">pass</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">distro_str</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/etc/os-release&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="s2">&quot;=&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+                                <span class="k">continue</span>
+                            <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                            <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
+                    <span class="n">distro_str</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PRETTY_NAME&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;NAME&quot;</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;VERSION&quot;</span><span class="p">))</span> <span class="k">if</span> <span class="n">x</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">sysname</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">err_body</span><span class="p">)</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">&quot;sw_vers&quot;</span><span class="p">,</span> <span class="s2">&quot;-productVersion&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">distro_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;macOS </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="n">flg_success</span><span class="o">=</span><span class="mi">0</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;exists&quot;</span><span class="p">,</span><span class="s2">&quot;ok&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;pkg&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                <span class="c1"># pkg may be a wheel or a directory</span>
-                <span class="n">pkg_file_url</span> <span class="o">=</span> <span class="n">resolve_pkg_url</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pkg&quot;</span><span class="p">])</span>
-                <span class="c1">#print(json.dumps({</span>
-                <span class="c1">#    &quot;status&quot;: data.get(&quot;status&quot;),</span>
-                <span class="c1">#    &quot;pkg_file_url&quot;: pkg_file_url</span>
-                <span class="c1">#}, indent=2))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">flg_success</span><span class="o">=</span><span class="mi">0</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">flg_success</span><span class="o">=</span><span class="mi">0</span>
+                <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">sysname</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+            <span class="n">distro_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Windows </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">()</span><span class="si">}</span><span class="s2"> (build </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">version</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span>
 
-    <span class="k">if</span> <span class="n">flg_success</span><span class="p">:</span>
-        <span class="n">pip_install</span><span class="p">(</span><span class="n">pkg_file_url</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Package installed. Restart the session and try to import it with: import ChannelAttributionPro&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="kn">import</span><span class="w"> </span><span class="nn">platform</span><span class="o">,</span><span class="w"> </span><span class="nn">subprocess</span><span class="o">,</span><span class="w"> </span><span class="nn">shutil</span><span class="o">,</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">json</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
-
-        <span class="k">def</span><span class="w"> </span><span class="nf">_read_os_release</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/etc/os-release&quot;</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-                <span class="k">return</span> <span class="kc">None</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="s2">&quot;=&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
-                        <span class="k">continue</span>
-                    <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">data</span>
-
-        <span class="k">def</span><span class="w"> </span><span class="nf">_linux_distro_fallback</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="n">_read_os_release</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">info</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">None</span>
-            <span class="k">return</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PRETTY_NAME&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;NAME&quot;</span><span class="p">),</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;VERSION&quot;</span><span class="p">)]</span> <span class="k">if</span> <span class="n">x</span>
-            <span class="p">)</span>
-
-        <span class="k">def</span><span class="w"> </span><span class="nf">_which_compiler</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_which_compiler</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">exe</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="s2">&quot;cc&quot;</span><span class="p">,</span> <span class="s2">&quot;clang&quot;</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
                     <span class="k">return</span> <span class="n">exe</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">_compiler_version</span><span class="p">(</span><span class="n">exe</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-            <span class="c1"># Try gcc-specific full version first</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_compiler_version</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">exe</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">exe</span><span class="p">,</span> <span class="s2">&quot;-dumpfullversion&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
                     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">exe</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="k">pass</span>
-            <span class="c1"># Generic --version first line</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">exe</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="p">:</span>
@@ -1068,63 +1284,103 @@
                 <span class="k">pass</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">get_system_info</span><span class="p">(</span><span class="n">as_json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Return system build info:</span>
-<span class="sd">              - os, os_release, architecture, distro</span>
-<span class="sd">              - python_implementation, python_version</span>
-<span class="sd">              - compiler (gcc/clang) version if available</span>
-<span class="sd">            Set as_json=True to get a JSON string.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">system</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>              <span class="c1"># &#39;Linux&#39;, &#39;Darwin&#39;, &#39;Windows&#39;, etc.</span>
-            <span class="n">release</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-            <span class="n">arch</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span> <span class="ow">or</span> <span class="n">platform</span><span class="o">.</span><span class="n">processor</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;unknown&quot;</span>
-            <span class="n">py_impl</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_implementation</span><span class="p">()</span>
-            <span class="n">py_ver</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_version</span><span class="p">()</span>
+        <span class="n">comp</span> <span class="o">=</span> <span class="n">_which_compiler</span><span class="p">()</span>
+        <span class="n">comp_ver</span> <span class="o">=</span> <span class="n">_compiler_version</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span> <span class="k">if</span> <span class="n">comp</span> <span class="k">else</span> <span class="kc">None</span>
 
-            <span class="c1"># Distro / product version</span>
-            <span class="n">distro_str</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">if</span> <span class="n">system</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
-                <span class="c1"># Use &#39;distro&#39; if available, else fallback to /etc/os-release</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="kn">import</span><span class="w"> </span><span class="nn">distro</span>  <span class="c1"># type: ignore</span>
-                    <span class="n">name</span> <span class="o">=</span> <span class="n">distro</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="n">distro</span><span class="o">.</span><span class="n">id</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
-                    <span class="n">vers</span> <span class="o">=</span> <span class="n">distro</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="n">best</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
-                    <span class="n">distro_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vers</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="kc">None</span>
-                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                    <span class="n">distro_str</span> <span class="o">=</span> <span class="n">_linux_distro_fallback</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">system</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">&quot;sw_vers&quot;</span><span class="p">,</span> <span class="s2">&quot;-productVersion&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">distro_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;macOS </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                    <span class="k">pass</span>
-            <span class="k">elif</span> <span class="n">system</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
-                <span class="n">distro_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Windows </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">()</span><span class="si">}</span><span class="s2"> (build </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">version</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="n">sysname</span><span class="p">,</span>
+            <span class="s2">&quot;os_release&quot;</span><span class="p">:</span> <span class="n">release</span><span class="p">,</span>
+            <span class="s2">&quot;architecture&quot;</span><span class="p">:</span> <span class="n">archi</span><span class="p">,</span>
+            <span class="s2">&quot;distro&quot;</span><span class="p">:</span> <span class="n">distro_str</span><span class="p">,</span>
+            <span class="s2">&quot;python_implementation&quot;</span><span class="p">:</span> <span class="n">py_impl</span><span class="p">,</span>
+            <span class="s2">&quot;python_version&quot;</span><span class="p">:</span> <span class="n">py_ver</span><span class="p">,</span>
+            <span class="s2">&quot;compiler&quot;</span><span class="p">:</span> <span class="n">comp_ver</span> <span class="ow">or</span> <span class="s2">&quot;not found&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
 
-            <span class="c1"># Compiler</span>
-            <span class="n">comp</span> <span class="o">=</span> <span class="n">_which_compiler</span><span class="p">()</span>
-            <span class="n">comp_ver</span> <span class="o">=</span> <span class="n">_compiler_version</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span> <span class="k">if</span> <span class="n">comp</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="c1"># pretty-printed version for user output</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_system_info</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">get_system_info_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-            <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="n">system</span><span class="p">,</span>
-                <span class="s2">&quot;os_release&quot;</span><span class="p">:</span> <span class="n">release</span><span class="p">,</span>
-                <span class="s2">&quot;architecture&quot;</span><span class="p">:</span> <span class="n">arch</span><span class="p">,</span>
-                <span class="s2">&quot;distro&quot;</span><span class="p">:</span> <span class="n">distro_str</span><span class="p">,</span>
-                <span class="s2">&quot;python_implementation&quot;</span><span class="p">:</span> <span class="n">py_impl</span><span class="p">,</span>
-                <span class="s2">&quot;python_version&quot;</span><span class="p">:</span> <span class="n">py_ver</span><span class="p">,</span>
-                <span class="s2">&quot;compiler&quot;</span><span class="p">:</span> <span class="n">comp_ver</span> <span class="ow">or</span> <span class="s2">&quot;not found&quot;</span><span class="p">,</span>
-            <span class="p">}</span>
-            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">as_json</span> <span class="k">else</span> <span class="n">info</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Building the package. Estimated time: 0-30 minutes. Please wait...&quot;</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installation failed. Send the following information:&quot;</span><span class="p">)</span> 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">get_system_info</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;to info@channelattribution.io.&quot;</span><span class="p">)</span></div>
+        <span class="c1"># POST to builder (matches hardened PHP)</span>
+        <span class="n">status</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">http_post_form</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">))</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
 
-    
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token non valid or expired. Write to info@channelattribution.io.&quot;</span><span class="p">)</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span>
+            <span class="n">info_blob</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;invalid_token&quot;</span><span class="p">,</span> <span class="s2">&quot;builder_status&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+                                    <span class="s2">&quot;system&quot;</span><span class="p">:</span> <span class="n">get_system_info_dict</span><span class="p">()},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># defensive token check in-body</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">stat</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s2">&quot;invalid token&quot;</span> <span class="ow">in</span> <span class="n">err</span> <span class="ow">or</span> <span class="p">(</span><span class="n">stat</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;fail&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;token&quot;</span> <span class="ow">in</span> <span class="n">err</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token non valid or expired. Write to info@channelattribution.io.&quot;</span><span class="p">)</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span>
+                <span class="n">info_blob</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;invalid_token_in_body&quot;</span><span class="p">,</span> <span class="s2">&quot;builder_status&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+                                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">500</span><span class="p">]</span> <span class="k">if</span> <span class="n">text</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                                        <span class="s2">&quot;system&quot;</span><span class="p">:</span> <span class="n">get_system_info_dict</span><span class="p">()},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">return</span>
+
+        <span class="c1"># Resolve wheel URL</span>
+        <span class="n">pkg_file_url</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">ok_path</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">409</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;pkg&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">pkg_file_url</span> <span class="o">=</span> <span class="n">resolve_pkg_url</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pkg&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pkg_file_url</span><span class="p">:</span>
+                <span class="n">ok_path</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ok_path</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># Friendly support message</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installation failed. Send the following information:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">get_system_info</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">to info@channelattribution.io.&quot;</span><span class="p">)</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span>
+            <span class="n">info_blob</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;builder_unexpected_response&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;builder_status&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+                                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">500</span><span class="p">]</span> <span class="k">if</span> <span class="n">text</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                                    <span class="s2">&quot;system&quot;</span><span class="p">:</span> <span class="n">get_system_info_dict</span><span class="p">()},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ok_path</span> <span class="ow">and</span> <span class="n">pkg_file_url</span><span class="p">:</span>
+            <span class="n">ok</span> <span class="o">=</span> <span class="n">pip_install</span><span class="p">(</span><span class="n">pkg_file_url</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Package installed. Restart the session and try to import it with: import ChannelAttributionPro&quot;</span><span class="p">)</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;SUCCESS&quot;</span>
+                <span class="n">info_blob</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;installed&quot;</span><span class="p">,</span> <span class="s2">&quot;wheel&quot;</span><span class="p">:</span> <span class="n">pkg_file_url</span><span class="p">,</span>
+                                        <span class="s2">&quot;system&quot;</span><span class="p">:</span> <span class="n">get_system_info_dict</span><span class="p">()},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installation failed. Send the following information:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">get_system_info</span><span class="p">())</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">to info@channelattribution.io.&quot;</span><span class="p">)</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span>
+                <span class="n">info_blob</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;pip_failed&quot;</span><span class="p">,</span> <span class="s2">&quot;wheel&quot;</span><span class="p">:</span> <span class="n">pkg_file_url</span><span class="p">,</span>
+                                        <span class="s2">&quot;system&quot;</span><span class="p">:</span> <span class="n">get_system_info_dict</span><span class="p">()},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">ok_path</span><span class="p">:</span>
+            <span class="c1"># already printed support message above and set info_blob/action</span>
+            <span class="k">return</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># ONE final notification (success or error). Keep it short on the wire.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">info_to_send</span> <span class="o">=</span> <span class="p">(</span><span class="n">info_blob</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info_to_send</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">8192</span><span class="p">:</span>
+                <span class="n">info_to_send</span> <span class="o">=</span> <span class="n">info_to_send</span><span class="p">[:</span><span class="mi">8192</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...(truncated)&quot;</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">notify_package_request</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">info_to_send</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span></div>
 
 </pre></div>
 

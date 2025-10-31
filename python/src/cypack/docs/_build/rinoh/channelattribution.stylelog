@@ -15,10 +15,10 @@
          > (0,0,1,0,2) title page author [Sphinx] > DEFAULT
            (0,0,0,0,2) body [Sphinx] > default
         SingleStyledText('Davide Altomare, David Loris')
-    Paragraph('Oct 23, 2025', style='title page date')
+    Paragraph('Oct 27, 2025', style='title page date')
          > (0,0,1,0,2) title page date [Sphinx] > DEFAULT
            (0,0,0,0,2) body [Sphinx] > default
-        SingleStyledText('Oct 23, 2025')
+        SingleStyledText('Oct 27, 2025')
 ---------------------------------- page i ----------------------------------
 #### FlowablesContainer('background')
   StaticGroupedFlowables()
@@ -2221,91 +2221,170 @@
            > (0,0,1,0,2) object description [Sphinx] > definition list item
         StaticGroupedFlowables(style='signatures')
              > (0,0,2,0,3) object signatures [Sphinx] > definition term
-          Paragraph('ChannelAttribution.installChPro ...', id='ChannelAttribution.installChPro')   ChannelAttribution.py:1 (docstring of ChannelAttribution.installChPro)   <desc_signature>
+          Paragraph('ChannelAttribution.install_chann...', id='ChannelAttribution.install_channelattributionpro')   ChannelAttribution.py:1 (docstring of ChannelAttribution.install_channelattributionpro)   <desc_signature>
                > (0,0,2,0,5) object signature [Sphinx] > definition term paragraph
                  (0,0,0,0,2) body [Sphinx] > default
-              MixedStyledText('ChannelAttribution.installChPro ...')
-                MixedStyledText('ChannelAttribution.installChPro ...')
-                  MixedStyledText('ChannelAttribution.', style='additional name part')   ChannelAttribution.py:1 (docstring of ChannelAttribution.installChPro)   <desc_addname>
+              MixedStyledText('ChannelAttribution.install_chann...')
+                MixedStyledText('ChannelAttribution.install_chann...')
+                  MixedStyledText('ChannelAttribution.', style='additional name part')   ChannelAttribution.py:1 (docstring of ChannelAttribution.install_channelattributionpro)   <desc_addname>
                        > (0,0,3,0,6) additional name part [Sphinx] > monospaced
                     SingleStyledText('ChannelAttribution.')
-                  MixedStyledText('installChPro', style='main object name')   ChannelAttribution.py:1 (docstring of ChannelAttribution.installChPro)   <desc_name>
+                  MixedStyledText('install_channelattributionpro', style='main object name')   ChannelAttribution.py:1 (docstring of ChannelAttribution.install_channelattributionpro)   <desc_name>
                        > (0,0,3,0,6) object name [Sphinx] > DEFAULT
-                    SingleStyledText('installChPro')
-                  MixedStyledText(' (  ) ')   ChannelAttribution.py:1 (docstring of ChannelAttribution.installChPro)   <desc_parameterlist>
-                    MixedStyledText(' ( ')
+                    SingleStyledText('install_channelattributionpro')
+                  MixedStyledText(' ( token: str | None = None ) ')   ChannelAttribution.py:1 (docstring of ChannelAttribution.install_channelattributionpro)   <desc_parameterlist>
+                    MixedStyledText(' ( token: str | None = None')
                       SingleStyledText(' ( ', style='parentheses')
                            > (0,0,3,0,6) object parentheses [Sphinx] > DEFAULT
-                      MixedStyledText('', style='parameter list')
+                      MixedStyledText('token: str | None = None', style='parameter list')
                            > (0,0,3,0,6) object parameter list [Sphinx] > DEFAULT
+                        MixedStyledText('token: str | None = None', style='parameter')   <desc_parameter>
+                             > (0,0,3,0,6) object parameter [Sphinx] > object parameter (no emphasis)
+                          MixedStyledText('token')   <desc_sig_name>
+                            SingleStyledText('token')
+                          MixedStyledText(':')   <desc_sig_punctuation>
+                            SingleStyledText(':')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('str | None')   <desc_sig_name>
+                            SingleStyledText('str')
+                            MixedStyledText(' ')   <desc_sig_space>
+                              SingleStyledText(' ')
+                            MixedStyledText('|')   <desc_sig_punctuation>
+                              SingleStyledText('|')
+                            MixedStyledText(' ')   <desc_sig_space>
+                              SingleStyledText(' ')
+                            SingleStyledText('None')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('=')   <desc_sig_operator>
+                            SingleStyledText('=')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('None')   <inline>
+                            SingleStyledText('None')
                     SingleStyledText(' ) ', style='parentheses')
                          > (0,0,3,0,6) object parentheses [Sphinx] > DEFAULT
         StaticGroupedFlowables(style='content')   index.rst   <desc_content>
              > (0,0,2,0,3) object description content [Sphinx] > definition
-          Paragraph('Install ChannelAttribution Pro (...')   ChannelAttribution.py:2 (docstring of ChannelAttribution.installChPro)   <paragraph>
+          Paragraph('Install ChannelAttribution Pro (...')   ChannelAttribution.py:2 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
                > (0,0,2,0,5) object description content paragraph [Sphinx] > body
                  (0,0,0,0,2) body [Sphinx] > default
               MixedStyledText('Install ChannelAttribution Pro (...')
                 MixedStyledText('Install ChannelAttribution Pro (...')
                   SingleStyledText('Install ChannelAttribution Pro (...')
-          Paragraph('The function detects your OS, ar...')   ChannelAttribution.py:4 (docstring of ChannelAttribution.installChPro)   <paragraph>
+          Paragraph('This installer detects your OS, ...')   ChannelAttribution.py:4 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
                > (0,0,2,0,5) object description content paragraph [Sphinx] > body
                  (0,0,0,0,2) body [Sphinx] > default
-              MixedStyledText('The function detects your OS, ar...')
-                MixedStyledText('The function detects your OS, ar...')
-                  SingleStyledText('The function detects your OS, ar...')
-              MixedStyledText('The function detects your OS, ar...')
-                MixedStyledText('The function detects your OS, ar...')
-                  SingleStyledText('The function detects your OS, ar...')
-              MixedStyledText('The function detects your OS, ar...')
-                MixedStyledText('The function detects your OS, ar...')
-                  SingleStyledText('The function detects your OS, ar...')
+              MixedStyledText('This installer detects your OS, ...')
+                MixedStyledText('This installer detects your OS, ...')
+                  SingleStyledText('This installer detects your OS, ...')
+              MixedStyledText('This installer detects your OS, ...')
+                MixedStyledText('This installer detects your OS, ...')
+                  SingleStyledText('This installer detects your OS, ...')
+                  MixedStyledText('POST', style='strong')   <strong>
+                       > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                    SingleStyledText('POST')
+                  SingleStyledText(', resolves the final package URL...')
+              MixedStyledText('This installer detects your OS, ...')
+                MixedStyledText('This installer detects your OS, ...')
+                  SingleStyledText('This installer detects your OS, ...')
+                  MixedStyledText('POST', style='strong')   <strong>
+                       > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                    SingleStyledText('POST')
+                  SingleStyledText(', resolves the final package URL...')
                   MixedStyledText('pip', style='title reference')   <title_reference>
                        > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
                     SingleStyledText('pip')
-                  SingleStyledText('. If installation fails, it prin...')
+                  SingleStyledText('. Whether the install succeeds o...')
+                  MixedStyledText('one final', style='strong')   <strong>
+                       > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                    SingleStyledText('one final')
+                  SingleStyledText(' notification to ')
+                  MixedStyledText('build_check_email.php', style='title reference')   <title_reference>
+                       > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                    SingleStyledText('build_check_email.php')
+                  SingleStyledText(' with a compact info payload.')
           DefinitionList(style='field list')   <field_list>
                > (0,0,1,0,2) field list [Sphinx] > DEFAULT
                  (0,0,0,0,2) definition list [Sphinx] > DEFAULT
-            LabeledFlowable()   ChannelAttribution.py:9 (docstring of ChannelAttribution.installChPro)   <field>
+            LabeledFlowable()   ChannelAttribution.py:10 (docstring of ChannelAttribution.install_channelattributionpro)   <field>
                  > (0,0,1,0,4) field list item [Sphinx] > DEFAULT
                    (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
               Paragraph('Parameters', style='field name')
                    > (0,0,2,0,6) field name [Sphinx] > default
                      (0,0,0,0,2) body [Sphinx] > default
                   MixedStyledText('Parameters')
-                    MixedStyledText('Parameters')   ChannelAttribution.py (docstring of ChannelAttribution.installChPro)   <field_name>
+                    MixedStyledText('Parameters')   ChannelAttribution.py (docstring of ChannelAttribution.install_channelattributionpro)   <field_name>
                       SingleStyledText('Parameters')
               StaticGroupedFlowables()   <field_body>
-                DefinitionList()   ChannelAttribution.py:11 (docstring of ChannelAttribution.installChPro)   <definition_list>
+                DefinitionList()   ChannelAttribution.py:12 (docstring of ChannelAttribution.install_channelattributionpro)   <definition_list>
                      > (0,0,0,0,2) definition list [Sphinx] > DEFAULT
-                  LabeledFlowable()   ChannelAttribution.py:11 (docstring of ChannelAttribution.installChPro)   <definition_list_item>
+                  LabeledFlowable()   ChannelAttribution.py:12 (docstring of ChannelAttribution.install_channelattributionpro)   <definition_list_item>
                        > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
                     StaticGroupedFlowables(style='definition term')
                          > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
-                      Paragraph('(none)')
+                      Paragraph('token : str, optional')
                            > (0,0,1,0,7) definition term paragraph [Sphinx] > default
                              (0,0,0,0,2) body [Sphinx] > default
-                          MixedStyledText('(none)')
-                            MixedStyledText('(none)')   ChannelAttribution.py:11 (docstring of ChannelAttribution.installChPro)   <term>
-                              MixedStyledText('(none)', style='strong')   <strong>
+                          MixedStyledText('token : str, optional')
+                            MixedStyledText('token : str, optional')
+                              MixedStyledText('token', style='strong')   <strong>
                                    > (0,0,1,0,1) strong [Sphinx] > DEFAULT
-                                SingleStyledText('(none)')
-                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:12 (docstring of ChannelAttribution.installChPro)   <definition>
+                                SingleStyledText('token')
+                              SingleStyledText(' : ')
+                              MixedStyledText('str, optional', style='classifier')   ChannelAttribution.py (docstring of ChannelAttribution.install_channelattributionpro)   <classifier>
+                                   > (0,0,2,0,8) definition term classifier [Sphinx] > DEFAULT
+                                SingleStyledText('str, optional')
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:13 (docstring of ChannelAttribution.install_channelattributionpro)   <definition>
                          > (0,0,1,0,5) definition [Sphinx] > DEFAULT
-            LabeledFlowable()   ChannelAttribution.py:16 (docstring of ChannelAttribution.installChPro)   <field>
+                      Paragraph('Access token for the build servi...')   ChannelAttribution.py:13 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
+                           > (0,0,1,0,7) definition paragraph [Sphinx] > body
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('Access token for the build servi...')
+                            MixedStyledText('Access token for the build servi...')
+                              SingleStyledText('Access token for the build servi...')
+                          MixedStyledText('Access token for the build servi...')
+                            MixedStyledText('Access token for the build servi...')
+                              SingleStyledText('Access token for the build servi...')
+                              MixedStyledText('CHPRO_TOKEN', style='title reference')   <title_reference>
+                                   > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                                SingleStyledText('CHPRO_TOKEN')
+                              SingleStyledText('. If neither is provided, the in...')
+                          MixedStyledText('Access token for the build servi...')
+                            MixedStyledText('Access token for the build servi...')
+                              SingleStyledText('Access token for the build servi...')
+                              MixedStyledText('CHPRO_TOKEN', style='title reference')   <title_reference>
+                                   > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                                SingleStyledText('CHPRO_TOKEN')
+                              SingleStyledText('. If neither is provided, the in...')
+                              MixedStyledText('“Token non valid or expired. Wri...', style='strong')   <strong>
+                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                                SingleStyledText('“Token non valid or expired. Wri...')
+                          MixedStyledText('Access token for the build servi...')
+                            MixedStyledText('Access token for the build servi...')
+                              SingleStyledText('Access token for the build servi...')
+                              MixedStyledText('CHPRO_TOKEN', style='title reference')   <title_reference>
+                                   > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                                SingleStyledText('CHPRO_TOKEN')
+                              SingleStyledText('. If neither is provided, the in...')
+                              MixedStyledText('“Token non valid or expired. Wri...', style='strong')   <strong>
+                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                                SingleStyledText('“Token non valid or expired. Wri...')
+                              SingleStyledText(' and returns.')
+            LabeledFlowable()   ChannelAttribution.py:21 (docstring of ChannelAttribution.install_channelattributionpro)   <field>
                  > (0,0,1,0,4) field list item [Sphinx] > DEFAULT
                    (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
               Paragraph('Returns', style='field name')
                    > (0,0,2,0,6) field name [Sphinx] > default
                      (0,0,0,0,2) body [Sphinx] > default
                   MixedStyledText('Returns')
-                    MixedStyledText('Returns')   ChannelAttribution.py (docstring of ChannelAttribution.installChPro)   <field_name>
+                    MixedStyledText('Returns')   ChannelAttribution.py (docstring of ChannelAttribution.install_channelattributionpro)   <field_name>
                       SingleStyledText('Returns')
               StaticGroupedFlowables()   <field_body>
-                DefinitionList()   ChannelAttribution.py:18 (docstring of ChannelAttribution.installChPro)   <definition_list>
+                DefinitionList()   ChannelAttribution.py:23 (docstring of ChannelAttribution.install_channelattributionpro)   <definition_list>
                      > (0,0,0,0,2) definition list [Sphinx] > DEFAULT
-                  LabeledFlowable()   ChannelAttribution.py:18 (docstring of ChannelAttribution.installChPro)   <definition_list_item>
+                  LabeledFlowable()   ChannelAttribution.py:23 (docstring of ChannelAttribution.install_channelattributionpro)   <definition_list_item>
                        > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
                     StaticGroupedFlowables(style='definition term')
                          > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
@@ -2313,11 +2392,11 @@
                            > (0,0,1,0,7) definition term paragraph [Sphinx] > default
                              (0,0,0,0,2) body [Sphinx] > default
                           MixedStyledText('None')
-                            MixedStyledText('None')   ChannelAttribution.py:18 (docstring of ChannelAttribution.installChPro)   <term>
+                            MixedStyledText('None')   ChannelAttribution.py:23 (docstring of ChannelAttribution.install_channelattributionpro)   <term>
                               SingleStyledText('None')
-                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:19 (docstring of ChannelAttribution.installChPro)   <definition>
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:24 (docstring of ChannelAttribution.install_channelattributionpro)   <definition>
                          > (0,0,1,0,5) definition [Sphinx] > DEFAULT
-                      Paragraph('The function performs installati...')   ChannelAttribution.py:19 (docstring of ChannelAttribution.installChPro)   <paragraph>
+                      Paragraph('The function performs installati...')   ChannelAttribution.py:24 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
                            > (0,0,1,0,7) definition paragraph [Sphinx] > body
                              (0,0,0,0,2) body [Sphinx] > default
                           MixedStyledText('The function performs installati...')
@@ -2326,16 +2405,16 @@
                           MixedStyledText('The function performs installati...')
                             MixedStyledText('The function performs installati...')
                               SingleStyledText('The function performs installati...')
-          Paragraph('Notes', style='rubric')   ChannelAttribution.py:30 (docstring of ChannelAttribution.installChPro)   <rubric>
+          Paragraph('Notes', style='rubric')   ChannelAttribution.py:36 (docstring of ChannelAttribution.install_channelattributionpro)   <rubric>
                > (0,0,2,0,5) object description content paragraph [Sphinx] > body
                  (0,0,1,0,2) rubric [Sphinx] > DEFAULT
                  (0,0,0,0,2) body [Sphinx] > default
               MixedStyledText('Notes')
                 MixedStyledText('Notes')
                   SingleStyledText('Notes')
-          List(style='bulleted')   ChannelAttribution.py:31 (docstring of ChannelAttribution.installChPro)   <bullet_list>
+          List(style='bulleted')   ChannelAttribution.py:37 (docstring of ChannelAttribution.install_channelattributionpro)   <bullet_list>
                > (0,0,1,0,2) bulleted list [Sphinx] > enumerated list
-            ListItem()   ChannelAttribution.py:31 (docstring of ChannelAttribution.installChPro)   <list_item>
+            ListItem()   ChannelAttribution.py:37 (docstring of ChannelAttribution.install_channelattributionpro)   <list_item>
                  x (0,0,1,0,4) bulleted list item
               ListItemLabel('•')
                    > (0,0,1,0,6) bulleted list item label [Sphinx] > list item label
@@ -2346,57 +2425,12 @@
                     SingleStyledText('')
               StaticGroupedFlowables()
                    > (0,0,0,0,3) list item body [Sphinx] > DEFAULT
-                Paragraph('Depending on load, the remote bu...')   ChannelAttribution.py:31 (docstring of ChannelAttribution.installChPro)   <paragraph>
+                Paragraph('Depending on load, the remote bu...')   ChannelAttribution.py:37 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
                      > (0,0,0,0,5) list item paragraph [Sphinx] > default
                        (0,0,0,0,2) body [Sphinx] > default
                     MixedStyledText('Depending on load, the remote bu...')
                       MixedStyledText('Depending on load, the remote bu...')
                         SingleStyledText('Depending on load, the remote bu...')
-            ListItem()   ChannelAttribution.py:32 (docstring of ChannelAttribution.installChPro)   <list_item>
-                 x (0,0,1,0,4) bulleted list item
-              ListItemLabel('•')
-                   > (0,0,1,0,6) bulleted list item label [Sphinx] > list item label
-                     (0,0,0,0,2) list item label [Sphinx] > default
-                  MixedStyledText('•')
-                    SingleStyledText('')
-                    SingleStyledText('•')
-                    SingleStyledText('')
-              StaticGroupedFlowables()
-                   > (0,0,0,0,3) list item body [Sphinx] > DEFAULT
-                Paragraph('On macOS, gcc typically maps to ...')   ChannelAttribution.py:32 (docstring of ChannelAttribution.installChPro)   <paragraph>
-                     > (0,0,0,0,5) list item paragraph [Sphinx] > default
-                       (0,0,0,0,2) body [Sphinx] > default
-                    MixedStyledText('On macOS, gcc typically maps to ...')
-                      MixedStyledText('On macOS, gcc typically maps to ...')
-                        SingleStyledText('On macOS, ')
-                        MixedStyledText('gcc', style='title reference')   <title_reference>
-                             > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
-                          SingleStyledText('gcc')
-                        SingleStyledText(' typically maps to Clang; compil...')
-            ListItem()   ChannelAttribution.py:33 (docstring of ChannelAttribution.installChPro)   <list_item>
-                 x (0,0,1,0,4) bulleted list item
-              ListItemLabel('•')
-                   > (0,0,1,0,6) bulleted list item label [Sphinx] > list item label
-                     (0,0,0,0,2) list item label [Sphinx] > default
-                  MixedStyledText('•')
-                    SingleStyledText('')
-                    SingleStyledText('•')
-                    SingleStyledText('')
-              StaticGroupedFlowables()
-                   > (0,0,0,0,3) list item body [Sphinx] > DEFAULT
-                Paragraph('The Linux baseline targets ManyL...')   ChannelAttribution.py:33 (docstring of ChannelAttribution.installChPro)   <paragraph>
-                     > (0,0,0,0,5) list item paragraph [Sphinx] > default
-                       (0,0,0,0,2) body [Sphinx] > default
-                    MixedStyledText('The Linux baseline targets ManyL...')
-                      MixedStyledText('The Linux baseline targets ManyL...')
-                        SingleStyledText('The Linux baseline targets ManyL...')
-          Paragraph('Examples', style='rubric')   ChannelAttribution.py:37 (docstring of ChannelAttribution.installChPro)   <rubric>
-               > (0,0,2,0,5) object description content paragraph [Sphinx] > body
-                 (0,0,1,0,2) rubric [Sphinx] > DEFAULT
-                 (0,0,0,0,2) body [Sphinx] > default
-              MixedStyledText('Examples')
-                MixedStyledText('Examples')
-                  SingleStyledText('Examples')
 #### UpExpandingContainer('header')
   StaticGroupedFlowables()
     Header('ChannelAttribution, Release 2.2....')
@@ -2440,31 +2474,103 @@
            > (0,0,1,0,2) object description [Sphinx] > definition list item
         (continued) StaticGroupedFlowables(style='content')   index.rst   <desc_content>
              > (0,0,2,0,3) object description content [Sphinx] > definition
-          Paragraph('Basic usage')   ChannelAttribution.py:38 (docstring of ChannelAttribution.installChPro)   <paragraph>
+          (continued) List(style='bulleted')   ChannelAttribution.py:37 (docstring of ChannelAttribution.install_channelattributionpro)   <bullet_list>
+               > (0,0,1,0,2) bulleted list [Sphinx] > enumerated list
+            ListItem()   ChannelAttribution.py:38 (docstring of ChannelAttribution.install_channelattributionpro)   <list_item>
+                 x (0,0,1,0,4) bulleted list item
+              ListItemLabel('•')
+                   > (0,0,1,0,6) bulleted list item label [Sphinx] > list item label
+                     (0,0,0,0,2) list item label [Sphinx] > default
+                  MixedStyledText('•')
+                    SingleStyledText('')
+                    SingleStyledText('•')
+                    SingleStyledText('')
+              StaticGroupedFlowables()
+                   > (0,0,0,0,3) list item body [Sphinx] > DEFAULT
+                Paragraph('On macOS, gcc typically maps to ...')   ChannelAttribution.py:38 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
+                     > (0,0,0,0,5) list item paragraph [Sphinx] > default
+                       (0,0,0,0,2) body [Sphinx] > default
+                    MixedStyledText('On macOS, gcc typically maps to ...')
+                      MixedStyledText('On macOS, gcc typically maps to ...')
+                        SingleStyledText('On macOS, ')
+                        MixedStyledText('gcc', style='title reference')   <title_reference>
+                             > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                          SingleStyledText('gcc')
+                        SingleStyledText(' typically maps to Clang; compil...')
+            ListItem()   ChannelAttribution.py:39 (docstring of ChannelAttribution.install_channelattributionpro)   <list_item>
+                 x (0,0,1,0,4) bulleted list item
+              ListItemLabel('•')
+                   > (0,0,1,0,6) bulleted list item label [Sphinx] > list item label
+                     (0,0,0,0,2) list item label [Sphinx] > default
+                  MixedStyledText('•')
+                    SingleStyledText('')
+                    SingleStyledText('•')
+                    SingleStyledText('')
+              StaticGroupedFlowables()
+                   > (0,0,0,0,3) list item body [Sphinx] > DEFAULT
+                Paragraph('The Linux baseline targets ManyL...')   ChannelAttribution.py:39 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
+                     > (0,0,0,0,5) list item paragraph [Sphinx] > default
+                       (0,0,0,0,2) body [Sphinx] > default
+                    MixedStyledText('The Linux baseline targets ManyL...')
+                      MixedStyledText('The Linux baseline targets ManyL...')
+                        SingleStyledText('The Linux baseline targets ManyL...')
+            ListItem()   ChannelAttribution.py:40 (docstring of ChannelAttribution.install_channelattributionpro)   <list_item>
+                 x (0,0,1,0,4) bulleted list item
+              ListItemLabel('•')
+                   > (0,0,1,0,6) bulleted list item label [Sphinx] > list item label
+                     (0,0,0,0,2) list item label [Sphinx] > default
+                  MixedStyledText('•')
+                    SingleStyledText('')
+                    SingleStyledText('•')
+                    SingleStyledText('')
+              StaticGroupedFlowables()
+                   > (0,0,0,0,3) list item body [Sphinx] > DEFAULT
+                Paragraph('The helper auto-installs request...')   ChannelAttribution.py:40 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
+                     > (0,0,0,0,5) list item paragraph [Sphinx] > default
+                       (0,0,0,0,2) body [Sphinx] > default
+                    MixedStyledText('The helper auto-installs request...')
+                      MixedStyledText('The helper auto-installs request...')
+                        SingleStyledText('The helper auto-installs ')
+                        MixedStyledText('requests', style='title reference')   <title_reference>
+                             > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                          SingleStyledText('requests')
+                        SingleStyledText(' (and ')
+                        MixedStyledText('distro', style='title reference')   <title_reference>
+                             > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                          SingleStyledText('distro')
+                        SingleStyledText(' on Linux) into the ')
+                        MixedStyledText('current interpreter', style='strong')   <strong>
+                             > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                          SingleStyledText('current interpreter')
+                        SingleStyledText('.')
+          Paragraph('Examples', style='rubric')   ChannelAttribution.py:44 (docstring of ChannelAttribution.install_channelattributionpro)   <rubric>
+               > (0,0,2,0,5) object description content paragraph [Sphinx] > body
+                 (0,0,1,0,2) rubric [Sphinx] > DEFAULT
+                 (0,0,0,0,2) body [Sphinx] > default
+              MixedStyledText('Examples')
+                MixedStyledText('Examples')
+                  SingleStyledText('Examples')
+          Paragraph('Basic usage with explicit token')   ChannelAttribution.py:45 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
                > (0,0,2,0,5) object description content paragraph [Sphinx] > body
                  (0,0,0,0,2) body [Sphinx] > default
-              MixedStyledText('Basic usage')
-                MixedStyledText('Basic usage')
-                  SingleStyledText('Basic usage')
-          CodeBlock('>>> from ChannelAttributionPro i...')   ChannelAttribution.py:44 (docstring of ChannelAttribution.installChPro)   <doctest_block>
+              MixedStyledText('Basic usage with explicit token')
+                MixedStyledText('Basic usage with explicit token')
+                  SingleStyledText('Basic usage with explicit token')
+          CodeBlock('>>> from ChannelAttribution impo...')   ChannelAttribution.py:48 (docstring of ChannelAttribution.install_channelattributionpro)   <doctest_block>
                > (1,0,0,0,2) code block [Sphinx] > DEFAULT
                  (0,0,2,0,4) object description content paragraph [Sphinx] > body
                  (0,0,0,0,1) body [Sphinx] > default
-              MixedStyledText('>>> from ChannelAttributionPro i...')
-                MixedStyledText('>>> from ChannelAttributionPro i...')
-                  Token('>>> from ChannelAttributionPro i...', type=Token.Text)
+              MixedStyledText('>>> from ChannelAttribution impo...')
+                MixedStyledText('>>> from ChannelAttribution impo...')
+                  Token('>>> from ChannelAttribution impo...', type=Token.Text)
                        > (0,0,0,1,2) (pygments)Token.Text [FriendlyStyle (pygments)] > DEFAULT
-              MixedStyledText('>>> from ChannelAttributionPro i...')
-                MixedStyledText('>>> from ChannelAttributionPro i...')
-                  Token('>>> from ChannelAttributionPro i...', type=Token.Text)
-                       > (0,0,0,1,2) (pygments)Token.Text [FriendlyStyle (pygments)] > DEFAULT
-          Paragraph('After installation')   ChannelAttribution.py:46 (docstring of ChannelAttribution.installChPro)   <paragraph>
+          Paragraph('After installation')   ChannelAttribution.py:50 (docstring of ChannelAttribution.install_channelattributionpro)   <paragraph>
                > (0,0,2,0,5) object description content paragraph [Sphinx] > body
                  (0,0,0,0,2) body [Sphinx] > default
               MixedStyledText('After installation')
                 MixedStyledText('After installation')
                   SingleStyledText('After installation')
-          CodeBlock('>>> import ChannelAttributionPro...')   ChannelAttribution.py:50 (docstring of ChannelAttribution.installChPro)   <doctest_block>
+          CodeBlock('>>> import ChannelAttributionPro...')   ChannelAttribution.py:52 (docstring of ChannelAttribution.install_channelattributionpro)   <doctest_block>
                > (1,0,0,0,2) code block [Sphinx] > DEFAULT
                  (0,0,2,0,4) object description content paragraph [Sphinx] > body
                  (0,0,0,0,1) body [Sphinx] > default
@@ -3162,33 +3268,6 @@
                           MixedStyledText('random seed. Giving this paramet...')
                             MixedStyledText('random seed. Giving this paramet...')
                               SingleStyledText('random seed. Giving this paramet...')
-                  LabeledFlowable()   ChannelAttribution.py:46 (docstring of ChannelAttribution.markov_model)   <definition_list_item>
-                       > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
-                    StaticGroupedFlowables(style='definition term')
-                         > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
-                      Paragraph('conv_par : double, default 0.05')
-                           > (0,0,1,0,7) definition term paragraph [Sphinx] > default
-                             (0,0,0,0,2) body [Sphinx] > default
-                          MixedStyledText('conv_par : double, default 0.05')
-                            MixedStyledText('conv_par : double, default 0.05')
-                              MixedStyledText('conv_par', style='strong')   <strong>
-                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
-                                SingleStyledText('conv_par')
-                              SingleStyledText(' : ')
-                              MixedStyledText('double, default 0.05', style='classifier')   ChannelAttribution.py (docstring of ChannelAttribution.markov_model)   <classifier>
-                                   > (0,0,2,0,8) definition term classifier [Sphinx] > DEFAULT
-                                SingleStyledText('double, default 0.05')
-                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:47 (docstring of ChannelAttribution.markov_model)   <definition>
-                         > (0,0,1,0,5) definition [Sphinx] > DEFAULT
-                      Paragraph('convergence parameter for the al...')   ChannelAttribution.py:47 (docstring of ChannelAttribution.markov_model)   <paragraph>
-                           > (0,0,1,0,7) definition paragraph [Sphinx] > body
-                             (0,0,0,0,2) body [Sphinx] > default
-                          MixedStyledText('convergence parameter for the al...')
-                            MixedStyledText('convergence parameter for the al...')
-                              SingleStyledText('convergence parameter for the al...')
-                          MixedStyledText('convergence parameter for the al...')
-                            MixedStyledText('convergence parameter for the al...')
-                              SingleStyledText('convergence parameter for the al...')
 #### UpExpandingContainer('header')
   StaticGroupedFlowables()
     Header('		ChannelAttribution, Release 2....')
@@ -3240,13 +3319,30 @@
               (continued) StaticGroupedFlowables()   <field_body>
                 (continued) DefinitionList()   ChannelAttribution.py:7 (docstring of ChannelAttribution.markov_model)   <definition_list>
                      > (0,0,0,0,2) definition list [Sphinx] > DEFAULT
-                  (continued) LabeledFlowable()   ChannelAttribution.py:46 (docstring of ChannelAttribution.markov_model)   <definition_list_item>
+                  LabeledFlowable()   ChannelAttribution.py:46 (docstring of ChannelAttribution.markov_model)   <definition_list_item>
                        > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
-                    (continued) StaticGroupedFlowables(style='definition')   ChannelAttribution.py:47 (docstring of ChannelAttribution.markov_model)   <definition>
+                    StaticGroupedFlowables(style='definition term')
+                         > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
+                      Paragraph('conv_par : double, default 0.05')
+                           > (0,0,1,0,7) definition term paragraph [Sphinx] > default
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('conv_par : double, default 0.05')
+                            MixedStyledText('conv_par : double, default 0.05')
+                              MixedStyledText('conv_par', style='strong')   <strong>
+                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                                SingleStyledText('conv_par')
+                              SingleStyledText(' : ')
+                              MixedStyledText('double, default 0.05', style='classifier')   ChannelAttribution.py (docstring of ChannelAttribution.markov_model)   <classifier>
+                                   > (0,0,2,0,8) definition term classifier [Sphinx] > DEFAULT
+                                SingleStyledText('double, default 0.05')
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:47 (docstring of ChannelAttribution.markov_model)   <definition>
                          > (0,0,1,0,5) definition [Sphinx] > DEFAULT
-                      (continued) Paragraph('convergence parameter for the al...')   ChannelAttribution.py:47 (docstring of ChannelAttribution.markov_model)   <paragraph>
+                      Paragraph('convergence parameter for the al...')   ChannelAttribution.py:47 (docstring of ChannelAttribution.markov_model)   <paragraph>
                            > (0,0,1,0,7) definition paragraph [Sphinx] > body
                              (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('convergence parameter for the al...')
+                            MixedStyledText('convergence parameter for the al...')
+                              SingleStyledText('convergence parameter for the al...')
                           MixedStyledText('convergence parameter for the al...')
                             MixedStyledText('convergence parameter for the al...')
                               SingleStyledText('convergence parameter for the al...')
@@ -3534,6 +3630,523 @@
                 MixedStyledText('>>> markov_model(Data, "path", "...')
                   Token('>>> markov_model(Data, "path", "...', type=Token.Text)
                        > (0,0,0,1,2) (pygments)Token.Text [FriendlyStyle (pygments)] > DEFAULT
+#### UpExpandingContainer('header')
+  StaticGroupedFlowables()
+    Header('ChannelAttribution, Release 2.2....')
+         > (0,0,0,0,2) header [Sphinx] > header_footer
+        MixedStyledText('ChannelAttribution, Release 2.2....')
+          MixedStyledText('ChannelAttribution, Release 2.2....')
+            Field('ChannelAttribution')
+              SingleStyledText('ChannelAttribution')
+            SingleStyledText(', ')
+            Field('Release 2.2.2')
+              SingleStyledText('Release 2.2.2')
+#### DownExpandingContainer('footer')
+  StaticGroupedFlowables()
+    Footer('6		Chapter ​.  ​')
+         > (0,0,0,0,2) footer [Sphinx] > header_footer
+        MixedStyledText('6		Chapter ​.  ​')
+          MixedStyledText('6		Chapter ​.  ​')
+            Field('6')
+              SingleStyledText('6')
+            Tab('	')
+            Tab('	')
+            StringField('Chapter')
+              SingleStyledText('Chapter')
+            SingleStyledText(' ')
+            Field('​')
+              SingleStyledText('​')
+            SingleStyledText('.  ')
+            Field('​')
+              SingleStyledText('​')
+---------------------------------- page 7 ----------------------------------
+#### FlowablesContainer('background')
+  StaticGroupedFlowables()
+#### FootnoteContainer('footnotes')
+  StaticGroupedFlowables()
+#### DownExpandingContainer('floats')
+  StaticGroupedFlowables()
+#### ChainedContainer('column1')
+  (continued) StaticGroupedFlowables()
+    (continued) DocumentTree()   index.rst   <document>
+      LabeledFlowable(style='object description')   index.rst   <desc>
+           > (0,0,1,0,2) object description [Sphinx] > definition list item
+        StaticGroupedFlowables(style='signatures')
+             > (0,0,2,0,3) object signatures [Sphinx] > definition term
+          Paragraph('ChannelAttribution.request_token...', id='ChannelAttribution.request_token_channelattributionpro')   ChannelAttribution.py:1 (docstring of ChannelAttribution.request_token_channelattributionpro)   <desc_signature>
+               > (0,0,2,0,5) object signature [Sphinx] > definition term paragraph
+                 (0,0,0,0,2) body [Sphinx] > default
+              MixedStyledText('ChannelAttribution.request_token...')
+                MixedStyledText('ChannelAttribution.request_token...')
+                  MixedStyledText('ChannelAttribution.', style='additional name part')   ChannelAttribution.py:1 (docstring of ChannelAttribution.request_token_channelattributionpro)   <desc_addname>
+                       > (0,0,3,0,6) additional name part [Sphinx] > monospaced
+                    SingleStyledText('ChannelAttribution.')
+                  MixedStyledText('request_token_channelattribution...', style='main object name')   ChannelAttribution.py:1 (docstring of ChannelAttribution.request_token_channelattributionpro)   <desc_name>
+                       > (0,0,3,0,6) object name [Sphinx] > DEFAULT
+                    SingleStyledText('request_token_channelattribution...')
+                  MixedStyledText(' ( email: str, endpoint: str = '...')   ChannelAttribution.py:1 (docstring of ChannelAttribution.request_token_channelattributionpro)   <desc_parameterlist>
+                    MixedStyledText(' ( email: str, endpoint: str = '...')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses [Sphinx] > DEFAULT
+                      MixedStyledText('email: str, endpoint: str = 'htt...', style='parameter list')
+                           > (0,0,3,0,6) object parameter list [Sphinx] > DEFAULT
+                        MixedStyledText('email: str', style='parameter')   <desc_parameter>
+                             > (0,0,3,0,6) object parameter [Sphinx] > object parameter (no emphasis)
+                          MixedStyledText('email')   <desc_sig_name>
+                            SingleStyledText('email')
+                          MixedStyledText(':')   <desc_sig_punctuation>
+                            SingleStyledText(':')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('str')   <desc_sig_name>
+                            SingleStyledText('str')
+                        SingleStyledText(', ')
+                        MixedStyledText('endpoint: str = 'https://app.cha...', style='parameter')   <desc_parameter>
+                             > (0,0,3,0,6) object parameter [Sphinx] > object parameter (no emphasis)
+                          MixedStyledText('endpoint')   <desc_sig_name>
+                            SingleStyledText('endpoint')
+                          MixedStyledText(':')   <desc_sig_punctuation>
+                            SingleStyledText(':')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('str')   <desc_sig_name>
+                            SingleStyledText('str')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('=')   <desc_sig_operator>
+                            SingleStyledText('=')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText(''https://app.channelattribution....')   <inline>
+                            SingleStyledText(''https://app.channelattribution....')
+              MixedStyledText('ChannelAttribution.request_token...')
+                MixedStyledText('ChannelAttribution.request_token...')
+                  MixedStyledText('ChannelAttribution.', style='additional name part')   ChannelAttribution.py:1 (docstring of ChannelAttribution.request_token_channelattributionpro)   <desc_addname>
+                       > (0,0,3,0,6) additional name part [Sphinx] > monospaced
+                    SingleStyledText('ChannelAttribution.')
+                  MixedStyledText('request_token_channelattribution...', style='main object name')   ChannelAttribution.py:1 (docstring of ChannelAttribution.request_token_channelattributionpro)   <desc_name>
+                       > (0,0,3,0,6) object name [Sphinx] > DEFAULT
+                    SingleStyledText('request_token_channelattribution...')
+                  MixedStyledText(' ( email: str, endpoint: str = '...')   ChannelAttribution.py:1 (docstring of ChannelAttribution.request_token_channelattributionpro)   <desc_parameterlist>
+                    MixedStyledText(' ( email: str, endpoint: str = '...')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses [Sphinx] > DEFAULT
+                      MixedStyledText('email: str, endpoint: str = 'htt...', style='parameter list')
+                           > (0,0,3,0,6) object parameter list [Sphinx] > DEFAULT
+                        MixedStyledText('email: str', style='parameter')   <desc_parameter>
+                             > (0,0,3,0,6) object parameter [Sphinx] > object parameter (no emphasis)
+                          MixedStyledText('email')   <desc_sig_name>
+                            SingleStyledText('email')
+                          MixedStyledText(':')   <desc_sig_punctuation>
+                            SingleStyledText(':')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('str')   <desc_sig_name>
+                            SingleStyledText('str')
+                        SingleStyledText(', ')
+                        MixedStyledText('endpoint: str = 'https://app.cha...', style='parameter')   <desc_parameter>
+                             > (0,0,3,0,6) object parameter [Sphinx] > object parameter (no emphasis)
+                          MixedStyledText('endpoint')   <desc_sig_name>
+                            SingleStyledText('endpoint')
+                          MixedStyledText(':')   <desc_sig_punctuation>
+                            SingleStyledText(':')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('str')   <desc_sig_name>
+                            SingleStyledText('str')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('=')   <desc_sig_operator>
+                            SingleStyledText('=')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText(''https://app.channelattribution....')   <inline>
+                            SingleStyledText(''https://app.channelattribution....')
+                        SingleStyledText(', ')
+                        MixedStyledText('timeout: int = 10', style='parameter')   <desc_parameter>
+                             > (0,0,3,0,6) object parameter [Sphinx] > object parameter (no emphasis)
+                          MixedStyledText('timeout')   <desc_sig_name>
+                            SingleStyledText('timeout')
+                          MixedStyledText(':')   <desc_sig_punctuation>
+                            SingleStyledText(':')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('int')   <desc_sig_name>
+                            SingleStyledText('int')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('=')   <desc_sig_operator>
+                            SingleStyledText('=')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('10')   <inline>
+                            SingleStyledText('10')
+                        SingleStyledText(', ')
+                        MixedStyledText('verify_ssl: bool = True', style='parameter')   <desc_parameter>
+                             > (0,0,3,0,6) object parameter [Sphinx] > object parameter (no emphasis)
+                          MixedStyledText('verify_ssl')   <desc_sig_name>
+                            SingleStyledText('verify_ssl')
+                          MixedStyledText(':')   <desc_sig_punctuation>
+                            SingleStyledText(':')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('bool')   <desc_sig_name>
+                            SingleStyledText('bool')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('=')   <desc_sig_operator>
+                            SingleStyledText('=')
+                          MixedStyledText(' ')   <desc_sig_space>
+                            SingleStyledText(' ')
+                          MixedStyledText('True')   <inline>
+                            SingleStyledText('True')
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses [Sphinx] > DEFAULT
+                  MixedStyledText('→ str')   ChannelAttribution.py:1 (docstring of ChannelAttribution.request_token_channelattributionpro)   <desc_returns>
+                    MixedStyledText('→ ')
+                      SingleStyledText('→', style='returns arrow')
+                      SingleStyledText(' ')
+                    MixedStyledText('str', style='returns')
+                         > (0,0,3,0,6) object returns [Sphinx] > DEFAULT
+                      SingleStyledText('str')
+        StaticGroupedFlowables(style='content')   index.rst   <desc_content>
+             > (0,0,2,0,3) object description content [Sphinx] > definition
+          Paragraph('Send an email address to Channel...')   ChannelAttribution.py:2 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+               > (0,0,2,0,5) object description content paragraph [Sphinx] > body
+                 (0,0,0,0,2) body [Sphinx] > default
+              MixedStyledText('Send an email address to Channel...')
+                MixedStyledText('Send an email address to Channel...')
+                  SingleStyledText('Send an email address to Channel...')
+                  MixedStyledText('generate_token.php', style='title reference')   <title_reference>
+                       > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                    SingleStyledText('generate_token.php')
+                  SingleStyledText(' endpoint and return the server’...')
+              MixedStyledText('Send an email address to Channel...')
+                MixedStyledText('Send an email address to Channel...')
+                  SingleStyledText('Send an email address to Channel...')
+                  MixedStyledText('generate_token.php', style='title reference')   <title_reference>
+                       > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                    SingleStyledText('generate_token.php')
+                  SingleStyledText(' endpoint and return the server’...')
+          DefinitionList(style='field list')   <field_list>
+               > (0,0,1,0,2) field list [Sphinx] > DEFAULT
+                 (0,0,0,0,2) definition list [Sphinx] > DEFAULT
+            LabeledFlowable()   ChannelAttribution.py:6 (docstring of ChannelAttribution.request_token_channelattributionpro)   <field>
+                 > (0,0,1,0,4) field list item [Sphinx] > DEFAULT
+                   (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+              Paragraph('Parameters', style='field name')
+                   > (0,0,2,0,6) field name [Sphinx] > default
+                     (0,0,0,0,2) body [Sphinx] > default
+                  MixedStyledText('Parameters')
+                    MixedStyledText('Parameters')   ChannelAttribution.py (docstring of ChannelAttribution.request_token_channelattributionpro)   <field_name>
+                      SingleStyledText('Parameters')
+              StaticGroupedFlowables()   <field_body>
+                DefinitionList()   ChannelAttribution.py:8 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list>
+                     > (0,0,0,0,2) definition list [Sphinx] > DEFAULT
+                  LabeledFlowable()   ChannelAttribution.py:8 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list_item>
+                       > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+                    StaticGroupedFlowables(style='definition term')
+                         > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
+                      Paragraph('email : str')
+                           > (0,0,1,0,7) definition term paragraph [Sphinx] > default
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('email : str')
+                            MixedStyledText('email : str')
+                              MixedStyledText('email', style='strong')   <strong>
+                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                                SingleStyledText('email')
+                              SingleStyledText(' : ')
+                              MixedStyledText('str', style='classifier')   ChannelAttribution.py (docstring of ChannelAttribution.request_token_channelattributionpro)   <classifier>
+                                   > (0,0,2,0,8) definition term classifier [Sphinx] > DEFAULT
+                                SingleStyledText('str')
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:9 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition>
+                         > (0,0,1,0,5) definition [Sphinx] > DEFAULT
+                      Paragraph('Target email address to which th...')   ChannelAttribution.py:9 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+                           > (0,0,1,0,7) definition paragraph [Sphinx] > body
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('Target email address to which th...')
+                            MixedStyledText('Target email address to which th...')
+                              SingleStyledText('Target email address to which th...')
+                              MixedStyledText('non-empty', style='strong')   <strong>
+                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                                SingleStyledText('non-empty')
+                              SingleStyledText('. (No syntactic validation is pe...')
+                          MixedStyledText('Target email address to which th...')
+                            MixedStyledText('Target email address to which th...')
+                              SingleStyledText('Target email address to which th...')
+                              MixedStyledText('non-empty', style='strong')   <strong>
+                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                                SingleStyledText('non-empty')
+                              SingleStyledText('. (No syntactic validation is pe...')
+                  LabeledFlowable()   ChannelAttribution.py:12 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list_item>
+                       > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+                    StaticGroupedFlowables(style='definition term')
+                         > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
+                      Paragraph('endpoint : str, default “https:/...')
+                           > (0,0,1,0,7) definition term paragraph [Sphinx] > default
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('endpoint : str, default “https:/...')
+                            MixedStyledText('endpoint : str, default “https:/...')
+                              MixedStyledText('endpoint', style='strong')   <strong>
+                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                                SingleStyledText('endpoint')
+                              SingleStyledText(' : ')
+                              MixedStyledText('str, default “https://app.channe...', style='classifier')   ChannelAttribution.py (docstring of ChannelAttribution.request_token_channelattributionpro)   <classifier>
+                                   > (0,0,2,0,8) definition term classifier [Sphinx] > DEFAULT
+                                SingleStyledText('str, default “')
+                                MixedStyledText('https://app.channelattribution.i...', style='external link')   <reference>
+                                     > (0,0,1,0,1) external hyperlink [Sphinx] > DEFAULT
+                                  SingleStyledText('https://app.channelattribution.i...')
+                                SingleStyledText('”')
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:13 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition>
+                         > (0,0,1,0,5) definition [Sphinx] > DEFAULT
+                      Paragraph('Full URL of the token-generation...')   ChannelAttribution.py:13 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+                           > (0,0,1,0,7) definition paragraph [Sphinx] > body
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('Full URL of the token-generation...')
+                            MixedStyledText('Full URL of the token-generation...')
+                              SingleStyledText('Full URL of the token-generation...')
+                  LabeledFlowable()   ChannelAttribution.py:15 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list_item>
+                       > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+                    StaticGroupedFlowables(style='definition term')
+                         > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
+                      Paragraph('timeout : int, default 10')
+                           > (0,0,1,0,7) definition term paragraph [Sphinx] > default
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('timeout : int, default 10')
+                            MixedStyledText('timeout : int, default 10')
+                              MixedStyledText('timeout', style='strong')   <strong>
+                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                                SingleStyledText('timeout')
+                              SingleStyledText(' : ')
+                              MixedStyledText('int, default 10', style='classifier')   ChannelAttribution.py (docstring of ChannelAttribution.request_token_channelattributionpro)   <classifier>
+                                   > (0,0,2,0,8) definition term classifier [Sphinx] > DEFAULT
+                                SingleStyledText('int, default 10')
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:16 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition>
+                         > (0,0,1,0,5) definition [Sphinx] > DEFAULT
+                      Paragraph('Timeout in seconds applied to th...')   ChannelAttribution.py:16 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+                           > (0,0,1,0,7) definition paragraph [Sphinx] > body
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('Timeout in seconds applied to th...')
+                            MixedStyledText('Timeout in seconds applied to th...')
+                              SingleStyledText('Timeout in seconds applied to th...')
+                  LabeledFlowable()   ChannelAttribution.py:18 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list_item>
+                       > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+                    StaticGroupedFlowables(style='definition term')
+                         > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
+                      Paragraph('verify_ssl : bool, default True')
+                           > (0,0,1,0,7) definition term paragraph [Sphinx] > default
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('verify_ssl : bool, default True')
+                            MixedStyledText('verify_ssl : bool, default True')
+                              MixedStyledText('verify_ssl', style='strong')   <strong>
+                                   > (0,0,1,0,1) strong [Sphinx] > DEFAULT
+                                SingleStyledText('verify_ssl')
+                              SingleStyledText(' : ')
+                              MixedStyledText('bool, default True', style='classifier')   ChannelAttribution.py (docstring of ChannelAttribution.request_token_channelattributionpro)   <classifier>
+                                   > (0,0,2,0,8) definition term classifier [Sphinx] > DEFAULT
+                                SingleStyledText('bool, default True')
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:19 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition>
+                         > (0,0,1,0,5) definition [Sphinx] > DEFAULT
+                      Paragraph('Whether to verify the server’s T...')   ChannelAttribution.py:19 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+                           > (0,0,1,0,7) definition paragraph [Sphinx] > body
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('Whether to verify the server’s T...')
+                            MixedStyledText('Whether to verify the server’s T...')
+                              SingleStyledText('Whether to verify the server’s T...')
+                              MixedStyledText('False', style='monospaced')   <literal>
+                                   > (0,0,1,0,1) monospaced [Sphinx] > DEFAULT
+                                SingleStyledText('False')
+                              SingleStyledText(' only in controlled testing envi...')
+                          MixedStyledText('Whether to verify the server’s T...')
+                            MixedStyledText('Whether to verify the server’s T...')
+                              SingleStyledText('Whether to verify the server’s T...')
+                              MixedStyledText('False', style='monospaced')   <literal>
+                                   > (0,0,1,0,1) monospaced [Sphinx] > DEFAULT
+                                SingleStyledText('False')
+                              SingleStyledText(' only in controlled testing envi...')
+            LabeledFlowable()   ChannelAttribution.py:24 (docstring of ChannelAttribution.request_token_channelattributionpro)   <field>
+                 > (0,0,1,0,4) field list item [Sphinx] > DEFAULT
+                   (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+              Paragraph('Returns', style='field name')
+                   > (0,0,2,0,6) field name [Sphinx] > default
+                     (0,0,0,0,2) body [Sphinx] > default
+                  MixedStyledText('Returns')
+                    MixedStyledText('Returns')   ChannelAttribution.py (docstring of ChannelAttribution.request_token_channelattributionpro)   <field_name>
+                      SingleStyledText('Returns')
+              StaticGroupedFlowables()   <field_body>
+                DefinitionList()   ChannelAttribution.py:26 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list>
+                     > (0,0,0,0,2) definition list [Sphinx] > DEFAULT
+                  LabeledFlowable()   ChannelAttribution.py:26 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list_item>
+                       > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+                    StaticGroupedFlowables(style='definition term')
+                         > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
+                      Paragraph('str')
+                           > (0,0,1,0,7) definition term paragraph [Sphinx] > default
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('str')
+                            MixedStyledText('str')   ChannelAttribution.py:26 (docstring of ChannelAttribution.request_token_channelattributionpro)   <term>
+                              SingleStyledText('str')
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:27 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition>
+                         > (0,0,1,0,5) definition [Sphinx] > DEFAULT
+                      Paragraph('The exact response body (trimmed...')   ChannelAttribution.py:27 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+                           > (0,0,1,0,7) definition paragraph [Sphinx] > body
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('The exact response body (trimmed...')
+                            MixedStyledText('The exact response body (trimmed...')
+                              SingleStyledText('The exact response body (trimmed...')
+                          MixedStyledText('The exact response body (trimmed...')
+                            MixedStyledText('The exact response body (trimmed...')
+                              SingleStyledText('The exact response body (trimmed...')
+                          MixedStyledText('The exact response body (trimmed...')
+                            MixedStyledText('The exact response body (trimmed...')
+                              SingleStyledText('The exact response body (trimmed...')
+                          MixedStyledText('The exact response body (trimmed...')
+                            MixedStyledText('The exact response body (trimmed...')
+                              SingleStyledText('The exact response body (trimmed...')
+            LabeledFlowable()   ChannelAttribution.py:37 (docstring of ChannelAttribution.request_token_channelattributionpro)   <field>
+                 > (0,0,1,0,4) field list item [Sphinx] > DEFAULT
+                   (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+              Paragraph('Raises', style='field name')
+                   > (0,0,2,0,6) field name [Sphinx] > default
+                     (0,0,0,0,2) body [Sphinx] > default
+                  MixedStyledText('Raises')
+                    MixedStyledText('Raises')   ChannelAttribution.py (docstring of ChannelAttribution.request_token_channelattributionpro)   <field_name>
+                      SingleStyledText('Raises')
+              StaticGroupedFlowables()   <field_body>
+                DefinitionList()   ChannelAttribution.py:39 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list>
+                     > (0,0,0,0,2) definition list [Sphinx] > DEFAULT
+                  LabeledFlowable()   ChannelAttribution.py:39 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list_item>
+                       > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+                    StaticGroupedFlowables(style='definition term')
+                         > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
+                      Paragraph('ValueError')
+                           > (0,0,1,0,7) definition term paragraph [Sphinx] > default
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('ValueError')
+                            MixedStyledText('ValueError')   ChannelAttribution.py:39 (docstring of ChannelAttribution.request_token_channelattributionpro)   <term>
+                              SingleStyledText('ValueError')
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:40 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition>
+                         > (0,0,1,0,5) definition [Sphinx] > DEFAULT
+                      Paragraph('If email is empty.')   ChannelAttribution.py:40 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+                           > (0,0,1,0,7) definition paragraph [Sphinx] > body
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('If email is empty.')
+                            MixedStyledText('If email is empty.')
+                              SingleStyledText('If ')
+                              MixedStyledText('email', style='monospaced')   <literal>
+                                   > (0,0,1,0,1) monospaced [Sphinx] > DEFAULT
+                                SingleStyledText('email')
+                              SingleStyledText(' is empty.')
+                  LabeledFlowable()   ChannelAttribution.py:42 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition_list_item>
+                       > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+                    StaticGroupedFlowables(style='definition term')
+                         > (0,0,1,0,5) definition term [Sphinx] > DEFAULT
+                      Paragraph('RuntimeError')
+                           > (0,0,1,0,7) definition term paragraph [Sphinx] > default
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('RuntimeError')
+                            MixedStyledText('RuntimeError')   ChannelAttribution.py:42 (docstring of ChannelAttribution.request_token_channelattributionpro)   <term>
+                              SingleStyledText('RuntimeError')
+                    StaticGroupedFlowables(style='definition')   ChannelAttribution.py:43 (docstring of ChannelAttribution.request_token_channelattributionpro)   <definition>
+                         > (0,0,1,0,5) definition [Sphinx] > DEFAULT
+                      Paragraph('For network/TLS issues (connecti...')   ChannelAttribution.py:43 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+                           > (0,0,1,0,7) definition paragraph [Sphinx] > body
+                             (0,0,0,0,2) body [Sphinx] > default
+                          MixedStyledText('For network/TLS issues (connecti...')
+                            MixedStyledText('For network/TLS issues (connecti...')
+                              SingleStyledText('For network/TLS issues (connecti...')
+                              MixedStyledText('"network_or_ssl_error:"', style='monospaced')   <literal>
+                                   > (0,0,1,0,1) monospaced [Sphinx] > DEFAULT
+                                SingleStyledText('"network_or_ssl_error:"')
+                              SingleStyledText(' or ')
+                              MixedStyledText('"request_error:"', style='monospaced')   <literal>
+                                   > (0,0,1,0,1) monospaced [Sphinx] > DEFAULT
+                                SingleStyledText('"request_error:"')
+                              SingleStyledText('.')
+                          MixedStyledText('For network/TLS issues (connecti...')
+                            MixedStyledText('For network/TLS issues (connecti...')
+                              SingleStyledText('For network/TLS issues (connecti...')
+                              MixedStyledText('"network_or_ssl_error:"', style='monospaced')   <literal>
+                                   > (0,0,1,0,1) monospaced [Sphinx] > DEFAULT
+                                SingleStyledText('"network_or_ssl_error:"')
+                              SingleStyledText(' or ')
+                              MixedStyledText('"request_error:"', style='monospaced')   <literal>
+                                   > (0,0,1,0,1) monospaced [Sphinx] > DEFAULT
+                                SingleStyledText('"request_error:"')
+                              SingleStyledText('.')
+          Paragraph('Notes', style='rubric')   ChannelAttribution.py:50 (docstring of ChannelAttribution.request_token_channelattributionpro)   <rubric>
+               > (0,0,2,0,5) object description content paragraph [Sphinx] > body
+                 (0,0,1,0,2) rubric [Sphinx] > DEFAULT
+                 (0,0,0,0,2) body [Sphinx] > default
+              MixedStyledText('Notes')
+                MixedStyledText('Notes')
+                  SingleStyledText('Notes')
+          List(style='bulleted')   ChannelAttribution.py:51 (docstring of ChannelAttribution.request_token_channelattributionpro)   <bullet_list>
+               > (0,0,1,0,2) bulleted list [Sphinx] > enumerated list
+            ListItem()   ChannelAttribution.py:51 (docstring of ChannelAttribution.request_token_channelattributionpro)   <list_item>
+                 x (0,0,1,0,4) bulleted list item
+              ListItemLabel('•')
+                   > (0,0,1,0,6) bulleted list item label [Sphinx] > list item label
+                     (0,0,0,0,2) list item label [Sphinx] > default
+                  MixedStyledText('•')
+                    SingleStyledText('')
+                    SingleStyledText('•')
+                    SingleStyledText('')
+              StaticGroupedFlowables()
+                   > (0,0,0,0,3) list item body [Sphinx] > DEFAULT
+                Paragraph('To validate the email syntax bef...')   ChannelAttribution.py:51 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+                     > (0,0,0,0,5) list item paragraph [Sphinx] > default
+                       (0,0,0,0,2) body [Sphinx] > default
+                    MixedStyledText('To validate the email syntax bef...')
+                      MixedStyledText('To validate the email syntax bef...')
+                        SingleStyledText('To validate the email syntax bef...')
+                        MixedStyledText('from email.utils import parseadd...', style='title reference')   <title_reference>
+                             > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                          SingleStyledText('from email.utils import parseadd...')
+                        SingleStyledText(' and check that ')
+                        MixedStyledText('parseaddr(email)[1]', style='title reference')   <title_reference>
+                             > (0,0,1,0,1) title reference [Sphinx] > DEFAULT
+                          SingleStyledText('parseaddr(email)[1]')
+                        SingleStyledText(' is non-empty).')
+            ListItem()   ChannelAttribution.py:53 (docstring of ChannelAttribution.request_token_channelattributionpro)   <list_item>
+                 x (0,0,1,0,4) bulleted list item
+              ListItemLabel('•')
+                   > (0,0,1,0,6) bulleted list item label [Sphinx] > list item label
+                     (0,0,0,0,2) list item label [Sphinx] > default
+                  MixedStyledText('•')
+                    SingleStyledText('')
+                    SingleStyledText('•')
+                    SingleStyledText('')
+              StaticGroupedFlowables()
+                   > (0,0,0,0,3) list item body [Sphinx] > DEFAULT
+                Paragraph('Honors system proxy settings if ...')   ChannelAttribution.py:53 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+                     > (0,0,0,0,5) list item paragraph [Sphinx] > default
+                       (0,0,0,0,2) body [Sphinx] > default
+                    MixedStyledText('Honors system proxy settings if ...')
+                      MixedStyledText('Honors system proxy settings if ...')
+                        SingleStyledText('Honors system proxy settings if ...')
+          Paragraph('Examples', style='rubric')   ChannelAttribution.py:57 (docstring of ChannelAttribution.request_token_channelattributionpro)   <rubric>
+               > (0,0,2,0,5) object description content paragraph [Sphinx] > body
+                 (0,0,1,0,2) rubric [Sphinx] > DEFAULT
+                 (0,0,0,0,2) body [Sphinx] > default
+              MixedStyledText('Examples')
+                MixedStyledText('Examples')
+                  SingleStyledText('Examples')
+          Paragraph('Basic usage')   ChannelAttribution.py:58 (docstring of ChannelAttribution.request_token_channelattributionpro)   <paragraph>
+               > (0,0,2,0,5) object description content paragraph [Sphinx] > body
+                 (0,0,0,0,2) body [Sphinx] > default
+              MixedStyledText('Basic usage')
+                MixedStyledText('Basic usage')
+                  SingleStyledText('Basic usage')
+          CodeBlock('>>> from ChannelAttribution impo...')   ChannelAttribution.py:61 (docstring of ChannelAttribution.request_token_channelattributionpro)   <doctest_block>
+               > (1,0,0,0,2) code block [Sphinx] > DEFAULT
+                 (0,0,2,0,4) object description content paragraph [Sphinx] > body
+                 (0,0,0,0,1) body [Sphinx] > default
+              MixedStyledText('>>> from ChannelAttribution impo...')
+                MixedStyledText('>>> from ChannelAttribution impo...')
+                  Token('>>> from ChannelAttribution impo...', type=Token.Text)
+                       > (0,0,0,1,2) (pygments)Token.Text [FriendlyStyle (pygments)] > DEFAULT
       LabeledFlowable(style='object description')   index.rst   <desc>
            > (0,0,1,0,2) object description [Sphinx] > definition list item
         StaticGroupedFlowables(style='signatures')
@@ -3681,49 +4294,6 @@
               MixedStyledText('Estimate a k-order transition ma...')
                 MixedStyledText('Estimate a k-order transition ma...')
                   SingleStyledText('Estimate a k-order transition ma...')
-#### UpExpandingContainer('header')
-  StaticGroupedFlowables()
-    Header('ChannelAttribution, Release 2.2....')
-         > (0,0,0,0,2) header [Sphinx] > header_footer
-        MixedStyledText('ChannelAttribution, Release 2.2....')
-          MixedStyledText('ChannelAttribution, Release 2.2....')
-            Field('ChannelAttribution')
-              SingleStyledText('ChannelAttribution')
-            SingleStyledText(', ')
-            Field('Release 2.2.2')
-              SingleStyledText('Release 2.2.2')
-#### DownExpandingContainer('footer')
-  StaticGroupedFlowables()
-    Footer('6		Chapter ​.  ​')
-         > (0,0,0,0,2) footer [Sphinx] > header_footer
-        MixedStyledText('6		Chapter ​.  ​')
-          MixedStyledText('6		Chapter ​.  ​')
-            Field('6')
-              SingleStyledText('6')
-            Tab('	')
-            Tab('	')
-            StringField('Chapter')
-              SingleStyledText('Chapter')
-            SingleStyledText(' ')
-            Field('​')
-              SingleStyledText('​')
-            SingleStyledText('.  ')
-            Field('​')
-              SingleStyledText('​')
----------------------------------- page 7 ----------------------------------
-#### FlowablesContainer('background')
-  StaticGroupedFlowables()
-#### FootnoteContainer('footnotes')
-  StaticGroupedFlowables()
-#### DownExpandingContainer('floats')
-  StaticGroupedFlowables()
-#### ChainedContainer('column1')
-  (continued) StaticGroupedFlowables()
-    (continued) DocumentTree()   index.rst   <document>
-      (continued) LabeledFlowable(style='object description')   index.rst   <desc>
-           > (0,0,1,0,2) object description [Sphinx] > definition list item
-        (continued) StaticGroupedFlowables(style='content')   index.rst   <desc_content>
-             > (0,0,2,0,3) object description content [Sphinx] > definition
           DefinitionList(style='field list')   <field_list>
                > (0,0,1,0,2) field list [Sphinx] > DEFAULT
                  (0,0,0,0,2) definition list [Sphinx] > DEFAULT
@@ -3855,6 +4425,57 @@
                           MixedStyledText('Markov model order.')
                             MixedStyledText('Markov model order.')
                               SingleStyledText('Markov model order.')
+#### UpExpandingContainer('header')
+  StaticGroupedFlowables()
+    Header('		ChannelAttribution, Release 2....')
+         > (0,0,0,0,2) header [Sphinx] > header_footer
+        MixedStyledText('		ChannelAttribution, Release 2....')
+          MixedStyledText('		ChannelAttribution, Release 2....')
+            Tab('	')
+            Tab('	')
+            Field('ChannelAttribution')
+              SingleStyledText('ChannelAttribution')
+            SingleStyledText(', ')
+            Field('Release 2.2.2')
+              SingleStyledText('Release 2.2.2')
+#### DownExpandingContainer('footer')
+  StaticGroupedFlowables()
+    Footer('​.  ​		7')
+         > (0,0,0,0,2) footer [Sphinx] > header_footer
+        MixedStyledText('​.  ​		7')
+          MixedStyledText('​.  ​		7')
+            Field('​')
+              SingleStyledText('​')
+            SingleStyledText('.  ')
+            Field('​')
+              SingleStyledText('​')
+            Tab('	')
+            Tab('	')
+            Field('7')
+              SingleStyledText('7')
+---------------------------------- page 8 ----------------------------------
+#### FlowablesContainer('background')
+  StaticGroupedFlowables()
+#### FootnoteContainer('footnotes')
+  StaticGroupedFlowables()
+#### DownExpandingContainer('floats')
+  StaticGroupedFlowables()
+#### ChainedContainer('column1')
+  (continued) StaticGroupedFlowables()
+    (continued) DocumentTree()   index.rst   <document>
+      (continued) LabeledFlowable(style='object description')   index.rst   <desc>
+           > (0,0,1,0,2) object description [Sphinx] > definition list item
+        (continued) StaticGroupedFlowables(style='content')   index.rst   <desc_content>
+             > (0,0,2,0,3) object description content [Sphinx] > definition
+          (continued) DefinitionList(style='field list')   <field_list>
+               > (0,0,1,0,2) field list [Sphinx] > DEFAULT
+                 (0,0,0,0,2) definition list [Sphinx] > DEFAULT
+            (continued) LabeledFlowable()   ChannelAttribution.py:5 (docstring of ChannelAttribution.transition_matrix)   <field>
+                 > (0,0,1,0,4) field list item [Sphinx] > DEFAULT
+                   (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
+              (continued) StaticGroupedFlowables()   <field_body>
+                (continued) DefinitionList()   ChannelAttribution.py:7 (docstring of ChannelAttribution.transition_matrix)   <definition_list>
+                     > (0,0,0,0,2) definition list [Sphinx] > DEFAULT
                   LabeledFlowable()   ChannelAttribution.py:22 (docstring of ChannelAttribution.transition_matrix)   <definition_list_item>
                        > (0,0,0,0,4) definition list item [Sphinx] > DEFAULT
                     StaticGroupedFlowables(style='definition term')
@@ -4039,12 +4660,10 @@
                        > (0,0,0,1,2) (pygments)Token.Text [FriendlyStyle (pygments)] > DEFAULT
 #### UpExpandingContainer('header')
   StaticGroupedFlowables()
-    Header('		ChannelAttribution, Release 2....')
+    Header('ChannelAttribution, Release 2.2....')
          > (0,0,0,0,2) header [Sphinx] > header_footer
-        MixedStyledText('		ChannelAttribution, Release 2....')
-          MixedStyledText('		ChannelAttribution, Release 2....')
-            Tab('	')
-            Tab('	')
+        MixedStyledText('ChannelAttribution, Release 2.2....')
+          MixedStyledText('ChannelAttribution, Release 2.2....')
             Field('ChannelAttribution')
               SingleStyledText('ChannelAttribution')
             SingleStyledText(', ')
@@ -4052,19 +4671,22 @@
               SingleStyledText('Release 2.2.2')
 #### DownExpandingContainer('footer')
   StaticGroupedFlowables()
-    Footer('​.  ​		7')
+    Footer('8		Chapter ​.  ​')
          > (0,0,0,0,2) footer [Sphinx] > header_footer
-        MixedStyledText('​.  ​		7')
-          MixedStyledText('​.  ​		7')
+        MixedStyledText('8		Chapter ​.  ​')
+          MixedStyledText('8		Chapter ​.  ​')
+            Field('8')
+              SingleStyledText('8')
+            Tab('	')
+            Tab('	')
+            StringField('Chapter')
+              SingleStyledText('Chapter')
+            SingleStyledText(' ')
             Field('​')
               SingleStyledText('​')
             SingleStyledText('.  ')
             Field('​')
               SingleStyledText('​')
-            Tab('	')
-            Tab('	')
-            Field('7')
-              SingleStyledText('7')
 ---------------------------------- page 9 ----------------------------------
 #### FlowablesContainer('background')
   StaticGroupedFlowables()
@@ -4216,19 +4838,15 @@
              > (0,0,0,0,2) index section label [Sphinx] > DEFAULT
                (0,0,0,0,1) body [Sphinx] > default
             SingleStyledText('I')
-        IndexEntry('installChPro() (in module Channe...')
+        IndexEntry('install_channelattributionpro() ...')
              > (0,0,0,1,2) level 1 index entry [Sphinx] > default
                (0,0,0,0,1) body [Sphinx] > default
-            MixedStyledText('installChPro() (in module Channe...')
-              MixedStyledText('installChPro() (in module Channe...')
-                SingleStyledText('installChPro() (in module Channe...')
-                MixedStyledText('4')
-                  Reference('4')
-                       > (0,0,0,0,1) linked reference [Sphinx] > DEFAULT
-                    SingleStyledText('4')
-            MixedStyledText('installChPro() (in module Channe...')
-              MixedStyledText('installChPro() (in module Channe...')
-                SingleStyledText('installChPro() (in module Channe...')
+            MixedStyledText('install_channelattributionpro() ...')
+              MixedStyledText('install_channelattributionpro() ...')
+                SingleStyledText('install_channelattributionpro() ...')
+            MixedStyledText('install_channelattributionpro() ...')
+              MixedStyledText('install_channelattributionpro() ...')
+                SingleStyledText('install_channelattributionpro() ...')
                 MixedStyledText('4')
                   Reference('4')
                        > (0,0,0,0,1) linked reference [Sphinx] > DEFAULT
@@ -4261,6 +4879,23 @@
                   Reference('1')
                        > (0,0,0,0,1) linked reference [Sphinx] > DEFAULT
                     SingleStyledText('1')
+        IndexLabel('R')
+             > (0,0,0,0,2) index section label [Sphinx] > DEFAULT
+               (0,0,0,0,1) body [Sphinx] > default
+            SingleStyledText('R')
+        IndexEntry('request_token_channelattribution...')
+             > (0,0,0,1,2) level 1 index entry [Sphinx] > default
+               (0,0,0,0,1) body [Sphinx] > default
+            MixedStyledText('request_token_channelattribution...')
+              MixedStyledText('request_token_channelattribution...')
+                SingleStyledText('request_token_channelattribution...')
+            MixedStyledText('request_token_channelattribution...')
+              MixedStyledText('request_token_channelattribution...')
+                SingleStyledText('request_token_channelattribution...')
+                MixedStyledText('7')
+                  Reference('7')
+                       > (0,0,0,0,1) linked reference [Sphinx] > DEFAULT
+                    SingleStyledText('7')
         IndexLabel('T')
              > (0,0,0,0,2) index section label [Sphinx] > DEFAULT
                (0,0,0,0,1) body [Sphinx] > default
@@ -4271,10 +4906,10 @@
             MixedStyledText('transition_matrix() (in module C...')
               MixedStyledText('transition_matrix() (in module C...')
                 SingleStyledText('transition_matrix() (in module C...')
-                MixedStyledText('6')
-                  Reference('6')
+                MixedStyledText('7')
+                  Reference('7')
                        > (0,0,0,0,1) linked reference [Sphinx] > DEFAULT
-                    SingleStyledText('6')
+                    SingleStyledText('7')
 #### ChainedContainer('column2')
   StaticGroupedFlowables()
 #### DownExpandingContainer('footer')

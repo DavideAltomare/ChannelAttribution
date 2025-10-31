@@ -1,5 +1,5 @@
 # ChannelAttribution: Markov model for online multi-channel attribution
-# Copyright (C) 2015 - 2025  Davide Altomare and David Loris <https://channelattribution.io>
+# Copyright (C) 2015 -   Davide Altomare and David Loris <https://channelattribution.io>
 
 # ChannelAttribution is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,8 +30,10 @@ import matplotlib.pyplot as plt
 import importlib
 
 __version="2.2.2"
-print("*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product")
+print("*** Looking to run more advanced attribution? Install ChannelAttribution Pro for free running install_pro(). Visit https://channelattribution.io for more info.")
 print("Version: " + str(__version))
+
+__message_pro="*** Install ChannelAttribution Pro for free running install_pro(). Visit https://channelattribution.io for more info. Set flg_pro=False to hide this message."
 
 cdef extern from "functions.h":
     pair[vector[string], list[vector[double]]] heuristic_models_cpp(vector[string]&, vector[unsigned long int]&, vector[double]&, string sep);
@@ -68,7 +70,7 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 
 """
     
-def heuristic_models(Data,var_path,var_conv,var_value=None, sep=">", flg_adv=True):
+def heuristic_models(Data,var_path,var_conv,var_value=None, sep=">", flg_pro=True):
 
     """
             
@@ -86,7 +88,7 @@ def heuristic_models(Data,var_path,var_conv,var_value=None, sep=">", flg_adv=Tru
         column of Data containing revenue for each path.
     sep : string, default ">"
         separator between the channels.
-    flg_adv : bool, default True
+    flg_pro : bool, default True
         if True, ChannelAttribution Pro banner is printed.
     
     Returns
@@ -159,13 +161,13 @@ def heuristic_models(Data,var_path,var_conv,var_value=None, sep=">", flg_adv=Tru
     
         res=pd.DataFrame({'channel_name':pd.Series(res0[0]).str.decode('utf-8'),'first_touch_conversions':res0[1][0], 'first_touch_value':res0[1][3], 'last_touch_conversions':res0[1][1], 'last_touch_value':res0[1][4], 'linear_touch_conversions':res0[1][2], 'linear_touch_value':res0[1][5]})
     
-    if flg_adv==True:
-        print("*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product")
+    if flg_pro==True:
+        print(__message_pro)
 
     return(res)
 
     
-def choose_order(Data,var_path,var_conv,var_null,max_order=10,sep=">",ncore=1,roc_npt=100,plot=True, flg_adv=True):
+def choose_order(Data,var_path,var_conv,var_null,max_order=10,sep=">",ncore=1,roc_npt=100,plot=True, flg_pro=True):
 
     """
     
@@ -191,7 +193,7 @@ def choose_order(Data,var_path,var_conv,var_null,max_order=10,sep=">",ncore=1,ro
         number of points to be used for the approximation of roc curve.    
     plot: bool, default True
         if True, a plot with penalized auc with respect to order will be displayed.
-    flg_adv : bool, default True
+    flg_pro : bool, default True
         if True, ChannelAttribution Pro banner is printed.
     
     Returns
@@ -295,14 +297,14 @@ def choose_order(Data,var_path,var_conv,var_null,max_order=10,sep=">",ncore=1,ro
     for k in range(best_order+1):
         res_roc['order='+str(k+1)]=pd.DataFrame({'fpr':res0[2*k],'tpr':res0[2*k+1]})
     
-    if flg_adv==True:
-        print("*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product")
+    if flg_pro==True:
+        print(__message_pro)
     
     return(res_auc,res_roc,best_order)
             
     
         
-def markov_model(Data,var_path,var_conv,var_value=None,var_null=None,order=1,nsim_start=1e5,max_step=None,out_more=False,sep=">",ncore=1, nfold=10, seed=0, conv_par=0.05,rate_step_sim=1.5,verbose=True, flg_adv=True):
+def markov_model(Data,var_path,var_conv,var_value=None,var_null=None,order=1,nsim_start=1e5,max_step=None,out_more=False,sep=">",ncore=1, nfold=10, seed=0, conv_par=0.05,rate_step_sim=1.5,verbose=True, flg_pro=True):
 
     '''
     
@@ -342,7 +344,7 @@ def markov_model(Data,var_path,var_conv,var_value=None,var_null=None,order=1,nsi
         number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.    
     verbose : bool, default True
         if True, additional information about process convergence will be shown.    
-    flg_adv : bool, default True
+    flg_pro : bool, default True
         if True, ChannelAttribution Pro banner is printed.
             
     Returns
@@ -506,13 +508,13 @@ def markov_model(Data,var_path,var_conv,var_value=None,var_null=None,order=1,nsi
     
         res['removal_effects']=pd.DataFrame({'channel_name':pd.Series(res0[0][2]).str.decode('utf-8'),'removal_effects_conversion':res0[1][1],'removal_effects_conversion_value':res0[1][4]})        
     
-    if flg_adv==True:
-        print("*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product")
+    if flg_pro==True:
+        print(__message_pro)
     
     return(res)
     
 
-def transition_matrix(Data,var_path,var_conv,var_null,order=1,sep=">",flg_equal=True, flg_adv=True):
+def transition_matrix(Data,var_path,var_conv,var_null,order=1,sep=">",flg_equal=True, flg_pro=True):
 
     '''
 
@@ -534,7 +536,7 @@ def transition_matrix(Data,var_path,var_conv,var_null,order=1,sep=">",flg_equal=
         separator between the channels.    
     flg_equal: bool, default True
         if True, transitions from a channel to itself will be considered.    
-    flg_adv : bool, default True
+    flg_pro : bool, default True
         if True, ChannelAttribution Pro banner is printed.
                     
     Returns
@@ -602,14 +604,14 @@ def transition_matrix(Data,var_path,var_conv,var_null,order=1,sep=">",flg_equal=
     res['channels']=pd.DataFrame({'id_channel':range(1,len(res0[0][2])+1), 'channel_name':pd.Series(res0[0][2]).str.decode('utf-8')})
     res['transition_matrix']=pd.DataFrame({'channel_from':pd.Series(res0[0][0]).str.decode('utf-8'),'channel_to':pd.Series(res0[0][1]).str.decode('utf-8'),'transition_probability':res0[1]})
     
-    if flg_adv==True:
-        print("*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product")
+    if flg_pro==True:
+        print(__message_pro)
 
     return(res)
     
     
     
-def auto_markov_model(Data, var_path, var_conv, var_null, var_value=None, max_order=10, roc_npt=100, plot=False, nsim_start=1e5, max_step=None, out_more=False, sep=">", ncore=1, nfold=10, seed=0, conv_par=0.05, rate_step_sim=1.5, verbose=True, flg_adv=True):
+def auto_markov_model(Data, var_path, var_conv, var_null, var_value=None, max_order=10, roc_npt=100, plot=False, nsim_start=1e5, max_step=None, out_more=False, sep=">", ncore=1, nfold=10, seed=0, conv_par=0.05, rate_step_sim=1.5, verbose=True, flg_pro=True):
 
     '''
     
@@ -651,7 +653,7 @@ def auto_markov_model(Data, var_path, var_conv, var_null, var_value=None, max_or
         number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.    
     verbose : bool, default True
         if True, additional information about process convergence will be shown.    
-    flg_adv : bool, default True
+    flg_pro : bool, default True
         if True, ChannelAttribution Pro banner is printed.
             
     Returns
@@ -766,144 +768,136 @@ def auto_markov_model(Data, var_path, var_conv, var_null, var_value=None, max_or
     else:
         vv=Data[var_value]
             
-    [res_auc,res_roc,best_order] = choose_order(Data, var_path, var_conv, var_null, max_order = max_order, sep = sep, ncore = ncore, roc_npt = roc_npt, plot = plot, flg_adv=False)
+    [res_auc,res_roc,best_order] = choose_order(Data, var_path, var_conv, var_null, max_order = max_order, sep = sep, ncore = ncore, roc_npt = roc_npt, plot = plot, flg_pro=False)
     
-    res = markov_model(Data, var_path, var_conv, var_value = var_value, var_null = var_null, order = best_order, nsim_start = nsim_start, max_step = max_step, out_more = out_more, sep = sep, ncore = ncore, nfold = nfold, seed = seed, conv_par = conv_par, rate_step_sim = rate_step_sim, verbose = verbose, flg_adv=False)
+    res = markov_model(Data, var_path, var_conv, var_value = var_value, var_null = var_null, order = best_order, nsim_start = nsim_start, max_step = max_step, out_more = out_more, sep = sep, ncore = ncore, nfold = nfold, seed = seed, conv_par = conv_par, rate_step_sim = rate_step_sim, verbose = verbose, flg_pro=False)
     
-    if flg_adv==True:
-        print("*** Looking to run more advanced attribution? Try ChannelAttribution Pro for free! Visit https://channelattribution.io/product")
+    if flg_pro==True:
+        print(__message_pro)
     
     return(res)
 
 
-
-def request_token_channelattributionpro(
-    email: str,
-    endpoint: str = "https://app.channelattribution.io/genpkg/generate_token.php",
-    timeout: int = 10,
-    verify_ssl: bool = True
-) -> str:
-
-    """
-    Send an email address to ChannelAttribution Pro's `generate_token.php` endpoint and
-    return the server's response body.
+def __request_token_channelattributionpro(
+        email: str,
+        endpoint: str = "https://app.channelattribution.io/genpkg/generate_token.php",
+        timeout: int = 10,
+        verify_ssl: bool = True
+    ) -> str:
     
-    Parameters
-    ----------
-    email : str
-        Target email address to which the token should be sent. Must be **non-empty**.
-        (No syntactic validation is performed by this function.)
-    endpoint : str, default "https://app.channelattribution.io/genpkg/generate_token.php"
-        Full URL of the token-generation PHP endpoint. You can override this for testing.
-    timeout : int, default 10
-        Timeout in seconds applied to the HTTP request.
-    verify_ssl : bool, default True
-        Whether to verify the server's TLS certificate. Set to ``False`` only in
-        controlled testing environments.
+        """
+        Send an email address to ChannelAttribution Pro's `generate_token.php` endpoint and
+        return the server's response body.
+        
+        Parameters
+        ----------
+        email : str
+            Target email address to which the token should be sent. Must be **non-empty**.
+            (No syntactic validation is performed by this function.)
+        endpoint : str, default "https://app.channelattribution.io/genpkg/generate_token.php"
+            Full URL of the token-generation PHP endpoint. You can override this for testing.
+        timeout : int, default 10
+            Timeout in seconds applied to the HTTP request.
+        verify_ssl : bool, default True
+            Whether to verify the server's TLS certificate. Set to ``False`` only in
+            controlled testing environments.
+        
+        Returns
+        -------
+        str
+            The exact response body (trimmed) returned by the server. Typical values include:
+            - "We’ve sent the token to your email address. ..."
+            - "Token already generated"
+            - "Provider not admitted"
+            - "mail not valid"
+            - "db query error", "db connection error", etc.
+        
+        Raises
+        ------
+        ValueError
+            If ``email`` is empty.
+        RuntimeError
+            For network/TLS issues (connection errors, DNS failure, timeouts, SSL problems),
+            with a message prefixed by ``"network_or_ssl_error:"`` or ``"request_error:"``.
+        
+        Behavior
+        --------
+        - **Prefers POST** (form data). If the server rejects the method (e.g., HTTP 405/403
+          with a “method” hint in the body), it **retries with GET**.
+        - Does **not** raise for non-2xx HTTP statuses; it returns the body as-is so the caller
+          can show the server’s message to the user.
+        - If the ``requests`` package is missing, it is installed into the **current interpreter**
+          (respecting Debian/Ubuntu PEP 668 by setting ``PIP_BREAK_SYSTEM_PACKAGES=1`` only when
+          not in a virtualenv).
+        
+        Notes
+        -----
+        - To validate the email syntax before calling this function, do it in the caller
+          (e.g., `from email.utils import parseaddr` and check that `parseaddr(email)[1]` is non-empty).
+        - Honors system proxy settings if they are configured for Python/OS.
+        
+        Examples
+        --------
+        Basic usage
+        
+        >>> from ChannelAttribution import request_token_channelattributionpro
+        >>> request_token_channelattributionpro("john.black@company.com")
+        """
     
-    Returns
-    -------
-    str
-        The exact response body (trimmed) returned by the server. Typical values include:
-        - "We’ve sent the token to your email address. ..."
-        - "Token already generated"
-        - "Provider not admitted"
-        - "mail not valid"
-        - "db query error", "db connection error", etc.
-    
-    Raises
-    ------
-    ValueError
-        If ``email`` is empty.
-    RuntimeError
-        For network/TLS issues (connection errors, DNS failure, timeouts, SSL problems),
-        with a message prefixed by ``"network_or_ssl_error:"`` or ``"request_error:"``.
-    
-    Behavior
-    --------
-    - **Prefers POST** (form data). If the server rejects the method (e.g., HTTP 405/403
-      with a “method” hint in the body), it **retries with GET**.
-    - Does **not** raise for non-2xx HTTP statuses; it returns the body as-is so the caller
-      can show the server’s message to the user.
-    - If the ``requests`` package is missing, it is installed into the **current interpreter**
-      (respecting Debian/Ubuntu PEP 668 by setting ``PIP_BREAK_SYSTEM_PACKAGES=1`` only when
-      not in a virtualenv).
-    
-    Notes
-    -----
-    - To validate the email syntax before calling this function, do it in the caller
-      (e.g., `from email.utils import parseaddr` and check that `parseaddr(email)[1]` is non-empty).
-    - Honors system proxy settings if they are configured for Python/OS.
-    
-    Examples
-    --------
-    Basic usage
-    
-    >>> request_token_channelattributionpro("alice@example.com")
-    'We’ve sent the token to your email address. Please check your Spam or Junk folder if it’s not in your inbox. If you still can’t find it, write to info@channelattribution.io.'
-    
-    Handling network errors
-    
-    >>> try:
-    ...     request_token_channelattributionpro("alice@example.com", timeout=3)
-    ... except RuntimeError as e:
-    ...     print(e)  # e.g., "network_or_ssl_error: HTTPSConnectionPool(...): Read timed out."
-    """
-
-    import sys, subprocess
-    try:
+        import sys, subprocess
+        try:
+            import requests
+        except ImportError:
+            import os
+            env = dict(os.environ)
+            if sys.prefix == sys.base_prefix:  # not in venv → allow system install (PEP 668)
+                env.setdefault("PIP_BREAK_SYSTEM_PACKAGES", "1")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"], env=env)
+        
         import requests
-    except ImportError:
-        import os
-        env = dict(os.environ)
-        if sys.prefix == sys.base_prefix:  # not in venv → allow system install (PEP 668)
-            env.setdefault("PIP_BREAK_SYSTEM_PACKAGES", "1")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"], env=env)
+        from requests.exceptions import RequestException, Timeout, SSLError
     
-    import requests
-    from requests.exceptions import RequestException, Timeout, SSLError
-
-    if not email:
-        raise ValueError("email must be a non-empty string")
-
-    try:
-        # Prefer POST
-        resp = requests.post(
-            endpoint,
-            data={"email": email},
-            timeout=timeout,
-            verify=verify_ssl,
-            allow_redirects=True,
-            headers={"User-Agent": "capro-token-client/1.0"}
-        )
-
-        # If server disallows POST (rare), retry with GET
-        if resp.status_code in (405, 403) and "method" in (resp.text or "").lower():
-            resp = requests.get(
+        if not email:
+            raise ValueError("email must be a non-empty string")
+    
+        try:
+            # Prefer POST
+            resp = requests.post(
                 endpoint,
-                params={"email": email},
+                data={"email": email},
                 timeout=timeout,
                 verify=verify_ssl,
                 allow_redirects=True,
                 headers={"User-Agent": "capro-token-client/1.0"}
             )
+    
+            # If server disallows POST (rare), retry with GET
+            if resp.status_code in (405, 403) and "method" in (resp.text or "").lower():
+                resp = requests.get(
+                    endpoint,
+                    params={"email": email},
+                    timeout=timeout,
+                    verify=verify_ssl,
+                    allow_redirects=True,
+                    headers={"User-Agent": "capro-token-client/1.0"}
+                )
+    
+            # We return the body regardless of status, as requested.
+            # If you prefer to fail on non-2xx, uncomment the two lines below.
+            # if not resp.ok:
+            #     raise RuntimeError(f"Server returned HTTP {resp.status_code}: {resp.text.strip()}")
+    
+            return (resp.text or "").strip()
+    
+        except (Timeout, SSLError) as e:
+            raise RuntimeError(f"network_or_ssl_error: {e}") from e
+        except RequestException as e:
+            # Covers connection errors, invalid URLs, etc.
+            raise RuntimeError(f"request_error: {e}") from e
 
-        # We return the body regardless of status, as requested.
-        # If you prefer to fail on non-2xx, uncomment the two lines below.
-        # if not resp.ok:
-        #     raise RuntimeError(f"Server returned HTTP {resp.status_code}: {resp.text.strip()}")
-
-        return (resp.text or "").strip()
-
-    except (Timeout, SSLError) as e:
-        raise RuntimeError(f"network_or_ssl_error: {e}") from e
-    except RequestException as e:
-        # Covers connection errors, invalid URLs, etc.
-        raise RuntimeError(f"request_error: {e}") from e
 
 
-
-def install_channelattributionpro(token: str | None = None):
+def install_pro():
 
     """
     Install ChannelAttribution Pro (binary wheel) for the current environment.
@@ -998,31 +992,12 @@ def install_channelattributionpro(token: str | None = None):
     --------
     Basic usage with explicit token
 
-    >>> from ChannelAttributionPro import install_channelattributionpro
+    >>> from ChannelAttribution import install_channelattributionpro
     >>> install_channelattributionpro(token="YOUR_TOKEN_HERE")
-    Building the package. Estimated time: 5-30 minutes. Please wait...
-    ...
-    Package installed. Restart the session and try to import it with: import ChannelAttributionPro
-
-    Using environment variable
-
-    # Linux/macOS:
-    # export CHPRO_TOKEN=YOUR_TOKEN_HERE
-    # Windows (new shells):
-    # setx CHPRO_TOKEN YOUR_TOKEN_HERE
-    >>> install_channelattributionpro()
-    ...
-
-    Invalid/expired token
-
-    >>> install_channelattributionpro(token="bad_or_expired")
-    Token non valid or expired. Write to info@channelattribution.io.
-
+    
     After installation
 
     >>> import ChannelAttributionPro
-    >>> ChannelAttributionPro.__version__
-    'x.y.z'
     """
 
     import sys, os, platform, json, subprocess, shutil, re
@@ -1031,6 +1006,7 @@ def install_channelattributionpro(token: str | None = None):
     from urllib.error import URLError, HTTPError
     from urllib.parse import urlencode, urljoin
     import importlib.util, sysconfig
+    from getpass import getpass
 
     # ---------- helpers: stdlib detection + ensure_package ----------
     STDLIB_DIR = sysconfig.get_paths().get("stdlib", "")
@@ -1058,6 +1034,21 @@ def install_channelattributionpro(token: str | None = None):
             env.setdefault("PIP_BREAK_SYSTEM_PACKAGES", "1")
         subprocess.check_call([sys.executable, "-m", "pip", "install",
                                "--disable-pip-version-check", pkg], env=env)
+
+    def _read_secret(prompt: str = "Enter value: ") -> str:
+        """Visible prompt (works with/without TTY)."""
+        try:
+            # Standard interactive prompt (visible)
+            return input(prompt).strip()
+        except EOFError:
+            # Non-interactive / piped input fallback
+            print(prompt, end="", flush=True)
+            return sys.stdin.readline().rstrip("\n")
+
+    _email_re = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+    def _is_valid_email(s: str) -> bool:
+        return isinstance(s, str) and bool(_email_re.match(s.strip()))
 
     # Only third-party:
     ensure_package("requests")
@@ -1196,11 +1187,23 @@ def install_channelattributionpro(token: str | None = None):
             return False
         return True
 
-    # ---------- token ----------
-    if token is None:
-        token = os.environ.get("CHPRO_TOKEN")
+    # Prompt: token or email
+    msg = ("Enter your ChannelAttributionPro token. "
+           "If you don't have one, enter your work/university email to request it: ")
+    token = _read_secret(msg).strip()
+
+    # If it looks like an email, trigger the token request and exit
+    if "@" in token:
+        email = token
+        if not _is_valid_email(email):
+            raise ValueError("Please enter a valid email address or a token.")
+        print("Sending a token...")
+        _ = __request_token_channelattributionpro(email=email)
+        print("*** We email the token to eligible work or university addresses — check your inbox and Spam/Junk; if you don’t receive it, try a different work/university email, and if it still doesn’t arrive, contact info@channelattribution.io.")
+        return  # exit early; user will rerun with token
+
     if not token:
-        print("Missing token. Pass token=... or set CHPRO_TOKEN in the environment.")
+        print("A non-empty token or email is required.")
         return
 
     # ---------- detect environment ----------
@@ -1384,7 +1387,7 @@ def install_channelattributionpro(token: str | None = None):
         if ok_path and pkg_file_url:
             ok = pip_install(pkg_file_url)
             if ok:
-                print("Package installed. Restart the session and try to import it with: import ChannelAttributionPro")
+                print("*** Package installed. Restart the session and try to import it with: import ChannelAttributionPro")
                 action = "SUCCESS"
                 info_blob = json.dumps({"result": "installed", "wheel": pkg_file_url,
                                         "system": get_system_info_dict()}, indent=2)
