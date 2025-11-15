@@ -3,7 +3,7 @@ requires = [
   "setuptools>=68",
   "wheel",
   "Cython>=3.0",
-  "oldest-supported-numpy"   # NumPy headers available at build time
+  "oldest-supported-numpy"
 ]
 build-backend = "setuptools.build_meta"
 
@@ -13,11 +13,13 @@ version = "2.2.2"
 description = "Markov model for online multi-channel attribution"
 readme = "README.md"
 requires-python = ">=3.8"
-license = { text = "GPL-3.0-or-later" }
+license = "GPL-3.0-or-later"
+
 authors = [
   { name = "Davide Altomare" },
   { name = "David Loris" }
 ]
+
 classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
@@ -28,7 +30,6 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Information Analysis"
 ]
 
-# Runtime dependencies
 dependencies = [
   "numpy>=1.22",
   "pandas>=1.5"
@@ -36,18 +37,23 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://channelattribution.io"
-Documentation = "https://app.channelattribution.io/docs/channelattribution.pdf"
+Documentation = "https://channelattribution.io/docs/main-doc"
 Repository = "https://github.com/DavideAltomare/ChannelAttribution"
 Issues = "https://github.com/DavideAltomare/ChannelAttribution/issues"
 
-# Optional extras (examples)
 [project.optional-dependencies]
 dev = ["pytest", "pytest-cov", "mypy", "ruff"]
-docs = ["sphinx>=7.2", "numpydoc", "rinohtype", "sphinx-rtd-theme", "myst-parser"]
+docs = [
+  "sphinx>=7.2",
+  "numpydoc",
+  "rinohtype",
+  "sphinx-rtd-theme",
+  "myst-parser"
+]
 
 [tool.setuptools]
-# We build a Cython extension via setup.py (cythonize/Extension),
-# so no packages/py-modules are declared here.
-
-# Include non-package files in sdist/wheel (paired with MANIFEST.in below)
 include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

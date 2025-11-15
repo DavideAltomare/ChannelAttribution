@@ -1,39 +1,324 @@
-#ChannelAttribution: Markov model for online multi-channel attribution
-#Copyright (C) 2015 -   Davide Altomare and David Loris <https://channelattribution.io>
-#
-#ChannelAttribution is free software: you can redistribute it and/or modify
-#it under the terms of the GNU General Public License as published by
-#the Free Software Foundation, either version 3 of the License, or
-#(at your option) any later version.
-#
-#ChannelAttribution is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
-#
-#You should have received a copy of the GNU General Public License
-#along with ChannelAttribution.  If not, see <http://www.gnu.org/licenses/>.
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-import os
+# ChannelAttribution: Markov model for online multi-channel attribution
+# GPL-3.0-or-later
 
-dir=os.path.dirname(__file__)
+"""
+Generate Sphinx docs for ChannelAttribution.
 
-TAG = '#start py'
+This script builds a *documentation-only* Python module that Sphinx can autodoc.
 
-tag_found = False
-with open(os.path.join(dir, 'ChannelAttribution.pyx')) as in_file:
-    with open(os.path.join(dir,'docs/ChannelAttribution.py'), 'w') as out_file:
-        for line in in_file:
-            if not tag_found:
-                if line.strip() == TAG:
-                    tag_found = True
-            else:
-                out_file.write(line)
-				
+It:
 
-if not os.path.exists(os.path.join(dir,"docs/")):
-    os.makedirs(os.path.join(dir,"docs/"))				
+- Extracts the public Python API section from ``ChannelAttribution.pyx``
+  (lines after the marker ``#start py``).
+- Extracts ``install_pro`` (only) from ``ChannelAttribution/install_pro.py``.
+- Writes a combined shim module to ``docs/ChannelAttribution.py``.
+- Ensures a minimal ``index.rst``.
+- Builds HTML and then PDF (rinoh → LaTeX fallback).
+"""
 
-os. chdir(os.path.join(dir,"docs/"))
-os.system("make clean && make html")
-os.system("sphinx-build -b rinoh . _build/rinoh")
+from __future__ import annotations
+
+import sys
+import subprocess
+from pathlib import Path
+
+TAG = "#start py"
+
+
+def log(msg: str) -> None:
+    print(msg, flush=True)
+
+
+def run(cmd: list[str], cwd: Path) -> subprocess.CompletedProcess:
+    log(f"$ {' '.join(cmd)}")
+    return subprocess.run(
+        cmd,
+        cwd=str(cwd),
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+
+
+def extract_pyx_payload(pyx_path: Path, tag: str = TAG) -> str:
+    """Return the text after TAG from ChannelAttribution.pyx."""
+    if not pyx_path.exists():
+        raise FileNotFoundError(f"Missing source: {pyx_path}")
+
+    data = pyx_path.read_text(encoding="utf-8").splitlines(keepends=True)
+    try:
+        start = next(i for i, line in enumerate(data) if line.strip() == tag)
+    except StopIteration:
+        raise RuntimeError(f"Tag '{tag}' not found in {pyx_path}")
+
+    payload = "".join(data[start + 1 :]).strip("\n")
+    log(f"Extracted {len(payload)} bytes from {pyx_path} after tag '{tag}'")
+    return payload
+
+
+def find_install_pro_path(base_dir: Path) -> Path | None:
+    """
+    Locate install_pro.py relative to this script.
+
+    Layout:
+
+        python/
+          src/
+            cypack/
+              generate_doc.py   (this file)
+              ChannelAttribution.pyx
+            ChannelAttribution/
+              install_pro.py
+    """
+    candidate = base_dir.parent / "ChannelAttribution" / "install_pro.py"
+    log(f"Looking for install_pro.py at: {candidate}")
+    if candidate.exists():
+        log(f"Using install_pro.py from: {candidate}")
+        return candidate
+
+    log("No install_pro.py found in expected location — skipping install_pro docs.")
+    return None
+
+
+def extract_install_pro_function(install_pro_path: Path | None) -> str:
+    """
+    Extract only the ``install_pro`` function from install_pro.py.
+
+    - Finds a top-level ``def install_pro(...):``.
+    - Copies its full body until the next top-level statement.
+    - Ignores install_pro_222 and everything else.
+    """
+    if install_pro_path is None:
+        return ""
+
+    src = install_pro_path.read_text(encoding="utf-8").splitlines(keepends=False)
+
+    keep_lines: list[str] = []
+    in_block = False
+    current_indent = None
+
+    for line in src:
+        stripped = line.lstrip()
+
+        # Start of install_pro
+        if stripped.startswith("def install_pro("):
+            in_block = True
+            current_indent = len(line) - len(stripped)
+            keep_lines.append(line)
+            continue
+
+        if in_block:
+            # Inside install_pro body
+            if stripped == "" or stripped.startswith("#"):
+                keep_lines.append(line)
+                continue
+
+            indent = len(line) - len(stripped)
+            if indent > current_indent:
+                keep_lines.append(line)
+                continue
+
+            # Dedent to <= current_indent: function body ended
+            in_block = False
+
+        # We never start on install_pro_222 here, so it's ignored entirely.
+
+    if not keep_lines:
+        log(f"No install_pro() function found in {install_pro_path} — skipping.")
+        return ""
+
+    snippet_lines: list[str] = [
+        "# --- Extracted install_pro (for documentation) ---"
+    ]
+    snippet_lines.extend(keep_lines)
+    snippet = "\n".join(snippet_lines).rstrip() + "\n"
+
+    log(
+        f"Extracted install_pro from {install_pro_path} "
+        f"({len(snippet.encode('utf-8'))} bytes)"
+    )
+    return snippet
+
+
+def write_combined_stub(
+    out_py_path: Path,
+    core_payload: str,
+    install_pro_payload: str,
+) -> None:
+    """
+    Write docs/ChannelAttribution.py which Sphinx will autodoc.
+
+    This is a *shim* module for documentation only. It is not the
+    installed package; it mirrors the public Python-facing API:
+
+    - functions from ChannelAttribution.pyx (after #start py)
+    - install_pro from ChannelAttribution/install_pro.py (if available)
+    """
+    out_py_path.parent.mkdir(parents=True, exist_ok=True)
+
+    parts: list[str] = [
+        "# Auto-generated by generate_doc.py — DO NOT EDIT MANUALLY.",
+        "# This module is used only for Sphinx autodoc.",
+        "",
+    ]
+
+    if core_payload:
+        parts.append("# --- Core API extracted from ChannelAttribution.pyx ---")
+        parts.append(core_payload)
+        parts.append("")
+
+    if install_pro_payload:
+        parts.append("# --- install_pro extracted from install_pro.py ---")
+        parts.append(install_pro_payload)
+        parts.append("")
+
+    content = "\n".join(parts).rstrip() + "\n"
+    out_py_path.write_text(content, encoding="utf-8")
+    log(f"Wrote {out_py_path} ({len(content.encode('utf-8'))} bytes)")
+
+
+def ensure_index_rst(docs_dir: Path) -> None:
+    index = docs_dir / "index.rst"
+    if index.exists():
+        return
+    index.write_text(
+        (
+            "ChannelAttribution\n"
+            "===================\n\n"
+            ".. toctree::\n"
+            "   :maxdepth: 2\n"
+            "   :caption: Contents\n\n"
+            "API\n"
+            "---\n\n"
+            ".. automodule:: ChannelAttribution\n"
+            "   :members:\n"
+            "   :undoc-members:\n"
+            "   :show-inheritance:\n"
+        ),
+        encoding="utf-8",
+    )
+    log(f"Created minimal {index}")
+
+
+def build_html(docs_dir: Path) -> None:
+    _build = docs_dir / "_build"
+    if _build.exists():
+        import shutil
+
+        shutil.rmtree(_build)
+        log(f"Removed {_build}")
+    cmd = ["sphinx-build", "-b", "html", ".", "_build/html"]
+    p = run(cmd, cwd=docs_dir)
+    sys.stdout.write(p.stdout)
+    sys.stderr.write(p.stderr)
+    if p.returncode != 0:
+        raise RuntimeError("HTML build failed")
+
+
+def build_pdf_rinoh_then_fallback_latex(docs_dir: Path) -> None:
+    """Build PDF docs: try Rinoh, fall back to LaTeX."""
+    # Try Rinoh (best-effort)
+    try:
+        cmd_rinoh = ["sphinx-build", "-b", "rinoh", ".", "_build/rinoh"]
+        p = run(cmd_rinoh, cwd=docs_dir)
+        sys.stdout.write(p.stdout)
+        sys.stderr.write(p.stderr)
+        if p.returncode == 0:
+            log("Rinoh PDF: OK")
+            return
+        else:
+            log(f"Rinoh PDF failed with return code {p.returncode}; falling back to LaTeX.")
+    except Exception as e:
+        log(f"Rinoh PDF failed with exception: {e}; falling back to LaTeX.")
+
+    # LaTeX build
+    cmd_latex = ["sphinx-build", "-b", "latex", ".", "_build/latex"]
+    p2 = run(cmd_latex, cwd=docs_dir)
+    sys.stdout.write(p2.stdout)
+    sys.stderr.write(p2.stderr)
+    if p2.returncode != 0:
+        raise RuntimeError("LaTeX builder failed")
+
+    latex_dir = docs_dir / "_build" / "latex"
+
+    def _which(prog: str) -> bool:
+        from shutil import which
+        return which(prog) is not None
+
+    # Prefer latexmk
+    if _which("latexmk"):
+        tex_files = list(latex_dir.glob("*.tex"))
+        if not tex_files:
+            raise RuntimeError("No .tex file found in _build/latex")
+        for tex in tex_files:
+            cmd_pdf = ["latexmk", "-pdf", "-interaction=nonstopmode", tex.name]
+            p3 = run(cmd_pdf, cwd=latex_dir)
+            sys.stdout.write(p3.stdout)
+            sys.stderr.write(p3.stderr)
+            if p3.returncode != 0:
+                raise RuntimeError(f"latexmk failed for {tex.name}")
+        log("LaTeX PDF: OK (latexmk)")
+        return
+
+    # Fallback to make all-pdf
+    makefile = latex_dir / "Makefile"
+    if makefile.exists():
+        cmd_make = ["make", "all-pdf"]
+        p4 = run(cmd_make, cwd=latex_dir)
+        sys.stdout.write(p4.stdout)
+        sys.stderr.write(p4.stderr)
+        if p4.returncode != 0:
+            raise RuntimeError("make all-pdf failed")
+        log("LaTeX PDF: OK (make)")
+        return
+
+    raise RuntimeError(
+        "latexmk not found and no Makefile in _build/latex. "
+        "Install TeX Live (latexmk) or use `make` from the generated Makefile."
+    )
+
+
+def main() -> None:
+    # From this script:
+    #   base_dir = .../python/src/cypack
+    base_dir = Path(__file__).resolve().parent
+
+    pyx_path = base_dir / "ChannelAttribution.pyx"
+    docs_dir = base_dir / "docs"
+    out_py = docs_dir / "ChannelAttribution.py"
+
+    log("Extracting Python API from ChannelAttribution.pyx …")
+    core_payload = extract_pyx_payload(pyx_path, TAG)
+
+    log("Locating install_pro.py …")
+    install_pro_path = find_install_pro_path(base_dir)
+
+    log("Extracting install_pro() from install_pro.py …")
+    install_pro_payload = extract_install_pro_function(install_pro_path)
+
+    if not docs_dir.exists():
+        docs_dir.mkdir(parents=True, exist_ok=True)
+
+    write_combined_stub(out_py, core_payload, install_pro_payload)
+    ensure_index_rst(docs_dir)
+
+    log("Building HTML …")
+    build_html(docs_dir)
+
+    log("Building PDF (rinoh → fallback LaTeX) …")
+    try:
+        build_pdf_rinoh_then_fallback_latex(docs_dir)
+    except Exception as e:
+        log(f"PDF build failed: {e}")
+        # HTML built successfully; don't fail entire pipeline solely for PDF.
+        # If you want CI to fail on PDF issues, uncomment:
+        # sys.exit(1)
+
+    log("Done.")
+
+
+if __name__ == "__main__":
+    main()

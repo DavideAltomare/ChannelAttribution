@@ -1,0 +1,8 @@
+\indexentry{module@\spxentry{module}!ChannelAttribution@\spxentry{ChannelAttribution}|hyperpage}{3}
+\indexentry{ChannelAttribution@\spxentry{ChannelAttribution}!module@\spxentry{module}|hyperpage}{3}
+\indexentry{auto\_markov\_model() (in module ChannelAttribution)@\spxentry{auto\_markov\_model()}\spxextra{in module ChannelAttribution}|hyperpage}{3}
+\indexentry{choose\_order() (in module ChannelAttribution)@\spxentry{choose\_order()}\spxextra{in module ChannelAttribution}|hyperpage}{4}
+\indexentry{heuristic\_models() (in module ChannelAttribution)@\spxentry{heuristic\_models()}\spxextra{in module ChannelAttribution}|hyperpage}{5}
+\indexentry{install\_pro() (in module ChannelAttribution)@\spxentry{install\_pro()}\spxextra{in module ChannelAttribution}|hyperpage}{6}
+\indexentry{markov\_model() (in module ChannelAttribution)@\spxentry{markov\_model()}\spxextra{in module ChannelAttribution}|hyperpage}{7}
+\indexentry{transition\_matrix() (in module ChannelAttribution)@\spxentry{transition\_matrix()}\spxextra{in module ChannelAttribution}|hyperpage}{9}

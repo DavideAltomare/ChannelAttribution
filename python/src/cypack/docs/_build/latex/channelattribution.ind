@@ -1,0 +1,34 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter A
+  \item \spxentry{auto\_markov\_model()}\spxextra{in module ChannelAttribution}, \hyperpage{3}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{ChannelAttribution}
+    \subitem \spxentry{module}, \hyperpage{3}
+  \item \spxentry{choose\_order()}\spxextra{in module ChannelAttribution}, \hyperpage{4}
+
+  \indexspace
+  \bigletter H
+  \item \spxentry{heuristic\_models()}\spxextra{in module ChannelAttribution}, \hyperpage{5}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{install\_pro()}\spxextra{in module ChannelAttribution}, \hyperpage{6}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{markov\_model()}\spxextra{in module ChannelAttribution}, \hyperpage{7}
+  \item \spxentry{module}
+    \subitem \spxentry{ChannelAttribution}, \hyperpage{3}
+
+  \indexspace
+  \bigletter T
+  \item \spxentry{transition\_matrix()}\spxextra{in module ChannelAttribution}, \hyperpage{9}
+
+\end{sphinxtheindex}

@@ -54,53 +54,33 @@ Advertisers use a variety of online marketing channels to reach consumers and th
 Jan H. Schumann (2014). Differently from them, we solved the estimation process using stochastic simulations. In this way it is also possible to take into account conversion values and their variability in the computation of the channel importance. The package also contains a function that estimates three heuristic models (first-touch, last-touch and linear-touch approach) for the same problem.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ChannelAttribution.auto_markov_model">
-<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">auto_markov_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roc_npt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsim_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_more</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_par</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_step_sim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#auto_markov_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.auto_markov_model" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">auto_markov_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roc_npt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsim_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_more</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_par</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_step_sim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_pro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#auto_markov_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.auto_markov_model" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
-</dd>
-<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
-</dd>
-<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
-</dd>
-<dt><strong>var_null</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total paths that do not lead to conversion.</p>
-</dd>
-<dt><strong>var_value</strong><span class="classifier">string, optional, default None</span></dt><dd><p>column of Data containing revenue for each path</p>
-</dd>
-<dt><strong>max_order</strong><span class="classifier">int, default 10</span></dt><dd><p>maximum Markov Model order to be considered.</p>
-</dd>
-<dt><strong>roc_npt: int, default 100</strong></dt><dd><p>number of points to be used for the approximation of roc curve.</p>
-</dd>
-<dt><strong>plot: bool, default True</strong></dt><dd><p>if True, a plot with penalized auc with respect to order will be displayed.</p>
-</dd>
-<dt><strong>nsim_start</strong><span class="classifier">int, default 1e5</span></dt><dd><p>minimum number of simulations to be used in computation.</p>
-</dd>
-<dt><strong>max_step</strong><span class="classifier">int, default None</span></dt><dd><p>maximum number of steps for a single simulated path. if NULL, it is the maximum number of steps found into Data.</p>
-</dd>
-<dt><strong>out_more</strong><span class="classifier">bool, default False</span></dt><dd><p>if True, transition probabilities between channels and removal effects will be returned.</p>
-</dd>
-<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
-</dd>
-<dt><strong>ncore</strong><span class="classifier">int, default 1</span></dt><dd><p>number of threads to be used in computation.</p>
-</dd>
-<dt><strong>nfold</strong><span class="classifier">int, default 10</span></dt><dd><p>how many repetitions to be used to verify if convergence has been reached at each iteration.</p>
-</dd>
-<dt><strong>seed</strong><span class="classifier">int, default 0</span></dt><dd><p>random seed. Giving this parameter the same value over different runs guarantees that results will not vary.</p>
-</dd>
-<dt><strong>conv_par</strong><span class="classifier">double, default 0.05</span></dt><dd><p>convergence parameter for the algorithm. The estimation process ends when the percentage of variation of the results over different repetions is less than convergence parameter.</p>
-</dd>
-<dt><strong>rate_step_sim</strong><span class="classifier">double, default 0</span></dt><dd><p>number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.</p>
-</dd>
-<dt><strong>verbose</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, additional information about process convergence will be shown.</p>
-</dd>
-<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
-</dd>
-</dl>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Data</strong> (<em>DataFrame</em>) – customer journeys.</p></li>
+<li><p><strong>var_path</strong> (<em>string</em>) – column of Data containing paths.</p></li>
+<li><p><strong>var_conv</strong> (<em>string</em>) – column of Data containing total conversions for each path.</p></li>
+<li><p><strong>var_null</strong> (<em>string</em>) – column of Data containing total paths that do not lead to conversion.</p></li>
+<li><p><strong>var_value</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default None</em>) – column of Data containing revenue for each path</p></li>
+<li><p><strong>max_order</strong> (<em>int</em><em>, </em><em>default 10</em>) – maximum Markov Model order to be considered.</p></li>
+<li><p><strong>roc_npt</strong> (<em>int</em><em>, </em><em>default 100</em>) – number of points to be used for the approximation of roc curve.</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, a plot with penalized auc with respect to order will be displayed.</p></li>
+<li><p><strong>nsim_start</strong> (<em>int</em><em>, </em><em>default 1e5</em>) – minimum number of simulations to be used in computation.</p></li>
+<li><p><strong>max_step</strong> (<em>int</em><em>, </em><em>default None</em>) – maximum number of steps for a single simulated path. if NULL, it is the maximum number of steps found into Data.</p></li>
+<li><p><strong>out_more</strong> (<em>bool</em><em>, </em><em>default False</em>) – if True, transition probabilities between channels and removal effects will be returned.</p></li>
+<li><p><strong>sep</strong> (<em>string</em><em>, </em><em>default &quot;&gt;&quot;</em>) – separator between the channels.</p></li>
+<li><p><strong>ncore</strong> (<em>int</em><em>, </em><em>default 1</em>) – number of threads to be used in computation.</p></li>
+<li><p><strong>nfold</strong> (<em>int</em><em>, </em><em>default 10</em>) – how many repetitions to be used to verify if convergence has been reached at each iteration.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>default 0</em>) – random seed. Giving this parameter the same value over different runs guarantees that results will not vary.</p></li>
+<li><p><strong>conv_par</strong> (<em>double</em><em>, </em><em>default 0.05</em>) – convergence parameter for the algorithm. The estimation process ends when the percentage of variation of the results over different repetions is less than convergence parameter.</p></li>
+<li><p><strong>rate_step_sim</strong> (<em>double</em><em>, </em><em>default 0</em>) – number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, additional information about process convergence will be shown.</p></li>
+<li><p><strong>flg_pro</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, ChannelAttribution Pro banner is printed.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>list of DataFrames</dt><dd><dl class="simple">
+<dd class="field-even"><p><dl class="simple">
 <dt>result: Dataframe</dt><dd><p>(column) channel_name : channel names
 (column) total_conversions : conversions attributed to each channel
 (column) total_conversion_value : revenues attributed to each channel</p>
@@ -109,18 +89,20 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 (column) channel_to : channel to
 (column) transition_probability : transition probability from channel_from to channel_to</p>
 </dd>
-<dt>removal_effects:</dt><dd><p>(column) channel_name : channel names 
+<dt>removal_effects:</dt><dd><p>(column) channel_name : channel names
 (column) removal_effects_conversion : removal effects for each channel calculated using total conversions
 (column) removal_effects_conversion_value : removal effects for each channel calculated using revenues</p>
 </dd>
 </dl>
+</p>
 </dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of DataFrames</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>    
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
@@ -133,54 +115,45 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ChannelAttribution.choose_order">
-<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">choose_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roc_npt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#choose_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.choose_order" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">choose_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roc_npt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_pro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#choose_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.choose_order" title="Link to this definition">¶</a></dt>
 <dd><p>Find the minimum Markov Model order that gives a good representation of customers’ behaviour for data considered. It requires paths that do not lead to conversion as input. Minimum order is found maximizing a penalized area under ROC curve.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
-</dd>
-<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
-</dd>
-<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
-</dd>
-<dt><strong>var_null</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total paths that do not lead to conversion.</p>
-</dd>
-<dt><strong>max_order</strong><span class="classifier">int, default 10</span></dt><dd><p>maximum Markov Model order to be considered.</p>
-</dd>
-<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
-</dd>
-<dt><strong>ncore</strong><span class="classifier">int, default 1</span></dt><dd><p>number of threads to be used in computation.</p>
-</dd>
-<dt><strong>roc_npt: int, default 100</strong></dt><dd><p>number of points to be used for the approximation of roc curve.</p>
-</dd>
-<dt><strong>plot: bool, default True</strong></dt><dd><p>if True, a plot with penalized auc with respect to order will be displayed.</p>
-</dd>
-<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
-</dd>
-</dl>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Data</strong> (<em>DataFrame</em>) – customer journeys.</p></li>
+<li><p><strong>var_path</strong> (<em>string</em>) – column of Data containing paths.</p></li>
+<li><p><strong>var_conv</strong> (<em>string</em>) – column of Data containing total conversions for each path.</p></li>
+<li><p><strong>var_null</strong> (<em>string</em>) – column of Data containing total paths that do not lead to conversion.</p></li>
+<li><p><strong>max_order</strong> (<em>int</em><em>, </em><em>default 10</em>) – maximum Markov Model order to be considered.</p></li>
+<li><p><strong>sep</strong> (<em>string</em><em>, </em><em>default &quot;&gt;&quot;</em>) – separator between the channels.</p></li>
+<li><p><strong>ncore</strong> (<em>int</em><em>, </em><em>default 1</em>) – number of threads to be used in computation.</p></li>
+<li><p><strong>roc_npt</strong> (<em>int</em><em>, </em><em>default 100</em>) – number of points to be used for the approximation of roc curve.</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, a plot with penalized auc with respect to order will be displayed.</p></li>
+<li><p><strong>flg_pro</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, ChannelAttribution Pro banner is printed.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>list</dt><dd><dl class="simple">
+<dd class="field-even"><p><dl class="simple">
 <dt>roc<span class="classifier">list DataFrame one for each order considered</span></dt><dd><p>(column) tpr: true positive rate
 (column) fpr: false positive rate</p>
 </dd>
-<dt>auc<span class="classifier">DataFrame with the following columns</span></dt><dd><p>(column) order: markov model order  
+<dt>auc<span class="classifier">DataFrame with the following columns</span></dt><dd><p>(column) order: markov model order
 (column) auc: area under the curve
 (column) pauc: penalized auc</p>
 </dd>
 <dt>suggested order<span class="classifier">int</span></dt><dd><p>estimated best order</p>
 </dd>
 </dl>
+</p>
 </dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>Estimate best makov model order for your data</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>    
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
@@ -192,28 +165,21 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ChannelAttribution.heuristic_models">
-<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">heuristic_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#heuristic_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.heuristic_models" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">heuristic_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_pro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#heuristic_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.heuristic_models" title="Link to this definition">¶</a></dt>
 <dd><p>Estimate three heuristic models (first-touch, last-touch and linear) from customer journey data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
-</dd>
-<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
-</dd>
-<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
-</dd>
-<dt><strong>var_value</strong><span class="classifier">string, optional, default None</span></dt><dd><p>column of Data containing revenue for each path.</p>
-</dd>
-<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
-</dd>
-<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
-</dd>
-</dl>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Data</strong> (<em>DataFrame</em>) – customer journeys.</p></li>
+<li><p><strong>var_path</strong> (<em>string</em>) – column of Data containing paths.</p></li>
+<li><p><strong>var_conv</strong> (<em>string</em>) – column of Data containing total conversions for each path.</p></li>
+<li><p><strong>var_value</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default None</em>) – column of Data containing revenue for each path.</p></li>
+<li><p><strong>sep</strong> (<em>string</em><em>, </em><em>default &quot;&gt;&quot;</em>) – separator between the channels.</p></li>
+<li><p><strong>flg_pro</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, ChannelAttribution Pro banner is printed.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>DataFrame</dt><dd><p>(column) channel_name : channel names
+<dd class="field-even"><p>(column) channel_name : channel names
 (column) first_touch_conversions : conversions attributed to each channel using first touch attribution.
 (column) first_touch_value : revenues attributed to each channel using first touch attribution.
 (column) last_touch_conversions : conversions attributed to each channel using last touch attribution.
@@ -221,12 +187,13 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 (column) linear_touch_conversions : conversions attributed to each channel using linear attribution.
 (column) linear_touch_value : revenues attributed to each channel using linear attribution.</p>
 </dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>    
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
@@ -243,99 +210,112 @@ Jan H. Schumann (2014). Differently from them, we solved the estimation process 
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="ChannelAttribution.install_channelattributionpro">
-<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">install_channelattributionpro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#install_channelattributionpro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.install_channelattributionpro" title="Link to this definition">¶</a></dt>
-<dd><p>Install ChannelAttribution Pro (binary wheel) for the current environment.</p>
-<p>This installer detects your OS, architecture, and Python version, requests a
-prebuilt wheel (or triggers a build) from ChannelAttribution Pro’s build
-service via HTTPS <strong>POST</strong>, resolves the final package URL, and installs it
-with <cite>pip</cite>. Whether the install succeeds or fails, it sends <strong>one final</strong>
-notification to <cite>build_check_email.php</cite> with a compact info payload.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>token</strong><span class="classifier">str, optional</span></dt><dd><p>Access token for the build service. If omitted, the function reads the
-environment variable <cite>CHPRO_TOKEN</cite>. If neither is provided, the installer
-prints a message and returns. If the token is invalid or expired, the
-installer prints <strong>“Token non valid or expired. Write to info&#64;channelattribution.io.”</strong>
-and returns.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>None</dt><dd><p>The function performs installation as a side effect and writes progress
-to stdout. On error, it prints diagnostic information and returns without
-raising exceptions.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
+<dt class="sig sig-object py" id="ChannelAttribution.install_pro">
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">install_pro</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#install_pro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.install_pro" title="Link to this definition">¶</a></dt>
+<dd><p>Interactive installer for ChannelAttribution Pro (Python wheel).</p>
+<p>This helper:
+- Prompts you for a token; if you type an email instead, it requests a token</p>
+<blockquote>
+<div><p>for that address and exits (so you can rerun with the token).</p>
+</div></blockquote>
 <ul class="simple">
-<li><p>Depending on load, the remote build step may take several minutes.</p></li>
-<li><p>On macOS, <cite>gcc</cite> typically maps to Clang; compiler info is reported accordingly.</p></li>
-<li><p>The Linux baseline targets ManyLinux2014 for broad compatibility.</p></li>
-<li><p>The helper auto-installs <cite>requests</cite> (and <cite>distro</cite> on Linux) into the <strong>current interpreter</strong>.</p></li>
+<li><p>Detects your OS/arch/Python, asks the build service for the correct wheel via HTTPS POST,
+resolves the final wheel URL, and installs it with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span></code>.</p></li>
+<li><p>Sends exactly one final outcome notification to <code class="docutils literal notranslate"><span class="pre">build_check_email.php</span></code> (SUCCESS/ERROR)
+with a short, client-trimmed info blob.</p></li>
 </ul>
-<p class="rubric">Examples</p>
-<p>Basic usage with explicit token</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="n">install_channelattributionpro</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">install_channelattributionpro</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;YOUR_TOKEN_HERE&quot;</span><span class="p">)</span>
+<p class="rubric">Notes</p>
+<p>User interaction:
+- On start, it asks: “Enter your ChannelAttributionPro token. If you don’t have one,</p>
+<blockquote>
+<div><p>enter your work/university email to request it:”</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>If you enter a valid email, the function triggers a token email and returns immediately.</p></li>
+<li><p>If you enter a non-empty token, the installation flow proceeds.</p></li>
+<li><p>If you enter nothing, the function prints a message and returns.</p></li>
+</ul>
+<p>Environment detection:
+- OS name: manylinux (Linux), macOS (macOS), Windows (Windows)
+- OS version: Linux “2014” (ManyLinux2014), macOS “13” (amd64) or “15” (arm64), Windows “11”
+- Architecture: amd64 (x86_64) or arm64 (aarch64)
+- Python: running interpreter’s major.minor (e.g., 3.11)</p>
+<p>Network behavior:
+- Builder request: HTTPS POST to <code class="docutils literal notranslate"><span class="pre">https://app.channelattribution.io/genpkg/genpkg.php</span></code></p>
+<blockquote>
+<div><p>with <code class="docutils literal notranslate"><span class="pre">{os,</span> <span class="pre">os_vers,</span> <span class="pre">arch,</span> <span class="pre">lang=python,</span> <span class="pre">lang_vers,</span> <span class="pre">replace=0,</span> <span class="pre">uctr=0,</span> <span class="pre">token}</span></code>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Response handling:
+- 200 or 409 with JSON containing <code class="docutils literal notranslate"><span class="pre">&quot;pkg&quot;</span></code>: direct wheel URL or a directory URL.
+- If a directory is returned, the latest file is selected (prefers <code class="docutils literal notranslate"><span class="pre">*.whl</span></code>).
+- 401 or JSON error mentioning “invalid token”: prints “Token non valid or expired…” and returns.</p></li>
+<li><p>Installation: runs <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--prefer-binary</span></code> on the resolved wheel URL.</p></li>
+<li><p>Final notification (always exactly once): POSTs to
+<code class="docutils literal notranslate"><span class="pre">https://app.channelattribution.io/genpkg/build_check_email.php</span></code> with fields
+<code class="docutils literal notranslate"><span class="pre">{token,</span> <span class="pre">action=&quot;SUCCESS&quot;|&quot;ERROR&quot;,</span> <span class="pre">info=&quot;&lt;=8KiB</span> <span class="pre">compact</span> <span class="pre">JSON-like&quot;}</span></code>.</p></li>
+</ul>
+<p>Packages and proxies:
+- Auto-installs <code class="docutils literal notranslate"><span class="pre">requests</span></code> (and <code class="docutils literal notranslate"><span class="pre">distro</span></code> on Linux) into the current interpreter.</p>
+<blockquote>
+<div><p>If not in a virtualenv, sets <code class="docutils literal notranslate"><span class="pre">PIP_BREAK_SYSTEM_PACKAGES=1</span></code> to respect Debian/Ubuntu PEP 668.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Honors standard system/proxy environment variables.</p></li>
+</ul>
+<p>Output and errors:
+- Prints progress and a short system report if something goes wrong (OS, distro, Python, compiler).</p>
+<blockquote>
+<div><p>Support message includes <code class="docutils literal notranslate"><span class="pre">info&#64;channelattribution.io</span></code>.</p>
+</div></blockquote>
+<ul>
+<li><p>On success it prints:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***</span> <span class="n">Package</span> <span class="n">installed</span><span class="o">.</span> <span class="n">Restart</span> <span class="n">the</span> <span class="n">session</span> <span class="ow">and</span> <span class="k">try</span> <span class="n">to</span> <span class="kn">import</span><span class="w"> </span><span class="nn">it</span> <span class="k">with</span><span class="p">:</span> <span class="kn">import</span><span class="w"> </span><span class="nn">ChannelAttributionPro</span>
 </pre></div>
 </div>
-<p>After installation</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ChannelAttributionPro</span>
+</li>
+<li><p>Returns <code class="docutils literal notranslate"><span class="pre">None</span></code>. Most error conditions are handled by printing and returning.</p></li>
+<li><p>May raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> only if an email-like input is given but fails basic syntax validation.</p></li>
+</ul>
+<p>Security notes:
+- Sends your token to the builder and in the final notification.
+- The <code class="docutils literal notranslate"><span class="pre">info</span></code> field is trimmed client-side (~8 KiB) and HTML-escaped server-side before emailing.
+- No personal data is sent beyond the token and generic environment traits.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="n">install_pro</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">install_pro</span><span class="p">()</span>  <span class="c1"># follow the prompt: paste token, or enter email to request one</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ChannelAttribution.markov_model">
-<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">markov_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsim_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_more</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_par</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_step_sim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#markov_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.markov_model" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">markov_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsim_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_more</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_par</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_step_sim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_pro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#markov_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.markov_model" title="Link to this definition">¶</a></dt>
 <dd><p>Estimate a k-order Markov model from customer journey data. Differently from markov_model, this function iterates estimation until a desidered convergence is reached and enables multiprocessing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
-</dd>
-<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
-</dd>
-<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
-</dd>
-<dt><strong>var_value</strong><span class="classifier">string, optional, default None</span></dt><dd><p>column of Data containing revenue for each path.</p>
-</dd>
-<dt><strong>var_null</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total paths that do not lead to conversion.</p>
-</dd>
-<dt><strong>order</strong><span class="classifier">int, default 1</span></dt><dd><p>Markov model order.</p>
-</dd>
-<dt><strong>nsim_start</strong><span class="classifier">int, default 1e5</span></dt><dd><p>minimum number of simulations to be used in computation.</p>
-</dd>
-<dt><strong>max_step</strong><span class="classifier">int, default None</span></dt><dd><p>maximum number of steps for a single simulated path. if NULL, it is the maximum number of steps found into Data.</p>
-</dd>
-<dt><strong>out_more</strong><span class="classifier">bool, default False</span></dt><dd><p>if True, transition probabilities between channels and removal effects will be returned.</p>
-</dd>
-<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
-</dd>
-<dt><strong>ncore</strong><span class="classifier">int, default 1</span></dt><dd><p>number of threads to be used in computation.</p>
-</dd>
-<dt><strong>nfold</strong><span class="classifier">int, default 10</span></dt><dd><p>how many repetitions to be used to verify if convergence has been reached at each iteration.</p>
-</dd>
-<dt><strong>seed</strong><span class="classifier">int, default 0</span></dt><dd><p>random seed. Giving this parameter the same value over different runs guarantees that results will not vary.</p>
-</dd>
-<dt><strong>conv_par</strong><span class="classifier">double, default 0.05</span></dt><dd><p>convergence parameter for the algorithm. The estimation process ends when the percentage of variation of the results over different repetions is less than convergence parameter.</p>
-</dd>
-<dt><strong>rate_step_sim</strong><span class="classifier">double, default 0</span></dt><dd><p>number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.</p>
-</dd>
-<dt><strong>verbose</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, additional information about process convergence will be shown.</p>
-</dd>
-<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
-</dd>
-</dl>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Data</strong> (<em>DataFrame</em>) – customer journeys.</p></li>
+<li><p><strong>var_path</strong> (<em>string</em>) – column of Data containing paths.</p></li>
+<li><p><strong>var_conv</strong> (<em>string</em>) – column of Data containing total conversions for each path.</p></li>
+<li><p><strong>var_value</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default None</em>) – column of Data containing revenue for each path.</p></li>
+<li><p><strong>var_null</strong> (<em>string</em>) – column of Data containing total paths that do not lead to conversion.</p></li>
+<li><p><strong>order</strong> (<em>int</em><em>, </em><em>default 1</em>) – Markov model order.</p></li>
+<li><p><strong>nsim_start</strong> (<em>int</em><em>, </em><em>default 1e5</em>) – minimum number of simulations to be used in computation.</p></li>
+<li><p><strong>max_step</strong> (<em>int</em><em>, </em><em>default None</em>) – maximum number of steps for a single simulated path. if NULL, it is the maximum number of steps found into Data.</p></li>
+<li><p><strong>out_more</strong> (<em>bool</em><em>, </em><em>default False</em>) – if True, transition probabilities between channels and removal effects will be returned.</p></li>
+<li><p><strong>sep</strong> (<em>string</em><em>, </em><em>default &quot;&gt;&quot;</em>) – separator between the channels.</p></li>
+<li><p><strong>ncore</strong> (<em>int</em><em>, </em><em>default 1</em>) – number of threads to be used in computation.</p></li>
+<li><p><strong>nfold</strong> (<em>int</em><em>, </em><em>default 10</em>) – how many repetitions to be used to verify if convergence has been reached at each iteration.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>default 0</em>) – random seed. Giving this parameter the same value over different runs guarantees that results will not vary.</p></li>
+<li><p><strong>conv_par</strong> (<em>double</em><em>, </em><em>default 0.05</em>) – convergence parameter for the algorithm. The estimation process ends when the percentage of variation of the results over different repetions is less than convergence parameter.</p></li>
+<li><p><strong>rate_step_sim</strong> (<em>double</em><em>, </em><em>default 0</em>) – number of simulations used at each iteration is equal to the number of simulations used at previous iteration multiplied by rate_step_sim.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, additional information about process convergence will be shown.</p></li>
+<li><p><strong>flg_pro</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, ChannelAttribution Pro banner is printed.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>list of DataFrames</dt><dd><dl class="simple">
+<dd class="field-even"><p><dl class="simple">
 <dt>result: Dataframe</dt><dd><p>(column) channel_name : channel names
 (column) total_conversions : conversions attributed to each channel
 (column) total_conversion_value : revenues attributed to each channel</p>
@@ -344,18 +324,20 @@ raising exceptions.</p>
 (column) channel_to : channel to
 (column) transition_probability : transition probability from channel_from to channel_to</p>
 </dd>
-<dt>removal_effects:</dt><dd><p>(column) channel_name : channel names 
+<dt>removal_effects:</dt><dd><p>(column) channel_name : channel names
 (column) removal_effects_conversion : removal effects for each channel calculated using total conversions
 (column) removal_effects_conversion_value : removal effects for each channel calculated using revenues</p>
 </dd>
 </dl>
+</p>
 </dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of DataFrames</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>    
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
@@ -383,88 +365,24 @@ raising exceptions.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="ChannelAttribution.request_token_channelattributionpro">
-<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">request_token_channelattributionpro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://app.channelattribution.io/genpkg/generate_token.php'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify_ssl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ChannelAttribution.html#request_token_channelattributionpro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.request_token_channelattributionpro" title="Link to this definition">¶</a></dt>
-<dd><p>Send an email address to ChannelAttribution Pro’s <cite>generate_token.php</cite> endpoint and
-return the server’s response body.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>email</strong><span class="classifier">str</span></dt><dd><p>Target email address to which the token should be sent. Must be <strong>non-empty</strong>.
-(No syntactic validation is performed by this function.)</p>
-</dd>
-<dt><strong>endpoint</strong><span class="classifier">str, default “<a class="reference external" href="https://app.channelattribution.io/genpkg/generate_token.php">https://app.channelattribution.io/genpkg/generate_token.php</a>”</span></dt><dd><p>Full URL of the token-generation PHP endpoint. You can override this for testing.</p>
-</dd>
-<dt><strong>timeout</strong><span class="classifier">int, default 10</span></dt><dd><p>Timeout in seconds applied to the HTTP request.</p>
-</dd>
-<dt><strong>verify_ssl</strong><span class="classifier">bool, default True</span></dt><dd><p>Whether to verify the server’s TLS certificate. Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> only in
-controlled testing environments.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>str</dt><dd><p>The exact response body (trimmed) returned by the server. Typical values include:
-- “We’ve sent the token to your email address. …”
-- “Token already generated”
-- “Provider not admitted”
-- “mail not valid”
-- “db query error”, “db connection error”, etc.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">email</span></code> is empty.</p>
-</dd>
-<dt>RuntimeError</dt><dd><p>For network/TLS issues (connection errors, DNS failure, timeouts, SSL problems),
-with a message prefixed by <code class="docutils literal notranslate"><span class="pre">&quot;network_or_ssl_error:&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;request_error:&quot;</span></code>.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>To validate the email syntax before calling this function, do it in the caller
-(e.g., <cite>from email.utils import parseaddr</cite> and check that <cite>parseaddr(email)[1]</cite> is non-empty).</p></li>
-<li><p>Honors system proxy settings if they are configured for Python/OS.</p></li>
-</ul>
-<p class="rubric">Examples</p>
-<p>Basic usage</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="n">request_token_channelattributionpro</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">request_token_channelattributionpro</span><span class="p">(</span><span class="s2">&quot;john.black@company.com&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="ChannelAttribution.transition_matrix">
-<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">transition_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_equal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_adv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#transition_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.transition_matrix" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ChannelAttribution.</span></span><span class="sig-name descname"><span class="pre">transition_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_null</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_equal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flg_pro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChannelAttribution.html#transition_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChannelAttribution.transition_matrix" title="Link to this definition">¶</a></dt>
 <dd><p>Estimate a k-order transition matrix from customer journey data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Data</strong><span class="classifier">DataFrame</span></dt><dd><p>customer journeys.</p>
-</dd>
-<dt><strong>var_path: string</strong></dt><dd><p>column of Data containing paths.</p>
-</dd>
-<dt><strong>var_conv</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total conversions for each path.</p>
-</dd>
-<dt><strong>var_null</strong><span class="classifier">string</span></dt><dd><p>column of Data containing total paths that do not lead to conversion.</p>
-</dd>
-<dt><strong>order</strong><span class="classifier">int, default 1</span></dt><dd><p>Markov model order.</p>
-</dd>
-<dt><strong>sep</strong><span class="classifier">string, default “&gt;”</span></dt><dd><p>separator between the channels.</p>
-</dd>
-<dt><strong>flg_equal: bool, default True</strong></dt><dd><p>if True, transitions from a channel to itself will be considered.</p>
-</dd>
-<dt><strong>flg_adv</strong><span class="classifier">bool, default True</span></dt><dd><p>if True, ChannelAttribution Pro banner is printed.</p>
-</dd>
-</dl>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Data</strong> (<em>DataFrame</em>) – customer journeys.</p></li>
+<li><p><strong>var_path</strong> (<em>string</em>) – column of Data containing paths.</p></li>
+<li><p><strong>var_conv</strong> (<em>string</em>) – column of Data containing total conversions for each path.</p></li>
+<li><p><strong>var_null</strong> (<em>string</em>) – column of Data containing total paths that do not lead to conversion.</p></li>
+<li><p><strong>order</strong> (<em>int</em><em>, </em><em>default 1</em>) – Markov model order.</p></li>
+<li><p><strong>sep</strong> (<em>string</em><em>, </em><em>default &quot;&gt;&quot;</em>) – separator between the channels.</p></li>
+<li><p><strong>flg_equal</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, transitions from a channel to itself will be considered.</p></li>
+<li><p><strong>flg_pro</strong> (<em>bool</em><em>, </em><em>default True</em>) – if True, ChannelAttribution Pro banner is printed.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>list of DataFrames</dt><dd><dl class="simple">
+<dd class="field-even"><p><dl class="simple">
 <dt>channels: Dataframe</dt><dd><p>(column) id_channel : channel ids
 (column) channel_name : channel names</p>
 </dd>
@@ -473,13 +391,15 @@ with a message prefixed by <code class="docutils literal notranslate"><span clas
 (column) transition_probability : transition probability from channel_from to channel_to</p>
 </dd>
 </dl>
+</p>
 </dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of DataFrames</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>Load Data</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>    
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ChannelAttribution</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://channelattribution.io/csv/Data.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 </pre></div>
@@ -508,9 +428,8 @@ with a message prefixed by <code class="docutils literal notranslate"><span clas
 <li><a class="reference internal" href="#ChannelAttribution.auto_markov_model"><code class="docutils literal notranslate"><span class="pre">auto_markov_model()</span></code></a></li>
 <li><a class="reference internal" href="#ChannelAttribution.choose_order"><code class="docutils literal notranslate"><span class="pre">choose_order()</span></code></a></li>
 <li><a class="reference internal" href="#ChannelAttribution.heuristic_models"><code class="docutils literal notranslate"><span class="pre">heuristic_models()</span></code></a></li>
-<li><a class="reference internal" href="#ChannelAttribution.install_channelattributionpro"><code class="docutils literal notranslate"><span class="pre">install_channelattributionpro()</span></code></a></li>
+<li><a class="reference internal" href="#ChannelAttribution.install_pro"><code class="docutils literal notranslate"><span class="pre">install_pro()</span></code></a></li>
 <li><a class="reference internal" href="#ChannelAttribution.markov_model"><code class="docutils literal notranslate"><span class="pre">markov_model()</span></code></a></li>
-<li><a class="reference internal" href="#ChannelAttribution.request_token_channelattributionpro"><code class="docutils literal notranslate"><span class="pre">request_token_channelattributionpro()</span></code></a></li>
 <li><a class="reference internal" href="#ChannelAttribution.transition_matrix"><code class="docutils literal notranslate"><span class="pre">transition_matrix()</span></code></a></li>
 </ul>
 </li>

@@ -1,0 +1,5 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Indices and tables}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}ChannelAttribution}{3}{chapter.2}%
+\contentsline {chapter}{Python Module Index}{11}{section*.9}%
+\contentsline {chapter}{Index}{13}{section*.10}%

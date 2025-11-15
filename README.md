@@ -66,7 +66,7 @@ ChannelAttribution is a Python and R library that employs a k-order Markov repre
 /python contains Python library source code
 
 
-<b>NOTE</b>: Only Python3 is supported! Note! Only Python3 is supported! Installation on Windows requires [Microsoft Visual C++ 14.0](https://visualstudio.microsoft.com/it/downloads/) or greater.
+<b>NOTE</b>: Only Python3 is supported! Note! Only Python3 is supported! <b>Installation on Windows</b> requires [Microsoft Visual C++ 14.0 or greater](https://aka.ms/vs/stable/vs_BuildTools.exe).
 
 <b>From PyPi</b>
 

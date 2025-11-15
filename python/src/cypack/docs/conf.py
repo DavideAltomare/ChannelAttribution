@@ -1,58 +1,108 @@
 # Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-# -- Path setup --------------------------------------------------------------
-
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-import os
+from __future__ import annotations
 import sys
 import locale
+from pathlib import Path
 
+# --- Paths -------------------------------------------------------------------
+DOCS_DIR = Path(__file__).parent.resolve()
+sys.path.insert(0, str(DOCS_DIR))
 
-sys.path.insert(0, os.path.abspath('.'))
+# Locale is best-effort; don't fail if missing
+try:
+    locale.setlocale(locale.LC_TIME, "en_US.utf8")
+except Exception:
+    pass
 
-locale.setlocale(locale.LC_TIME, "en_US.utf8")
-
-# -- Project information -----------------------------------------------------
-
-project = 'ChannelAttribution'
-copyright = 'Davide Altomare and David Loris'
-author = 'Davide Altomare, David Loris'
-
-# The full version, including alpha/beta/rc tags
+# --- Project -----------------------------------------------------------------
+project = "ChannelAttribution"
+author = "Davide Altomare, David Loris"
+copyright = "Davide Altomare and David Loris"
 release = "2.2.2"
 
+# --- Extensions --------------------------------------------------------------
+# Use napoleon (NumPy/Google docstrings) for HTML; we'll swap to numpydoc for rinoh in setup().
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.doctest",
+    "sphinx.ext.inheritance_diagram",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
+    "rinoh.frontend.sphinx",
+]
 
-# -- General configuration ---------------------------------------------------
+autosummary_generate = True
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
-extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 'sphinx.ext.autodoc', 'sphinx.ext.mathjax', 'numpydoc', 'sphinx.ext.autosummary', 'sphinx.ext.doctest','sphinx.ext.inheritance_diagram','rinoh.frontend.sphinx']
+# --- Napoleon: map your custom sections (HTML build) -------------------------
+napoleon_custom_sections = [
+    ("User Interaction", "notes"),
+    ("Environment Detection", "notes"),
+    ("Network Behavior", "notes"),
+    ("Packages & Proxies", "notes"),
+    ("Output & Errors", "notes"),
+    ("Security Notes", "notes"),
+    ("Example", "examples"),  # napoleon expects "Examples"
+]
 
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+# --- HTML --------------------------------------------------------------------
+html_theme = "nature"
+_static_dir = DOCS_DIR / "_static"
+html_static_path = ["_static"] if _static_dir.is_dir() else []
 
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+# --- Rinoh / PDF -------------------------------------------------------------
+# Dict form avoids the auto-conversion warning.
+rinoh_documents = [
+    {
+        "doc": "index",
+        "target": "channelattribution",
+        "title": "ChannelAttribution Documentation",
+        "author": "Davide Altomare",
+        "domain_indices": ["genindex", "py-modindex"],
+    }
+]
 
+# Optional knobs
+rinoh_inline_elements = True
+# rinoh_paper_size = "A4"  # uncomment if you want A4 explicitly
 
-# -- Options for HTML output -------------------------------------------------
+# --- Make rinoh happy: swap napoleon -> numpydoc only for rinoh --------------
+def setup(app):
+    def _on_config_inited(app, config):
+        # Only adjust when building the PDF with rinoh
+        if getattr(app, "builder", None) and app.builder.name == "rinoh":
+            exts = list(config.extensions)
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-html_theme = 'nature'
+            # Disable napoleon (can emit nodes rinoh struggles with)
+            if "sphinx.ext.napoleon" in exts:
+                exts.remove("sphinx.ext.napoleon")
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+            # Enable numpydoc
+            if "numpydoc" not in exts:
+                exts.append("numpydoc")
+
+            config.extensions = exts
+
+            # Map custom sections for numpydoc so it doesn't warn
+            try:
+                from numpydoc.docscrape import NumpyDocString
+                for _sec in [
+                    "User Interaction",
+                    "Environment Detection",
+                    "Network Behavior",
+                    "Packages & Proxies",
+                    "Output & Errors",
+                    "Security Notes",
+                ]:
+                    NumpyDocString._sections[_sec] = NumpyDocString._sections["Notes"]
+                NumpyDocString._sections["Example"] = NumpyDocString._sections["Examples"]
+            except Exception:
+                # Don't break the build if numpydoc internals change
+                pass
+
+    app.connect("config-inited", _on_config_inited)

@@ -7,7 +7,7 @@ Author: Davide Altomare, David Loris
 Author-email: info@channelattribution.io
 License: GPL-3.0-or-later  
 Keywords: attribution,marketing,markov,customer-journey,channel attribution
-Project-URL: Documentation, https://app.channelattribution.io/docs/channelattribution.pdf
+Project-URL: Documentation, https://channelattribution.io/docs/main-doc
 Project-URL: Repository, https://github.com/DavideAltomare/ChannelAttribution
 Project-URL: Issue Tracker, https://github.com/DavideAltomare/ChannelAttribution/issues
 Requires-Python: >=3.8
@@ -19,7 +19,6 @@ Classifier: Intended Audience :: Education
 Classifier: Topic :: Scientific/Engineering
 Classifier: Topic :: Scientific/Engineering :: Information Analysis
 Classifier: Topic :: Scientific/Engineering :: Mathematics
-Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
 Classifier: Natural Language :: English
 Classifier: Operating System :: OS Independent
 Classifier: Programming Language :: Python

@@ -419,7 +419,7 @@ install_pro = function() {
     }
     message("Sending a token...")
     res_token=.request_token_channelattributionpro(email=email)
-    message("*** We email the token to eligible work or university addresses — check your inbox and Spam/Junk; if you don’t receive it, try a different work/university email, and if it still doesn’t arrive, contact info@channelattribution.io.")
+    message("*** We email the token to eligible work or university addresses - check your inbox and Spam/Junk; if you don't receive it, try a different work/university email, and if it still doesn't arrive, contact info@channelattribution.io.")
     return(invisible(NULL))
   }
   
