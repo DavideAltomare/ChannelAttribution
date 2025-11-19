@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ChannelAttribution"
-version = "2.2.2"
+version = "2.2.4"
 description = "Markov model for online multi-channel attribution"
 readme = "README.md"
 requires-python = ">=3.8"

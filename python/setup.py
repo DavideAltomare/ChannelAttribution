@@ -82,7 +82,7 @@ if readme.exists():
 
 setup(
     name="ChannelAttribution",
-    version="2.2.2",  # bump version so wheels/env pick up the new layout
+    version="2.2.4",  # bump version so wheels/env pick up the new layout
     package_dir={"": "src"},
     packages=find_packages("src"),
     ext_modules=extensions,

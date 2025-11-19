@@ -19,7 +19,7 @@ except Exception:
 project = "ChannelAttribution"
 author = "Davide Altomare, David Loris"
 copyright = "Davide Altomare and David Loris"
-release = "2.2.2"
+release = "2.2.4"
 
 # --- Extensions --------------------------------------------------------------
 # Use napoleon (NumPy/Google docstrings) for HTML; we'll swap to numpydoc for rinoh in setup().

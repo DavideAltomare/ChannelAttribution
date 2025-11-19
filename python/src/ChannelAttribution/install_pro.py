@@ -1,7 +1,7 @@
 def __request_token_channelattributionpro(
         email: str,
         endpoint: str = "https://app.channelattribution.io/genpkg/generate_token.php",
-        timeout: int = 10,
+        timeout: int = 60,
         verify_ssl: bool = True
     ) -> str:
     
@@ -16,7 +16,7 @@ def __request_token_channelattributionpro(
             (No syntactic validation is performed by this function.)
         endpoint : str, default "https://app.channelattribution.io/genpkg/generate_token.php"
             Full URL of the token-generation PHP endpoint. You can override this for testing.
-        timeout : int, default 10
+        timeout : int, default 60
             Timeout in seconds applied to the HTTP request.
         verify_ssl : bool, default True
             Whether to verify the server's TLS certificate. Set to ``False`` only in
@@ -217,8 +217,10 @@ def install_pro():
         in_venv = (sys.prefix != sys.base_prefix)
         if not in_venv:
             env.setdefault("PIP_BREAK_SYSTEM_PACKAGES", "1")
-        subprocess.check_call([sys.executable, "-m", "pip", "install",
-                               "--disable-pip-version-check", pkg], env=env)
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", "--disable-pip-version-check", pkg],
+            env=env,
+        )
 
     def _read_secret(prompt: str = "Enter value: ") -> str:
         """Visible prompt (works with/without TTY)."""
@@ -234,6 +236,24 @@ def install_pro():
 
     def _is_valid_email(s: str) -> bool:
         return isinstance(s, str) and bool(_email_re.match(s.strip()))
+
+    # ---------- early reachability check for app.channelattribution.io ----------
+    def _can_reach_app(timeout: int = 60) -> bool:
+        try:
+            # Simple HTTPS GET to the root; proxies/env vars are honored by urllib
+            with urlopen("https://app.channelattribution.io", timeout=timeout) as resp:
+                status = getattr(resp, "status", 200)
+                return 200 <= status < 400
+        except Exception:
+            return False
+
+    if not _can_reach_app():
+        print(
+            "It seems that app.channelattribution.io cannot be reached from this environment.\n"
+            "To install ChannelAttribution Pro you need to reach app.channelattribution.io.\n"
+            "If you can't reach it, please write us at info@channelattribution.io."
+        )
+        return
 
     # Only third-party:
     ensure_package("requests")
@@ -257,7 +277,7 @@ def install_pro():
         action: str,
         info: str,
         endpoint: str = "https://app.channelattribution.io/genpkg/build_check_email.php",
-        timeout: int = 10,
+        timeout: int = 60,
         verify_ssl: bool = True,
     ) -> str:
         if not token:
@@ -282,8 +302,10 @@ def install_pro():
             return f"request_error: {e}"
 
     # ---------- small HTTP helper for builder (POST-only now) ----------
-    UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-          "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+    UA = (
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    )
     HEADERS = {
         "User-Agent": UA,
         "Accept": "application/json,text/html;q=0.8,*/*;q=0.5",
@@ -313,6 +335,7 @@ def install_pro():
         def __init__(self):
             super().__init__()
             self.links = []
+
         def handle_starttag(self, tag, attrs):
             if tag.lower() == "a":
                 href = dict(attrs).get("href")
@@ -360,12 +383,22 @@ def install_pro():
         if not url:
             print("No package URL to install.")
             return False
-        cmd = [sys.executable, "-m", "pip", "install",
-               "--no-cache-dir", "--disable-pip-version-check", "--prefer-binary", url]
+        cmd = [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "--no-cache-dir",
+            "--disable-pip-version-check",
+            "--prefer-binary",
+            url,
+        ]
         if extra_args:
             cmd.extend(extra_args)
         print("Installing with:", " ".join(cmd))
-        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        proc = subprocess.run(
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+        )
         print(proc.stdout)
         if proc.returncode != 0:
             print(f"pip failed with exit code {proc.returncode}")
@@ -373,8 +406,10 @@ def install_pro():
         return True
 
     # Prompt: token or email
-    msg = ("Enter your ChannelAttributionPro token. "
-           "If you don't have one, enter your work/university email to request it: ")
+    msg = (
+        "Enter your ChannelAttributionPro token. "
+        "If you don't have one, enter your work/university email to request it: "
+    )
     token = _read_secret(msg).strip()
 
     # If it looks like an email, trigger the token request and exit
@@ -384,7 +419,11 @@ def install_pro():
             raise ValueError("Please enter a valid email address or a token.")
         print("Sending a token...")
         _ = __request_token_channelattributionpro(email=email)
-        print("*** We email the token to eligible work or university addresses - check your inbox and Spam/Junk; if you don't receive it, try a different work/university email, and if it still doesn't arrive, contact info@channelattribution.io.")
+        print(
+            "*** We email the token to eligible work or university addresses - check your inbox and Spam/Junk; "
+            "if you don't receive it, try a different work/university email, and if it still doesn't arrive, "
+            "contact info@channelattribution.io."
+        )
         return  # exit early; user will rerun with token
 
     if not token:
@@ -443,6 +482,7 @@ def install_pro():
         py_impl = platform.python_implementation()
         py_ver = platform.python_version()
         distro_str = None
+
         if sysname == "Linux":
             try:
                 if distro:
@@ -454,7 +494,12 @@ def install_pro():
             if not distro_str:
                 try:
                     data = {}
-                    with open("/etc/os-release", "r", encoding="utf-8", errors="ignore") as f:
+                    with open(
+                        "/etc/os-release",
+                        "r",
+                        encoding="utf-8",
+                        errors="ignore",
+                    ) as f:
                         for line in f:
                             line = line.strip()
                             if not line or "=" not in line or line.startswith("#"):
@@ -468,7 +513,11 @@ def install_pro():
                     pass
         elif sysname == "Darwin":
             try:
-                p = subprocess.run(["sw_vers", "-productVersion"], capture_output=True, text=True)
+                p = subprocess.run(
+                    ["sw_vers", "-productVersion"],
+                    capture_output=True,
+                    text=True,
+                )
                 if p.returncode == 0:
                     distro_str = f"macOS {p.stdout.strip()}"
             except Exception:
@@ -486,17 +535,33 @@ def install_pro():
             if not exe:
                 return None
             try:
-                p = subprocess.run([exe, "-dumpfullversion"], capture_output=True, text=True)
+                p = subprocess.run(
+                    [exe, "-dumpfullversion"],
+                    capture_output=True,
+                    text=True,
+                )
                 if p.returncode == 0 and p.stdout.strip():
                     return f"{exe} {p.stdout.strip()}"
             except Exception:
                 pass
             try:
-                p = subprocess.run([exe, "--version"], capture_output=True, text=True)
+                p = subprocess.run(
+                    [exe, "--version"],
+                    capture_output=True,
+                    text=True,
+                )
                 if p.returncode == 0 and p.stdout:
                     first = p.stdout.splitlines()[0].strip()
-                    m = re.search(r"(gcc|clang)[^0-9]*([0-9]+(?:\.[0-9]+){0,3})", first, re.I)
-                    return f"{m.group(1).lower()} {m.group(2)}" if m else first
+                    m = re.search(
+                        r"(gcc|clang)[^0-9]*([0-9]+(?:\.[0-9]+){0,3})",
+                        first,
+                        re.I,
+                    )
+                    return (
+                        f"{m.group(1).lower()} {m.group(2)}"
+                        if m
+                        else first
+                    )
             except Exception:
                 pass
             return None
@@ -522,14 +587,24 @@ def install_pro():
         print("Building the package. Estimated time: 0-30 minutes. Please wait...")
 
         # POST to builder (matches hardened PHP)
-        status, body, headers = http_post_form(BASE_URL, params, timeout=300)
-        text = body.decode("utf-8", errors="replace") if isinstance(body, (bytes, bytearray)) else str(body)
+        status, body, headers = http_post_form(BASE_URL, params, timeout=32*60)
+        text = (
+            body.decode("utf-8", errors="replace")
+            if isinstance(body, (bytes, bytearray))
+            else str(body)
+        )
 
         if status == 401:
             print("Token non valid or expired. Write to info@channelattribution.io.")
             action = "ERROR"
-            info_blob = json.dumps({"reason": "invalid_token", "builder_status": status,
-                                    "system": get_system_info_dict()}, indent=2)
+            info_blob = json.dumps(
+                {
+                    "reason": "invalid_token",
+                    "builder_status": status,
+                    "system": get_system_info_dict(),
+                },
+                indent=2,
+            )
             return
 
         data = None
@@ -542,12 +617,20 @@ def install_pro():
         if isinstance(data, dict):
             err = (data.get("error") or "").lower()
             stat = (data.get("status") or "").lower()
-            if "invalid token" in err or (stat in ("fail", "error") and "token" in err):
+            if "invalid token" in err or (
+                stat in ("fail", "error") and "token" in err
+            ):
                 print("Token non valid or expired. Write to info@channelattribution.io.")
                 action = "ERROR"
-                info_blob = json.dumps({"reason": "invalid_token_in_body", "builder_status": status,
-                                        "body": (text[:500] if text else ""),
-                                        "system": get_system_info_dict()}, indent=2)
+                info_blob = json.dumps(
+                    {
+                        "reason": "invalid_token_in_body",
+                        "builder_status": status,
+                        "body": (text[:500] if text else ""),
+                        "system": get_system_info_dict(),
+                    },
+                    indent=2,
+                )
                 return
 
         # Resolve wheel URL
@@ -564,26 +647,45 @@ def install_pro():
             print(get_system_info())
             print("\nto info@channelattribution.io.")
             action = "ERROR"
-            info_blob = json.dumps({"result": "builder_unexpected_response",
-                                    "builder_status": status,
-                                    "body": (text[:500] if text else ""),
-                                    "system": get_system_info_dict()}, indent=2)
+            info_blob = json.dumps(
+                {
+                    "result": "builder_unexpected_response",
+                    "builder_status": status,
+                    "body": (text[:500] if text else ""),
+                    "system": get_system_info_dict(),
+                },
+                indent=2,
+            )
 
         if ok_path and pkg_file_url:
             ok = pip_install(pkg_file_url)
             if ok:
-                print("*** Package installed. Restart the session and try to import it with: import ChannelAttributionPro")
+                print(
+                    "*** Package installed. Restart the session and try to import it with: import ChannelAttributionPro"
+                )
                 action = "SUCCESS"
-                info_blob = json.dumps({"result": "installed", "wheel": pkg_file_url,
-                                        "system": get_system_info_dict()}, indent=2)
+                info_blob = json.dumps(
+                    {
+                        "result": "installed",
+                        "wheel": pkg_file_url,
+                        "system": get_system_info_dict(),
+                    },
+                    indent=2,
+                )
                 return
             else:
                 print("Installation failed. Send the following information:\n")
                 print(get_system_info())
                 print("\nto info@channelattribution.io.")
                 action = "ERROR"
-                info_blob = json.dumps({"result": "pip_failed", "wheel": pkg_file_url,
-                                        "system": get_system_info_dict()}, indent=2)
+                info_blob = json.dumps(
+                    {
+                        "result": "pip_failed",
+                        "wheel": pkg_file_url,
+                        "system": get_system_info_dict(),
+                    },
+                    indent=2,
+                )
                 return
         elif not ok_path:
             # already printed support message above and set info_blob/action
